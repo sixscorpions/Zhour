@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#03A7AF</color>
+    <color name="colorPrimaryDark">#02868C</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="transparent">@android:color/transparent</color>
+
+    <color name="dialogBgColor">#55000000</color>
+    <color name="svThumbColor">#26111111</color>
+
+    <color name="btnDefaultColor">#000000</color>
+    <color name="dialogAccept">#1E88E5</color>
+    <color name="black_transparent">#26111111</color>
 </resources>

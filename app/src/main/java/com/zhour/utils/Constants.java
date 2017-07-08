@@ -10,4 +10,5 @@ public class Constants {
 
     /* shared pref */
     public static final String APP_PREF = "Zhour_Pref";
+    public static final String PREF_KEY_IS_APP_SIGNIN_OR_SIGNUP = "iSAppSignInOrSignup";
 }

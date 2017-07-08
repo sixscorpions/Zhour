@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fl_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="@color/transparent"
+    android:descendantFocusability="beforeDescendants"
+    android:minHeight="?attr/actionBarSize"
+    app:layout_collapseMode="pin">
+
+    <ImageView
+        android:id="@+id/iv_toolbar_back"
+        android:layout_width="?attr/actionBarSize"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:layout_marginStart="@dimen/_10dp"
+        android:contentDescription="@string/txt_cd"
+        android:scaleType="center"
+        android:src="@drawable/ic_menu"
+        android:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/tv_toolbar"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:src="@drawable/icon_toolbar" />
+
+    <TextView
+        android:id="@+id/tv_toolbar_done"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:gravity="center"
+        android:paddingLeft="@dimen/_10dp"
+        android:paddingRight="@dimen/_10dp"
+        android:textSize="@dimen/_15sp"
+        android:visibility="invisible" />
+
+</FrameLayout>

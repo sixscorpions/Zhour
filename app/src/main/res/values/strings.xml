@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">Zhour</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="press_again_to_exit">Press Again to Exit</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="empty">empty</string>
+
+    <string name="cancel">Cancel</string>
+    <string name="accept_small">accept</string>
+    <string name="txt_cd" />
+    <string name="next">Next</string>
+    <string name="home">Home</string>
+    <string name="about_us">About us</string>
+    <string name="payment">Payment</string>
+    <string name="logout">Logout</string>
 </resources>
