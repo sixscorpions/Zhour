@@ -15,4 +15,7 @@
     <color name="btnDefaultColor">#000000</color>
     <color name="dialogAccept">#1E88E5</color>
     <color name="black_transparent">#26111111</color>
+    <color name="colorWhite">#FFFF</color>
+
+
 </resources>

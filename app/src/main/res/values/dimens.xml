@@ -175,4 +175,5 @@
     <dimen name="divider_line_height">1px</dimen>
     <dimen name="iv_profile_pic_h_w">100dp</dimen>
     <dimen name="nav_header_vertical_spacing">16dp</dimen>
+    <dimen name="txt_size">15sp</dimen>
 </resources>

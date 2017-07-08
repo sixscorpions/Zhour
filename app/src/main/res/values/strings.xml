@@ -24,4 +24,10 @@
     <string name="event_invite">event invite</string>
     <string name="submit">submit</string>
     <string name="invite_note">Invite Note</string>
+    <string name="txt_invite" >INVITE</string>
+    <string name="txt_noticboard" >NOTICE BOARD</string>
+    <string name="txt_aliencar" >ALIEN CAR</string>
+    <string name="txt_maid" >MAID</string>
+    <string name="txt_complaints" >COMPLAINTS</string>
+    <string name="txt_emergency" >EMERGENCY</string>
 </resources>

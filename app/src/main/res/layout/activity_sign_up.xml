@@ -1,34 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black"
-    android:orientation="vertical">
+    android:background="@drawable/icon_bg"
+    android:fitsSystemWindows="true"
+    tools:context=".activities.SignInActivity">
+
 
     <ImageView
-        android:id="@+id/iv_header"
-        android:layout_width="@dimen/_80dp"
-        android:layout_height="@dimen/_80dp"
-        android:layout_centerHorizontal="true"
-        app:srcCompat="@android:drawable/sym_def_app_icon" />
+        android:id="@+id/ll_ic_diwali"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_25dp"
+        android:layout_marginRight="@dimen/_25dp"
+        android:scaleType="fitEnd"
+        android:src="@drawable/ic_diwali" />
+
 
     <LinearLayout
+        android:id="@+id/ll_parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/iv_header"
-        android:orientation="vertical">
+        android:layout_below="@id/ll_ic_diwali"
+        android:layout_marginLeft="@dimen/_25dp"
+        android:layout_marginRight="@dimen/_25dp"
+        android:background="@color/black_transparent"
+        android:orientation="vertical"
+        android:weightSum="3">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_0dp"
-            android:layout_weight="0.5"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:orientation="horizontal"
             android:weightSum="1">
 
             <LinearLayout
                 android:layout_width="@dimen/_0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:orientation="vertical">
 
@@ -36,37 +47,38 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:gravity="center"
                     android:orientation="vertical">
 
 
                     <ImageView
-                        android:id="@+id/iv_home"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:src="@drawable/ic_home" />
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="@dimen/_16dp"
+                        android:layout_marginTop="@dimen/_28dp"
+                        android:src="@drawable/ic_invite" />
 
                     <TextView
-                        android:id="@+id/tv_home"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_14dp"
                         android:gravity="center_horizontal"
-                        android:text="@string/home"
-                        android:textColor="@android:color/white"
-                        android:textSize="@dimen/_18sp" />
+                        android:text="@string/txt_invite"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/txt_size" />
+
                 </LinearLayout>
             </LinearLayout>
 
-            <view
-                android:layout_width="@dimen/_2px"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/ic_drw_line" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_10dp"
+                android:src="@drawable/ic_line" />
 
             <LinearLayout
                 android:layout_width="@dimen/_0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:orientation="vertical">
 
@@ -78,35 +90,43 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:id="@+id/iv_about_us"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:src="@drawable/ic_about" />
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/_28dp"
+                        android:src="@drawable/ic_notice" />
 
                     <TextView
-                        android:id="@+id/tv_about"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:text="@string/about_us"
-                        android:textColor="@android:color/white"
-                        android:textSize="@dimen/_18sp" />
+                        android:layout_marginBottom="@dimen/_10dp"
+                        android:layout_marginTop="@dimen/_12dp"
+                        android:gravity="center"
+                        android:text="@string/txt_noticboard"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/txt_size" />
+
+
                 </LinearLayout>
             </LinearLayout>
-
-
         </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/_10dp"
+            android:src="@drawable/ic_hori_line" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_0dp"
-            android:layout_weight="0.5"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"
             android:weightSum="1">
 
             <LinearLayout
                 android:layout_width="@dimen/_0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:orientation="vertical">
 
@@ -117,34 +137,36 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
+
                     <ImageView
-                        android:id="@+id/iv_payment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:src="@drawable/ic_payment" />
-
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/_18dp"
+                        android:src="@drawable/ic_car" />
 
                     <TextView
-                        android:id="@+id/tv_payment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_10dp"
+                        android:layout_marginTop="@dimen/_20dp"
                         android:gravity="center_horizontal"
-                        android:text="@string/payment"
-                        android:textColor="@android:color/white"
-                        android:textSize="@dimen/_18sp" />
+                        android:text="@string/txt_aliencar"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/txt_size" />
+
+
                 </LinearLayout>
             </LinearLayout>
 
-            <view
-                android:layout_width="@dimen/_2px"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/ic_drw_line" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_line" />
 
             <LinearLayout
                 android:layout_width="@dimen/_0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:orientation="vertical">
 
@@ -156,35 +178,124 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:id="@+id/iv_logout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:src="@drawable/ic_logout" />
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/_18dp"
+                        android:src="@drawable/ic_maid" />
 
                     <TextView
-                        android:id="@+id/tv_logout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:text="@string/logout"
-                        android:textColor="@android:color/white"
-                        android:textSize="@dimen/_18sp" />
+                        android:layout_marginTop="@dimen/_10dp"
+                        android:gravity="center"
+                        android:text="@string/txt_maid"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/txt_size" />
+
                 </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/_10dp"
+            android:src="@drawable/ic_hori_line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <LinearLayout
+                android:layout_width="@dimen/_0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+
+                    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_29dp"
+                        >
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@drawable/ic_message" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_20dp"
+                            android:layout_height="@dimen/_20dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/ic_smile" />
+
+                    </FrameLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_13dp"
+                        android:layout_marginTop="@dimen/_17dp"
+                        android:gravity="center_horizontal"
+                        android:text="@string/txt_complaints"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/txt_size" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/_10dp"
+                android:src="@drawable/ic_line" />
+
+            <LinearLayout
+                android:layout_width="@dimen/_0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/_25dp"
+                        android:src="@drawable/ic_emergency" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10dp"
+                        android:gravity="center"
+                        android:text="@string/txt_emergency"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/txt_size" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
     </LinearLayout>
-
-    <!-- <include layout="@layout/include_drawer_center" />-->
-
-
-    <ImageView
-        android:id="@+id/iv_bottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="-40dp"
-        android:src="@drawable/ic_drawer_bottom" />
-
 </RelativeLayout>
