@@ -1,0 +1,89 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/icon_bg"
+    android:padding="@dimen/_20dp"
+    tools:context="com.zhour.fragments.PartyAndIEventInviteFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/ic_invite_event"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+
+            <LinearLayout
+                android:layout_width="@dimen/_0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10dp"
+                android:layout_marginTop="@dimen/_15dp"
+                android:layout_weight="0.8"
+                android:background="@drawable/rectangel_orners_drwable"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="@dimen/_0dp"
+                    android:layout_height="@dimen/_40dp"
+                    android:layout_weight="0.5"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:text="@string/about_us"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/_16sp" />
+
+                <TextView
+                    android:layout_width="@dimen/_0dp"
+                    android:layout_height="@dimen/_40dp"
+                    android:layout_weight="0.5"
+                    android:background="@color/colorPrimary"
+                    android:gravity="center"
+                    android:text="@string/event_invite"
+                    android:textAllCaps="true"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/_16sp" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/iv_date"
+                android:layout_width="@dimen/_0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5dp"
+                android:layout_weight="0.2"
+                android:padding="@dimen/_5dp"
+                android:src="@drawable/ic_date" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_occations"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_10dp"
+            android:src="@drawable/ic_birth_date" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_25dp"
+            android:layout_marginStart="@dimen/_25dp"
+            android:layout_marginTop="@dimen/_30dp"
+            android:backgroundTint="@color/colorPrimary"
+            
+            android:drawableRight="@drawable/ic_date"
+            android:lines="1" />
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

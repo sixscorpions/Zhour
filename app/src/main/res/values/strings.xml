@@ -20,4 +20,8 @@
     <string name="payment">Payment</string>
     <string name="logout">Logout</string>
     <string name="signup">SignUp</string>
+    <string name="jaquline">Jaquline</string>
+    <string name="event_invite">event invite</string>
+    <string name="submit">submit</string>
+    <string name="invite_note">Invite Note</string>
 </resources>

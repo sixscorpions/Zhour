@@ -4,6 +4,9 @@
     <color name="colorPrimaryDark">#02868C</color>
     <color name="colorAccent">#FF4081</color>
 
+    <color name="yello_light">#E5CF00</color>
+    <color name="yello_text">#CBB800</color>
+
     <color name="transparent">@android:color/transparent</color>
 
     <color name="dialogBgColor">#55000000</color>

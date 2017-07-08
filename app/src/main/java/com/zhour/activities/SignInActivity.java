@@ -28,5 +28,14 @@ public class SignInActivity extends BaseActivity {
 
             }
         });
+        Button btn_signUp = (Button) findViewById(R.id.btn_signUp);
+        btn_signUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),SignUpActivity.class);
+                startActivity(intent);
+
+            }
+        });
     }
 }
