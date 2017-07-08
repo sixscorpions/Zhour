@@ -5,6 +5,7 @@
     android:layout_above="@+id/iv_bottom"
     android:layout_below="@+id/iv_header"
     android:layout_centerInParent="true"
+    android:layout_margin="@dimen/_20dp"
     android:orientation="vertical"
     android:weightSum="1">
 
@@ -40,6 +41,7 @@
                     android:id="@+id/tv_home"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20dp"
                     android:gravity="center_horizontal"
                     android:text="@string/home"
                     android:textColor="@android:color/white"
@@ -47,10 +49,10 @@
             </LinearLayout>
         </LinearLayout>
 
-        <view
+        <View
             android:layout_width="@dimen/_2px"
-            android:layout_gravity="center_vertical"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:src="@drawable/ic_drw_line" />
 
         <LinearLayout
@@ -77,6 +79,7 @@
                     android:id="@+id/tv_about"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20dp"
                     android:gravity="center_horizontal"
                     android:text="@string/about_us"
                     android:textColor="@android:color/white"
@@ -118,6 +121,7 @@
                     android:id="@+id/tv_payment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20dp"
                     android:gravity="center_horizontal"
                     android:text="@string/payment"
                     android:textColor="@android:color/white"
@@ -125,10 +129,10 @@
             </LinearLayout>
         </LinearLayout>
 
-        <view
+        <View
             android:layout_width="@dimen/_2px"
-            android:layout_gravity="center_vertical"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:src="@drawable/ic_drw_line" />
 
         <LinearLayout
@@ -155,6 +159,7 @@
                     android:id="@+id/tv_logout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20dp"
                     android:gravity="center_horizontal"
                     android:text="@string/logout"
                     android:textColor="@android:color/white"

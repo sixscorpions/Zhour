@@ -19,7 +19,7 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true">
 
-        <include layout="@layout/nav_header_main" />
+        <include layout="@layout/header_layout" />
     </android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>
