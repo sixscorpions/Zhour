@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_10dp"
-        android:layout_weight="0.5"
         android:orientation="horizontal"
         android:weightSum="1">
 
@@ -43,18 +42,25 @@
                 android:textSize="@dimen/_18sp" />
         </LinearLayout>
 
+        <ImageView
+            android:layout_width="@dimen/_2px"
+            android:layout_height="match_parent"
+            android:alpha="0.4"
+            android:background="@color/colorWhite" />
 
         <LinearLayout
             android:layout_width="@dimen/_0dp"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10dp"
             android:layout_weight="0.5"
+            android:gravity="center"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="@dimen/_10dp"
+
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -84,49 +90,51 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_10dp"
-        android:layout_weight="0.5"
         android:weightSum="1">
 
         <LinearLayout
             android:layout_width="@dimen/_0dp"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10dp"
             android:layout_weight="0.5"
+            android:gravity="center"
             android:orientation="vertical">
 
-            <LinearLayout
+
+            <ImageView
+                android:id="@+id/iv_payment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/iv_payment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:src="@drawable/ic_payment" />
+                android:gravity="center_horizontal"
+                android:src="@drawable/ic_payment" />
 
 
-                <TextView
-                    android:id="@+id/tv_payment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_20dp"
-                    android:layout_marginStart="@dimen/_10dp"
-                    android:layout_marginTop="@dimen/_20dp"
-                    android:gravity="center_horizontal"
-                    android:text="@string/payment"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/_18sp" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/tv_payment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_20dp"
+                android:layout_marginStart="@dimen/_10dp"
+                android:layout_marginTop="@dimen/_20dp"
+                android:gravity="center_horizontal"
+                android:text="@string/payment"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/_18sp" />
         </LinearLayout>
+
+        <ImageView
+            android:layout_width="@dimen/_2px"
+            android:layout_height="match_parent"
+            android:alpha="0.4"
+            android:background="@color/colorWhite"
+            android:paddingBottom="@dimen/_20dp"
+            android:paddingTop="@dimen/_20dp" />
 
 
         <LinearLayout
             android:layout_width="@dimen/_0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10dp"
+            android:layout_margin="@dimen/_10dp"
             android:layout_weight="0.5"
             android:gravity="center"
             android:orientation="vertical">
@@ -135,6 +143,8 @@
                 android:id="@+id/iv_logout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5dp"
+                android:layout_marginBottom="@dimen/_5dp"
                 android:gravity="center_horizontal"
                 android:src="@drawable/ic_logout" />
 
@@ -148,6 +158,7 @@
                 android:text="@string/logout"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/_18sp" />
+
         </LinearLayout>
 
     </LinearLayout>

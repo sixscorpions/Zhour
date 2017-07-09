@@ -27,7 +27,6 @@
                 android:layout_marginStart="@dimen/_10dp"
                 android:layout_marginTop="@dimen/_15dp"
                 android:layout_weight="0.8"
-                android:background="@drawable/rectangel_orners_drwable"
                 android:orientation="horizontal"
                 android:weightSum="1">
 
@@ -35,27 +34,28 @@
                     android:layout_width="@dimen/_0dp"
                     android:layout_height="@dimen/_40dp"
                     android:layout_weight="0.5"
-                    android:background="@android:color/transparent"
+                    android:background="@drawable/rectangel_edit_left"
                     android:gravity="center"
                     android:text="@string/party_invite"
                     android:textAllCaps="true"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/_16sp" />
+
                 <View
                     android:layout_width="2dp"
-                    android:background="@color/colorPrimary"
-                    android:layout_height="40dp"/>
+                    android:layout_height="40dp"
+                    android:background="@color/colorPrimary" />
 
 
                 <TextView
                     android:layout_width="@dimen/_0dp"
                     android:layout_height="@dimen/_40dp"
                     android:layout_weight="0.5"
-
+                    android:background="@drawable/rectangel_edit_fill_right"
                     android:gravity="center"
                     android:text="@string/event_invite"
                     android:textAllCaps="true"
-                    android:textColor="@android:color/black"
+                    android:textColor="@android:color/white"
                     android:textSize="@dimen/_16sp" />
 
             </LinearLayout>
