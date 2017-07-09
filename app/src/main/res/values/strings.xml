@@ -24,10 +24,14 @@
     <string name="event_invite">event invite</string>
     <string name="submit">submit</string>
     <string name="invite_note">Invite Note</string>
-    <string name="txt_invite" >INVITE</string>
-    <string name="txt_noticboard" >NOTICE BOARD</string>
-    <string name="txt_aliencar" >ALIEN CAR</string>
-    <string name="txt_maid" >MAID</string>
-    <string name="txt_complaints" >COMPLAINTS</string>
-    <string name="txt_emergency" >EMERGENCY</string>
+    <string name="txt_invite">INVITE</string>
+    <string name="txt_noticboard">NOTICE BOARD</string>
+    <string name="txt_aliencar">ALIEN CAR</string>
+    <string name="txt_maid">MAID</string>
+    <string name="txt_complaints">COMPLAINTS</string>
+    <string name="txt_emergency">EMERGENCY</string>
+    <string name="may_23">May 23</string>
+    <string name="_7_00_pm">7:00 PM</string>
+    <string name="loreum_ipsum_is_simply_dummy_text_of_the_printing_typesetting_industry">Loreum Ipsum is simply dummy text of the printing typesetting industry</string>
+    <string name="party_invite">Party Invite</string>
 </resources>

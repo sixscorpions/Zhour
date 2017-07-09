@@ -13,8 +13,9 @@
         android:id="@+id/ll_ic_diwali"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/_25dp"
-        android:layout_marginRight="@dimen/_25dp"
+        android:layout_marginTop="@dimen/_10dp"
+        android:layout_marginLeft="@dimen/_15dp"
+        android:layout_marginRight="@dimen/_15dp"
         android:scaleType="fitEnd"
         android:src="@drawable/ic_diwali" />
 
@@ -24,8 +25,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/ll_ic_diwali"
-        android:layout_marginLeft="@dimen/_25dp"
-        android:layout_marginRight="@dimen/_25dp"
+        android:layout_marginLeft="@dimen/_15dp"
+        android:layout_marginRight="@dimen/_15dp"
         android:background="@drawable/bg_shape"
         android:orientation="vertical"
         android:weightSum="3">
@@ -64,7 +65,8 @@
                         android:layout_marginTop="@dimen/_14dp"
                         android:gravity="center_horizontal"
                         android:text="@string/txt_invite"
-                        android:textColor="@color/colorWhite"
+                        android:textAllCaps="true"
+                        android:textColor="@android:color/white"
                         android:textSize="@dimen/txt_size" />
 
                 </LinearLayout>
@@ -103,6 +105,7 @@
                         android:layout_marginTop="@dimen/_12dp"
                         android:gravity="center"
                         android:text="@string/txt_noticboard"
+                        android:textAllCaps="true"
                         android:textColor="@color/colorWhite"
                         android:textSize="@dimen/txt_size" />
 

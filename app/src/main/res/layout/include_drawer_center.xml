@@ -5,68 +5,56 @@
     android:layout_above="@+id/iv_bottom"
     android:layout_below="@+id/iv_header"
     android:layout_centerInParent="true"
-    android:layout_margin="@dimen/_20dp"
     android:background="@android:color/black"
-    android:orientation="vertical"
-    android:weightSum="1">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10dp"
         android:layout_weight="0.5"
         android:orientation="horizontal"
         android:weightSum="1">
 
         <LinearLayout
             android:layout_width="@dimen/_0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="@dimen/_10dp"
             android:layout_weight="0.5"
+            android:gravity="center"
             android:orientation="vertical">
 
-            <LinearLayout
+
+            <ImageView
+                android:id="@+id/iv_home"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:src="@drawable/ic_home" />
 
-
-                <ImageView
-                    android:id="@+id/iv_home"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:src="@drawable/ic_home" />
-
-                <TextView
-                    android:id="@+id/tv_home"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_20dp"
-                    android:gravity="center_horizontal"
-                    android:text="@string/home"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/_18sp" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/tv_home"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20dp"
+                android:gravity="center_horizontal"
+                android:text="@string/home"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/_18sp" />
         </LinearLayout>
 
-        <View
-            android:layout_width="@dimen/_2px"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:src="@drawable/ic_drw_line" />
 
         <LinearLayout
             android:layout_width="@dimen/_0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_10dp"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -94,19 +82,20 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10dp"
         android:layout_weight="0.5"
         android:weightSum="1">
 
         <LinearLayout
             android:layout_width="@dimen/_0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:orientation="vertical">
@@ -123,6 +112,8 @@
                     android:id="@+id/tv_payment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_20dp"
+                    android:layout_marginStart="@dimen/_10dp"
                     android:layout_marginTop="@dimen/_20dp"
                     android:gravity="center_horizontal"
                     android:text="@string/payment"
@@ -131,42 +122,32 @@
             </LinearLayout>
         </LinearLayout>
 
-        <View
-            android:layout_width="@dimen/_2px"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:src="@drawable/ic_drw_line" />
 
         <LinearLayout
             android:layout_width="@dimen/_0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10dp"
             android:layout_weight="0.5"
+            android:gravity="center"
             android:orientation="vertical">
 
-            <LinearLayout
+            <ImageView
+                android:id="@+id/iv_logout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:src="@drawable/ic_logout" />
 
-                <ImageView
-                    android:id="@+id/iv_logout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:src="@drawable/ic_logout" />
-
-                <TextView
-                    android:id="@+id/tv_logout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_20dp"
-                    android:gravity="center_horizontal"
-                    android:text="@string/logout"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/_18sp" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/tv_logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_20dp"
+                android:layout_marginTop="@dimen/_20dp"
+                android:gravity="center_horizontal"
+                android:text="@string/logout"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/_18sp" />
         </LinearLayout>
 
     </LinearLayout>
