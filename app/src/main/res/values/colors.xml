@@ -16,6 +16,6 @@
     <color name="dialogAccept">#1E88E5</color>
     <color name="black_transparent">#26111111</color>
     <color name="colorWhite">@android:color/white</color>
-
+    <color name="colorSigninBar">#419BF9</color>
 
 </resources>
