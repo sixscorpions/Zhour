@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#03A7AF</color>
     <color name="colorPrimaryDark">#02868C</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#03A7AF</color>
 
     <color name="yello_light">#E5CF00</color>
     <color name="yello_text">#CBB800</color>

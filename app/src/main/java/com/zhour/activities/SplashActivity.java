@@ -5,10 +5,10 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.zhour.R;
+import com.zhour.utils.Constants;
 import com.zhour.utils.ToolbarUtils;
 
 public class SplashActivity extends BaseActivity {
-    public static int SPLASH_TIME_OUT = 3000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,22 +29,18 @@ public class SplashActivity extends BaseActivity {
                 } else {
                     navigateToSignIn();
                 }*/
-
             }
         };
-        mSplashHandler.postDelayed(action, SPLASH_TIME_OUT);
+        mSplashHandler.postDelayed(action, Constants.SPLASH_TIME_OUT);
     }
 
+    /*This method is used to navigate sign in*/
     public void navigateToSignIn() {
         Intent intent = new Intent(SplashActivity.this, SignInActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();
-
-
     }
-
-
 }
 
 

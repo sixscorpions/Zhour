@@ -8,6 +8,8 @@ public class Constants {
     // Log message On or Off
     public static final boolean logMessageOnOrOff = true;
 
+    public static int SPLASH_TIME_OUT = 3000;
+
     /* shared pref */
     public static final String APP_PREF = "Zhour_Pref";
     public static final String PREF_KEY_IS_APP_SIGNIN_OR_SIGNUP = "iSAppSignInOrSignup";

@@ -67,7 +67,7 @@
                 android:layout_height="@dimen/_45dp"
                 android:background="@color/transparent"
                 android:hint="@string/hint_username"
-                android:inputType="text"
+                android:inputType="text|textNoSuggestions"
                 android:textColor="@color/colorWhite"
                 android:textColorHint="@color/colorWhite"
                 android:textSize="@dimen/_17sp" />
@@ -109,7 +109,7 @@
                 android:layout_height="@dimen/_45dp"
                 android:background="@color/transparent"
                 android:hint="@string/hint_password"
-                android:inputType="textPassword"
+                android:inputType="text|textPassword"
                 android:textColor="@color/colorWhite"
                 android:textColorHint="@color/colorWhite"
                 android:textSize="@dimen/_17sp" />
