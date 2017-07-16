@@ -266,4 +266,23 @@ public class Utility {
         fragmentTransaction.commit();
     }
 
+    /*Get Material Icons Type face*/
+    public static Typeface setMatirealIconsRegular(Context context) {
+        return Typeface.createFromAsset(context.getAssets(), "fonts/matireal_icons_regular.ttf");
+    }
+
+    /*Get Lucida Sans Italic Type face*/
+    public static Typeface setLucidaSansItalic(Context context) {
+        return Typeface.createFromAsset(context.getAssets(), "fonts/Lucida Sans Italic.ttf");
+    }
+
+    /*Get Font Awesome Web font Type face*/
+    public static Typeface setFontAwesomeWebfont(Context context) {
+        return Typeface.createFromAsset(context.getAssets(), "fonts/fontawesome-webfont.ttf");
+    }
+
+    /*Get Font Awesome Web font Type face*/
+    public static Typeface setRobotoRegular(Context context) {
+        return Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Regular.ttf");
+    }
 }
