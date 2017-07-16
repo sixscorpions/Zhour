@@ -1,11 +1,16 @@
 package com.zhour.utils;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,11 +22,15 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.CursorLoader;
 import android.support.v7.app.AppCompatActivity;
+import android.text.SpannableString;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zhour.R;
@@ -32,6 +41,8 @@ import com.zhour.R;
 
 public class Utility {
 
+    public static final int NO_INTERNET_CONNECTION = 1;
+    private static final int NO_GPS_ACCESS = 2;
 
     /**
      * TO CHECK IS IT BELOW MARSHMALLOW OR NOT
@@ -285,4 +296,76 @@ public class Utility {
     public static Typeface setRobotoRegular(Context context) {
         return Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Regular.ttf");
     }
+
+    public static void showOKOnlyDialog(Context context, String msg,
+                                        String title) {
+        SpannableString s = new SpannableString(msg);
+        Linkify.addLinks(s, Linkify.ALL);
+
+        AlertDialog d = new AlertDialog.Builder(context)
+                .setMessage(s)
+                .setTitle(title)
+                .setPositiveButton(R.string.alert_dialog_ok,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog,
+                                                int whichButton) {
+                            }
+                        }).show();
+
+        ((TextView) d.findViewById(android.R.id.message))
+                .setMovementMethod(LinkMovementMethod.getInstance());
+    }
+
+    public static boolean isNetworkAvailable(Context context) {
+        try {
+            ConnectivityManager connMgr = (ConnectivityManager) context
+                    .getSystemService(Context.CONNECTIVITY_SERVICE);
+            if (connMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
+                    .getState() == NetworkInfo.State.CONNECTED
+                    || connMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
+                    .getState() == NetworkInfo.State.CONNECTING) {
+                return true;
+            } else return connMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)
+                    .getState() == NetworkInfo.State.CONNECTED
+                    || connMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)
+                    .getState() == NetworkInfo.State.CONNECTING;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static android.app.AlertDialog showSettingDialog(final Context context,
+                                                            String msg, String title, final int id) {
+        return new android.app.AlertDialog.Builder(context)
+                // .setMobile_icon_code(android.R.attr.alertDialogIcon)
+                .setMessage(msg)
+                .setTitle(title)
+                .setPositiveButton(R.string.alert_dialog_ok,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int whichButton) {
+                            }
+                        })
+                .setNegativeButton(R.string.alert_dialog_setting,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int whichButton) {
+                                switch (id) {
+                                    case Utility.NO_INTERNET_CONNECTION:
+                                        context.startActivity(new Intent(
+                                                android.provider.Settings.ACTION_SETTINGS));
+                                        break;
+                                    case Utility.NO_GPS_ACCESS:
+                                        context.startActivity(new Intent(
+                                                android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                        }).create();
+    }
+
 }
