@@ -6,13 +6,15 @@
     android:padding="@dimen/_20dp"
     tools:context="com.zhour.fragments.PartyAndIEventInviteFragment">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:alpha="1"
         android:background="@drawable/ic_invite_event"
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/ll_parent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -25,30 +27,37 @@
                 android:layout_marginStart="@dimen/_10dp"
                 android:layout_marginTop="@dimen/_15dp"
                 android:layout_weight="0.8"
-                android:background="@drawable/rectangel_orners_drwable"
                 android:orientation="horizontal"
                 android:weightSum="1">
 
                 <TextView
+                    android:id="@+id/tv_party_invite"
                     android:layout_width="@dimen/_0dp"
                     android:layout_height="@dimen/_40dp"
                     android:layout_weight="0.5"
-                    android:background="@android:color/transparent"
+                    android:background="@drawable/rectangel_edit_left"
                     android:gravity="center"
-                    android:text="@string/about_us"
+                    android:text="@string/party_invite"
                     android:textAllCaps="true"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/_16sp" />
 
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="40dp"
+                    android:background="@color/colorPrimary" />
+
+
                 <TextView
+                    android:id="@+id/tv_event_invite"
                     android:layout_width="@dimen/_0dp"
                     android:layout_height="@dimen/_40dp"
                     android:layout_weight="0.5"
-                    android:background="@color/colorPrimary"
+                    android:background="@drawable/rectangel_edit_fill_right"
                     android:gravity="center"
                     android:text="@string/event_invite"
                     android:textAllCaps="true"
-                    android:textColor="@android:color/black"
+                    android:textColor="@android:color/white"
                     android:textSize="@dimen/_16sp" />
 
             </LinearLayout>
@@ -64,26 +73,142 @@
 
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/iv_occations"
+        <LinearLayout
+            android:id="@+id/ll_list_parent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/_10dp"
-            android:src="@drawable/ic_birth_date" />
+            android:layout_below="@+id/ll_parent"
+            android:layout_marginTop="@dimen/_10dp"
+            android:visibility="gone">
 
-        <EditText
+            <ListView
+                android:id="@+id/list_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rl_parent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_25dp"
-            android:layout_marginStart="@dimen/_25dp"
-            android:layout_marginTop="@dimen/_30dp"
-            android:backgroundTint="@color/colorPrimary"
-            
-            android:drawableRight="@drawable/ic_date"
-            android:lines="1" />
+            android:layout_below="@+id/ll_parent"
+            android:visibility="visible">
+
+            <ImageView
+                android:id="@+id/iv_occations"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_10dp"
+                android:src="@drawable/ic_birth_date" />
+
+            <EditText
+                android:id="@+id/et_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/iv_occations"
+                android:layout_marginEnd="@dimen/_25dp"
+                android:layout_marginStart="@dimen/_25dp"
+                android:layout_marginTop="@dimen/_30dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:drawableEnd="@drawable/ic_calender"
+                android:lines="1"
+                android:visibility="visible" />
 
 
-    </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/et_date"
+                android:layout_marginEnd="@dimen/_25dp"
+                android:layout_marginStart="@dimen/_25dp"
+                android:layout_marginTop="@dimen/_10dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="1">
+
+                    <EditText
+                        android:layout_width="@dimen/_0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.25"
+                        android:backgroundTint="@color/colorPrimaryDark"
+                        android:inputType="number"
+                        android:text="+91"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                    <EditText
+                        android:layout_width="@dimen/_0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.75"
+                        android:backgroundTint="@color/colorPrimaryDark"
+                        android:drawableEnd="@drawable/ic_contacts"
+                        android:inputType="phone" />
+                </LinearLayout>
+
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <EditText
+                        android:id="@+id/et_party_date"
+                        android:layout_width="@dimen/_0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.4"
+                        android:backgroundTint="@color/colorPrimary"
+                        android:drawableEnd="@drawable/ic_calender" />
+
+                    <EditText
+                        android:id="@+id/et_party_time"
+                        android:layout_width="@dimen/_0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.4"
+                        android:backgroundTint="@color/colorPrimary"
+                        android:drawableEnd="@drawable/ic_clock" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/et_invite_note"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_70dp"
+                android:layout_above="@+id/btn_submit"
+                android:layout_marginBottom="@dimen/_15dp"
+                android:layout_marginEnd="@dimen/_30dp"
+                android:layout_marginStart="@dimen/_30dp"
+                android:background="@drawable/dotted_rectangel_boarder"
+                android:gravity="top"
+                android:hint="@string/invite_note" />
+
+
+            <Button
+                android:id="@+id/btn_submit"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_45dp"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="@dimen/_15dp"
+                android:layout_marginEnd="@dimen/_30dp"
+                android:layout_marginStart="@dimen/_30dp"
+                android:background="@drawable/rectangel_drawble"
+                android:gravity="center"
+                android:text="@string/submit"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/_15sp" />
+        </RelativeLayout>
+
+
+    </RelativeLayout>
 
 
 </RelativeLayout>

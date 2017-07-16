@@ -18,7 +18,7 @@
         android:paddingRight="@dimen/_8dp">
 
         <com.zhour.customviews.CircularImageView
-            android:id="@+id/iv_profile"
+            android:id="@+id/iv_dp_pic"
             android:layout_width="@dimen/iv_profile_pic_h_w"
             android:layout_height="@dimen/iv_profile_pic_h_w"
             android:layout_gravity="center_horizontal"

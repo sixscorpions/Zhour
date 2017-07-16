@@ -4,6 +4,9 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="nav_header_height">160dp</dimen>
     <dimen name="drawer_icon">50dp</dimen>
+    <dimen name="image_icon">50dp</dimen>
+    <dimen name="image_icon_height">80dp</dimen>
+
 
     <dimen name="_0dp">0dp</dimen>
     <dimen name="_0.5dp">0.5dp</dimen>
