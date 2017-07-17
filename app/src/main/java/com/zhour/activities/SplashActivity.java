@@ -7,6 +7,7 @@ import android.os.Handler;
 import com.zhour.R;
 import com.zhour.utils.Constants;
 import com.zhour.utils.ToolbarUtils;
+import com.zhour.utils.Utility;
 
 public class SplashActivity extends BaseActivity {
 
@@ -22,13 +23,13 @@ public class SplashActivity extends BaseActivity {
             @Override
             public void run() {
                 navigateToSignIn();
-                /*if (Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(SplashActivity.this, Constants.APP_PREF))) {
+                if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(SplashActivity.this, Constants.TOKEN))) {
                     Intent intent = new Intent(SplashActivity.this, DashboardActivity.class);
                     startActivity(intent);
                     finish();
                 } else {
                     navigateToSignIn();
-                }*/
+                }
             }
         };
         mSplashHandler.postDelayed(action, Constants.SPLASH_TIME_OUT);

@@ -70,6 +70,7 @@
                 android:background="@color/transparent"
                 android:hint="@string/hint_username"
                 android:inputType="text|textNoSuggestions"
+                android:text="9014332627"
                 android:textColor="@color/colorWhite"
                 android:textColorHint="@color/colorWhite"
                 android:textSize="@dimen/_17sp" />
@@ -112,6 +113,7 @@
                 android:background="@color/transparent"
                 android:hint="@string/hint_password"
                 android:inputType="text|textPassword"
+                android:text="welcome"
                 android:textColor="@color/colorWhite"
                 android:textColorHint="@color/colorWhite"
                 android:textSize="@dimen/_17sp" />

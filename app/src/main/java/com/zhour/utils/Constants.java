@@ -13,5 +13,13 @@ public class Constants {
     /* shared pref */
     public static final String APP_PREF = "Zhour_Pref";
     public static final String PREF_KEY_IS_APP_SIGNIN_OR_SIGNUP = "iSAppSignInOrSignup";
-    public static final String LOGIN_SESSION_ID = "LOGIN_SESSION_ID";
+    public static final String SESSION_ID = "LOGIN_SESSION_ID";
+    public static final String USER_ID = "USER_ID";
+    public static final String USER_NAME = "USER_NAME";
+    public static final String CONTACT_NUMBER = "CONTACT_NUMBER";
+    public static final String ROLE_NAME = "ROLE_NAME";
+    public static final String COMMUNITY_ID = "COMMUNITY_ID";
+    public static final String COMMUNITY_NAME = "COMMUNITY_NAME";
+    public static final String RESIDENT_ID = "RESIDENT_ID";
+    public static final String TOKEN = "TOKEN";
 }

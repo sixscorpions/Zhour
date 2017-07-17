@@ -173,15 +173,13 @@ public class ServerJSONAsyncTask extends BaseAsyncTask {
                 Utility.showLog("param1", "" + param1);
                 OutputStream os = connection.getOutputStream();
                 Writer writer = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream(), "UTF-8"));
-                /*if (mUrl.contains(APIConstants.LOGIN_URL)
-                        || mUrl.contains(APIConstants.CREATE_SALES_RECORD)
-                        || mUrl.contains(APIConstants.GET_SALES_OTP)) {
+                if (mUrl.contains(APIConstants.AUTHENTICATE_USER)) {
                     Utility.showLog("mParams", "" + getURL(mParams));
                     writer.write(getURL(mParams));
                 } else {
                     writer.write(param1);
-                }*/
-                writer.write(param1);
+                }
+                //writer.write(param1);
                 /*
                 BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
                 writer.write(URLEncoder.encode(param1));*/
@@ -242,7 +240,7 @@ public class ServerJSONAsyncTask extends BaseAsyncTask {
                 List<HttpCookie> cookies = msCookieManager.getCookieStore().getCookies();
                 if (cookies != null) {
                     for (HttpCookie cookie : cookies) {
-                        Utility.setSharedPrefStringData(mContext, Constants.LOGIN_SESSION_ID, cookie.getValue());
+                        Utility.setSharedPrefStringData(mContext, Constants.TOKEN, cookie.getValue());
                     }
                 }
             }
