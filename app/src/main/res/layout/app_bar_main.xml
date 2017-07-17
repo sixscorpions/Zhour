@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/icon_bg"
+    android:background="@drawable/bg_splash"
     tools:context=".activities.DashboardActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:contentDescription="@string/empty"
-                android:src="@drawable/icon_toolbar" />
+                android:src="@drawable/logo" />
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>

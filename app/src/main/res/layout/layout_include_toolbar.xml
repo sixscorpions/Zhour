@@ -26,7 +26,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:gravity="center"
-        android:src="@drawable/icon_toolbar" />
+        android:src="@drawable/logo" />
 
     <TextView
         android:id="@+id/tv_toolbar_done"
