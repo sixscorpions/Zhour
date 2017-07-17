@@ -150,17 +150,6 @@
                 android:layout_weight="0.5"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tv_forgot_user_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/forgot_user_id"
-                    android:textColor="@color/light_green" />
-
-                <View
-                    android:layout_width="@dimen/_90dp"
-                    android:layout_height="@dimen/_1dp"
-                    android:background="@color/light_green" />
             </LinearLayout>
 
             <LinearLayout
@@ -176,12 +165,6 @@
                     android:layout_gravity="right"
                     android:text="@string/forgot_password"
                     android:textColor="@color/light_green" />
-
-                <View
-                    android:layout_width="@dimen/_105dp"
-                    android:layout_height="@dimen/_2px"
-                    android:layout_gravity="right"
-                    android:background="@color/light_green" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

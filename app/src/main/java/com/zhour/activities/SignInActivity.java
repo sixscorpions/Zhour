@@ -1,6 +1,7 @@
 package com.zhour.activities;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,8 +29,6 @@ public class SignInActivity extends BaseActivity {
     @BindView(R.id.et_password)
     EditText et_password;
 
-    @BindView(R.id.tv_forgot_user_id)
-    TextView tv_forgot_user_id;
     @BindView(R.id.tv_forgot_password)
     TextView tv_forgot_password;
 
@@ -47,8 +46,8 @@ public class SignInActivity extends BaseActivity {
         btn_login.setTypeface(Utility.setRobotoRegular(this));
         et_username.setTypeface(Utility.setLucidaSansItalic(this));
         et_password.setTypeface(Utility.setLucidaSansItalic(this));
-        tv_forgot_user_id.setTypeface(Utility.setLucidaSansItalic(this));
         tv_forgot_password.setTypeface(Utility.setLucidaSansItalic(this));
+        tv_forgot_password.setPaintFlags(tv_forgot_password.getPaintFlags()|Paint.UNDERLINE_TEXT_FLAG);
     }
 
 
