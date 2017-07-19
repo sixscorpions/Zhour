@@ -11,13 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@null"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="0dp">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/transparent"
+            android:background="@drawable/toolbr_bg"
             android:orientation="horizontal"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
