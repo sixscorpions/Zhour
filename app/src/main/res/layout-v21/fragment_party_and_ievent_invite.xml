@@ -64,8 +64,8 @@
             <ImageView
                 android:id="@+id/iv_date"
                 android:layout_width="@dimen/_0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5dp"
+                android:layout_height="@dimen/_40dp"
+                android:layout_marginTop="@dimen/_15dp"
                 android:layout_weight="0.2"
                 android:padding="@dimen/_5dp"
                 android:src="@drawable/ic_date" />
@@ -206,8 +206,6 @@
                 android:padding="@dimen/_10dp"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/_13sp" />
-
-
         </RelativeLayout>
 
         <Button

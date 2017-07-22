@@ -55,8 +55,8 @@
                     android:id="@+id/tv_invite"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_10dp"
-                    android:layout_marginTop="@dimen/_10dp"
+                    android:layout_marginBottom="@dimen/_8dp"
+                    android:layout_marginTop="@dimen/_8dp"
                     android:gravity="center_horizontal"
                     android:text="@string/txt_invite"
                     android:textAllCaps="true"
@@ -65,11 +65,11 @@
 
             </LinearLayout>
 
-            <ImageView
-                android:layout_width="wrap_content"
+            <View
+                android:layout_width="@dimen/_1dp"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/_10dp"
-                android:src="@drawable/ic_line" />
+                android:background="@color/colorWhite"
+                />
 
             <LinearLayout
                 android:id="@+id/ll_notice"
@@ -92,8 +92,8 @@
                     android:id="@+id/tv_notice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_10dp"
-                    android:layout_marginTop="@dimen/_10dp"
+                    android:layout_marginBottom="@dimen/_8dp"
+                    android:layout_marginTop="@dimen/_8dp"
                     android:gravity="center"
                     android:text="@string/txt_noticboard"
                     android:textAllCaps="true"
@@ -102,10 +102,10 @@
             </LinearLayout>
         </LinearLayout>
 
-        <ImageView
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/_10dp"
+            android:layout_height="2px"
+            android:background="@color/colorWhite"
             android:src="@drawable/ic_hori_line" />
 
         <LinearLayout
@@ -137,8 +137,8 @@
                     android:id="@+id/tv_car"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_10dp"
-                    android:layout_marginTop="@dimen/_10dp"
+                    android:layout_marginBottom="@dimen/_8dp"
+                    android:layout_marginTop="@dimen/_8dp"
                     android:gravity="center_horizontal"
                     android:text="@string/txt_aliencar"
                     android:textColor="@color/colorWhite"
@@ -147,10 +147,11 @@
 
             </LinearLayout>
 
-            <ImageView
-                android:layout_width="wrap_content"
+            <View
+                android:layout_width="@dimen/_1dp"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_line" />
+                android:background="@color/colorWhite"
+                 />
 
             <LinearLayout
                 android:id="@+id/ll_maid"
@@ -174,8 +175,8 @@
                     android:id="@+id/tv_maid"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_10dp"
-                    android:layout_marginTop="@dimen/_10dp"
+                    android:layout_marginBottom="@dimen/_8dp"
+                    android:layout_marginTop="@dimen/_8dp"
                     android:gravity="center"
                     android:text="@string/txt_maid"
                     android:textColor="@color/colorWhite"
@@ -185,10 +186,10 @@
 
         </LinearLayout>
 
-        <ImageView
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/_10dp"
+            android:layout_height="2px"
+            android:background="@color/colorWhite"
             android:src="@drawable/ic_hori_line" />
 
         <LinearLayout
@@ -232,19 +233,19 @@
                     android:id="@+id/tv_complaints"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_10dp"
-                    android:layout_marginTop="@dimen/_10dp"
+                    android:layout_marginBottom="@dimen/_8dp"
+                    android:layout_marginTop="@dimen/_8dp"
                     android:gravity="center_horizontal"
                     android:text="@string/txt_complaints"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/txt_size" />
             </LinearLayout>
 
-            <ImageView
-                android:layout_width="wrap_content"
+            <View
+                android:layout_width="@dimen/_1dp"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/_10dp"
-                android:src="@drawable/ic_line" />
+                android:background="@color/colorWhite"
+                />
 
             <LinearLayout
                 android:id="@+id/ll_emergency"
@@ -268,8 +269,8 @@
                     android:id="@+id/tv_emergency"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_10dp"
-                    android:layout_marginTop="@dimen/_10dp"
+                    android:layout_marginBottom="@dimen/_8dp"
+                    android:layout_marginTop="@dimen/_8dp"
                     android:gravity="center"
                     android:text="@string/txt_emergency"
                     android:textColor="@color/colorWhite"
