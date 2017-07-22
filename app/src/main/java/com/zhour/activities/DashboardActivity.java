@@ -1,5 +1,6 @@
 package com.zhour.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -7,6 +8,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,6 +16,7 @@ import com.zhour.R;
 import com.zhour.customviews.CircularImageView;
 import com.zhour.fragments.AboutUsFragment;
 import com.zhour.fragments.HomeFragment;
+import com.zhour.fragments.MaidStatusFragment;
 import com.zhour.fragments.PaymentFragment;
 import com.zhour.utils.Utility;
 
@@ -55,10 +58,18 @@ public class DashboardActivity extends BaseActivity {
     @BindView(R.id.iv_dp_pic)
     CircularImageView iv_dp_pic;
 
+
+    @BindView(R.id.ll_home)
+    LinearLayout ll_home;
+    @BindView(R.id.ll_about_us)
+    LinearLayout ll_about_us;
+    @BindView(R.id.ll_payment)
+    LinearLayout ll_payment;
+    @BindView(R.id.ll_logout)
+    LinearLayout ll_logout;
+
     private NavigationView navigationView;
     private View headerview;
-    private CircularImageView iv_profile_pic;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +88,7 @@ public class DashboardActivity extends BaseActivity {
 
 
         initNavigationDrawer();
-        iv_home.performClick();
+        ll_home.performClick();
 
 
     }
@@ -91,34 +102,79 @@ public class DashboardActivity extends BaseActivity {
         }
     }
 
-    @OnClick(R.id.iv_home)
+    @OnClick(R.id.ll_home)
     public void navigatingHome() {
+        iv_home.setImageDrawable(Utility.getDrawable(this, R.drawable.ic_home));
+        tv_home.setTextColor(Utility.getColor(this, R.color.yello_text));
+
+
+        iv_about_us.setImageDrawable(Utility.getDrawable(this, R.drawable.ic_about));
+        tv_about.setTextColor(Utility.getColor(this, R.color.colorWhite));
+
+        iv_payment.setImageDrawable(Utility.getDrawable(this, R.drawable.ic_payment));
+        tv_payment.setTextColor(Utility.getColor(this, R.color.colorWhite));
+
+        iv_logout.setImageDrawable(Utility.getDrawable(this, R.drawable.ic_logout));
+        tv_logout.setTextColor(Utility.getColor(this, R.color.colorWhite));
+
+
         drawer_layout.closeDrawer(GravityCompat.START);
         Bundle bundle = new Bundle();
         Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, bundle, this);
 
     }
 
-    @OnClick(R.id.iv_about_us)
+    @OnClick(R.id.ll_about_us)
     public void navigateAboutUs() {
+        iv_about_us.setImageDrawable(Utility.getDrawable(this, R.drawable.ic_aboutus_yello));
+        tv_about.setTextColor(Utility.getColor(this, R.color.yello_text));
+
+        iv_home.setImageDrawable(Utility.getDrawable(this, R.drawable.ic_home_white));
+        tv_home.setTextColor(Utility.getColor(this, R.color.colorWhite));
+
+        iv_payment.setImageDrawable(Utility.getDrawable(this, R.drawable.ic_payment));
+        tv_payment.setTextColor(Utility.getColor(this, R.color.colorWhite));
+
+        iv_logout.setImageDrawable(Utility.getDrawable(this, R.drawable.ic_logout));
+        tv_logout.setTextColor(Utility.getColor(this, R.color.colorWhite));
+
+
         drawer_layout.closeDrawer(GravityCompat.START);
         Bundle bundle = new Bundle();
         Utility.navigateDashBoardFragment(new AboutUsFragment(), AboutUsFragment.TAG, bundle, this);
 
     }
 
-    @OnClick(R.id.iv_payment)
+    @OnClick(R.id.ll_payment)
     public void navigaPayment() {
-        Bundle bundle = new Bundle();
+        iv_payment.setImageDrawable(Utility.getDrawable(this, R.drawable.ic_payment_yellow));
+        tv_payment.setTextColor(Utility.getColor(this, R.color.yello_text));
+
+
+        iv_home.setImageDrawable(Utility.getDrawable(this, R.drawable.ic_home_white));
+        tv_home.setTextColor(Utility.getColor(this, R.color.colorWhite));
+
+        iv_about_us.setImageDrawable(Utility.getDrawable(this, R.drawable.ic_about));
+        tv_about.setTextColor(Utility.getColor(this, R.color.colorWhite));
+
+        iv_logout.setImageDrawable(Utility.getDrawable(this, R.drawable.ic_logout));
+        tv_logout.setTextColor(Utility.getColor(this, R.color.colorWhite));
+
+
         drawer_layout.closeDrawer(GravityCompat.START);
+        Bundle bundle = new Bundle();
         Utility.navigateDashBoardFragment(new PaymentFragment(), PaymentFragment.TAG, bundle, this);
 
     }
 
-    @OnClick(R.id.tv_logout)
+    @OnClick(R.id.ll_logout)
     public void navigateToLogout() {
+        Intent intent = new Intent(this, SignInActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
         Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
-        drawer_layout.closeDrawer(GravityCompat.START);
+
     }
 
 

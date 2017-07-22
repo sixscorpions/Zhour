@@ -42,8 +42,8 @@
                     android:textSize="@dimen/_16sp" />
 
                 <View
-                    android:layout_width="2dp"
-                    android:layout_height="40dp"
+                    android:layout_width="@dimen/_1dp"
+                    android:layout_height="@dimen/_40dp"
                     android:background="@color/colorPrimary" />
 
 
@@ -87,7 +87,6 @@
 
         </LinearLayout>
 
-
         <RelativeLayout
             android:id="@+id/rl_parent"
             android:layout_width="match_parent"
@@ -97,8 +96,9 @@
 
             <ImageView
                 android:id="@+id/iv_occations"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/_150dp"
+                android:layout_height="@dimen/_150dp"
+                android:layout_centerHorizontal="true"
                 android:padding="@dimen/_10dp"
                 android:src="@drawable/ic_birth_date" />
 
@@ -109,18 +109,28 @@
                 android:layout_below="@+id/iv_occations"
                 android:layout_marginEnd="@dimen/_25dp"
                 android:layout_marginStart="@dimen/_25dp"
-                android:layout_marginTop="@dimen/_30dp"
-                android:backgroundTint="@color/colorPrimary"
+                android:layout_marginTop="@dimen/_15dp"
+                android:textColor="@color/text_color"
+                android:backgroundTint="@color/transparent"
                 android:drawableEnd="@drawable/ic_calender"
                 android:lines="1"
                 android:visibility="visible" />
+
+            <View
+                android:id="@+id/view_et_date"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1dp"
+                android:layout_below="@+id/et_date"
+                android:layout_marginEnd="@dimen/_25dp"
+                android:layout_marginStart="@dimen/_25dp"
+                android:background="@color/colorPrimary" />
 
 
             <LinearLayout
                 android:id="@+id/ll_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/et_date"
+                android:layout_below="@+id/view_et_date"
                 android:layout_marginEnd="@dimen/_25dp"
                 android:layout_marginStart="@dimen/_25dp"
                 android:layout_marginTop="@dimen/_10dp"
@@ -145,6 +155,7 @@
                         android:layout_width="@dimen/_0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.75"
+                        android:textColor="@color/text_color"
                         android:backgroundTint="@color/colorPrimaryDark"
                         android:drawableEnd="@drawable/ic_contacts"
                         android:inputType="phone" />
@@ -161,6 +172,7 @@
                         android:layout_width="@dimen/_0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.4"
+                        android:textColor="@color/text_color"
                         android:backgroundTint="@color/colorPrimary"
                         android:drawableEnd="@drawable/ic_calender" />
 
@@ -169,6 +181,7 @@
                         android:layout_width="@dimen/_0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.4"
+                        android:textColor="@color/text_color"
                         android:backgroundTint="@color/colorPrimary"
                         android:drawableEnd="@drawable/ic_clock" />
 
@@ -183,30 +196,32 @@
                 android:layout_above="@+id/btn_submit"
                 android:layout_marginBottom="@dimen/_15dp"
                 android:layout_marginEnd="@dimen/_30dp"
+                android:textSize="@dimen/_13sp"
+                android:textColor="@color/text_color"
                 android:layout_marginStart="@dimen/_30dp"
                 android:background="@drawable/dotted_rectangel_boarder"
-                android:gravity="top"
+                android:gravity="left|top"
+                android:lines="4"
+                android:padding="@dimen/_10dp"
                 android:hint="@string/invite_note" />
 
 
             <Button
                 android:id="@+id/btn_submit"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_45dp"
+                android:layout_height="@dimen/_40dp"
                 android:layout_alignParentBottom="true"
                 android:layout_gravity="bottom"
                 android:layout_marginBottom="@dimen/_15dp"
                 android:layout_marginEnd="@dimen/_30dp"
                 android:layout_marginStart="@dimen/_30dp"
-                android:background="@drawable/rectangel_drawble"
+                android:background="@drawable/ic_button_invite"
                 android:gravity="center"
                 android:text="@string/submit"
                 android:textAllCaps="true"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/_15sp" />
         </RelativeLayout>
-
-
     </RelativeLayout>
 
 

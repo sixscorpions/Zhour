@@ -41,6 +41,8 @@ public class PartyAndIEventInviteFragment extends Fragment {
     private LinearLayout ll_phone;
     private ImageView iv_occations;
 
+    private View  view_et_date;
+
     private PartyInviteAdapter partyInviteAdapter;
 
 
@@ -74,10 +76,21 @@ public class PartyAndIEventInviteFragment extends Fragment {
         rl_parent = (RelativeLayout) view.findViewById(R.id.rl_parent);
         ll_list_parent = (LinearLayout) view.findViewById(R.id.ll_list_parent);
 
+        view_et_date = view.findViewById(R.id.view_et_date);
+
 
         iv_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                iv_date.setImageDrawable(Utility.getDrawable(parent, R.drawable.ic_time_fill));
+
+                tv_event_invite.setBackground(Utility.getDrawable(parent, R.drawable.rectangel_edit_right));
+                tv_event_invite.setTextColor(Utility.getColor(parent, R.color.colorPrimary));
+
+                tv_party_invite.setBackground(Utility.getDrawable(parent, R.drawable.rectangel_edit_left));
+                tv_party_invite.setTextColor(Utility.getColor(parent, R.color.colorPrimary));
+
+
                 rl_parent.setVisibility(View.GONE);
                 ll_list_parent.setVisibility(View.VISIBLE);
                 getListData();
@@ -86,6 +99,9 @@ public class PartyAndIEventInviteFragment extends Fragment {
         tv_event_invite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                view_et_date.setVisibility(View.VISIBLE);
+                iv_date.setImageDrawable(Utility.getDrawable(parent, R.drawable.ic_date));
                 rl_parent.setVisibility(View.VISIBLE);
                 ll_list_parent.setVisibility(View.GONE);
                 et_date.setVisibility(View.VISIBLE);
@@ -102,6 +118,8 @@ public class PartyAndIEventInviteFragment extends Fragment {
         tv_party_invite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                view_et_date.setVisibility(View.GONE);
+                iv_date.setImageDrawable(Utility.getDrawable(parent, R.drawable.ic_date));
                 rl_parent.setVisibility(View.VISIBLE);
                 ll_list_parent.setVisibility(View.GONE);
                 et_date.setVisibility(View.GONE);

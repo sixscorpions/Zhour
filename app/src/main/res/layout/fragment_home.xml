@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-
     <ImageView
         android:id="@+id/ll_ic_diwali"
         android:layout_width="wrap_content"
@@ -46,8 +45,8 @@
 
                 <ImageView
                     android:id="@+id/iv_invite"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/_70dp"
+                    android:layout_height="@dimen/_40dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/_10dp"
                     android:src="@drawable/ic_invite" />
@@ -83,8 +82,8 @@
 
                 <ImageView
                     android:id="@+id/iv_notice"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/_70dp"
+                    android:layout_height="@dimen/_40dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/_10dp"
                     android:src="@drawable/ic_notice" />
@@ -128,8 +127,8 @@
 
                 <ImageView
                     android:id="@+id/iv_car"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/_70dp"
+                    android:layout_height="@dimen/_40dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="@dimen/_10dp"
                     android:src="@drawable/ic_car" />
@@ -165,8 +164,8 @@
 
                 <ImageView
                     android:id="@+id/iv_maid"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/_70dp"
+                    android:layout_height="@dimen/_40dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="@dimen/_10dp"
                     android:src="@drawable/ic_maid" />
@@ -214,12 +213,14 @@
                     android:layout_marginTop="@dimen/_10dp">
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/iv_message"
+                        android:layout_width="@dimen/_70dp"
+                        android:layout_height="@dimen/_40dp"
                         android:layout_gravity="center"
                         android:background="@drawable/ic_message" />
 
                     <ImageView
+                        android:id="@+id/iv_smile"
                         android:layout_width="@dimen/_20dp"
                         android:layout_height="@dimen/_20dp"
                         android:layout_gravity="center"
@@ -228,6 +229,7 @@
                 </FrameLayout>
 
                 <TextView
+                    android:id="@+id/tv_complaints"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/_10dp"
@@ -245,6 +247,7 @@
                 android:src="@drawable/ic_line" />
 
             <LinearLayout
+                android:id="@+id/ll_emergency"
                 android:layout_width="@dimen/_0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -254,13 +257,15 @@
 
 
                 <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/iv_emergency"
+                    android:layout_width="@dimen/_70dp"
+                    android:layout_height="@dimen/_40dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="@dimen/_10dp"
                     android:src="@drawable/ic_emergency" />
 
                 <TextView
+                    android:id="@+id/tv_emergency"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/_10dp"

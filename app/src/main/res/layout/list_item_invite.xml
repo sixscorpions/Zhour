@@ -12,7 +12,10 @@
         <ImageView
             android:id="@+id/iv_background"
             android:layout_width="match_parent"
+         android:paddingStart="@dimen/_10dp"
+            android:paddingEnd="@dimen/_10dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/_30dp"
             android:src="@drawable/ic_blue_fill" />
 
@@ -32,8 +35,9 @@
             android:lines="2"
             android:textSize="@dimen/_15sp"
             android:layout_marginEnd="@dimen/_20dp"
+            android:layout_marginBottom="@dimen/_10dp"
             android:layout_marginStart="@dimen/_20dp"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="@dimen/_40dp"
             android:text="@string/loreum_ipsum_is_simply_dummy_text_of_the_printing_typesetting_industry"
             android:textColor="@android:color/white" />
 
@@ -42,6 +46,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
+            android:paddingBottom="@dimen/_10dp"
+            android:paddingTop="@dimen/_10dp"
             android:layout_marginEnd="@dimen/_20dp"
             android:layout_marginStart="@dimen/_20dp"
             android:gravity="bottom"
