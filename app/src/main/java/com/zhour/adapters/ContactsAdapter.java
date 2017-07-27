@@ -175,7 +175,7 @@ public class ContactsAdapter extends SearchablePinnedHeaderListViewAdapter<Conta
         private ImageView ivPicture;
     }
 
-    public void updateAdapter(ArrayList<Contact> mList) {
+    public  void updateAdapter(ArrayList<Contact> mList) {
         this.mContacts = mList;
         setData(mList);
         notifyDataSetChanged();

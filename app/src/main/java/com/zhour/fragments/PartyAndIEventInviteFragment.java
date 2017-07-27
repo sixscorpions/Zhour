@@ -127,12 +127,15 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     EditText et_invite_note;
 
 
-    public static ArrayList<String> contactsListModel = new ArrayList<>();
+    public static ArrayList<Contact> contactsListModel;
+
+    private ArrayList<Contact> newList;
 
     private PartyInviteAdapter partyInviteAdapter;
     private Cursor mCursor;
     private Set<Contact> result;
     private LookUpEventsTypeModel lookUpEventsTypeModel;
+    private ContactsAdapter mAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -269,14 +272,26 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
         tv_pick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (contactsListModel.size() > 0) {
-                    for (String mNum : contactsListModel) {
-                        et_phone.setText("");
-                        et_phone.setText(mNum);
+                if (newList.size() > 0) {
+                    contactsListModel = new ArrayList<>();
+
+                    for (int i = 0; i < newList.size(); i++) {
+                        Contact contact = newList.get(i);
+                        if (contact.ismContacts_Flow()) {
+                            contact.setmContacts_Flow(true);
+                            contact.getDisplayName();
+                            contact.getPhoneNumber();
+                            contactsListModel.add(contact);
+                            mAdapter.updateAdapter(newList);
+                        }
                     }
+                    if (contactsListModel.size() > 0) {
+                        et_phone.setText(contactsListModel.size() + "  Contacts Selected");
+                    }
+
+
                 }
                 //Utility.showToastMessage(getActivity(), "SELECTED CONTACTS" + contactsListModel.size());
-                contactsListModel.clear();
                 dialog.dismiss();
             }
         });
@@ -285,7 +300,10 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
         mCursor = parent.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null, null,
                 ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " ASC");
         Set<Contact> contacts = getContacts();
-        ArrayList<Contact> newList = new ArrayList<>(new HashSet<>(contacts));
+
+        if (newList == null) {
+            newList = new ArrayList<>(new HashSet<>(contacts));
+        }
 
         Collections.sort(newList, new Comparator<Contact>() {
             @Override
@@ -299,7 +317,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
             }
         });
 
-        final ContactsAdapter mAdapter = new ContactsAdapter(parent, newList, TAG);
+        mAdapter = new ContactsAdapter(parent, newList, TAG);
         ll_contacts.setAdapter(mAdapter);
 
         et_search.addTextChangedListener(new TextWatcher() {
@@ -429,15 +447,17 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
 
             JSONArray jsonArray = new JSONArray();
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("contactname", "Prasad");
-            jsonObject.put("contactnumber", "8688556795");
+            if (contactsListModel != null && contactsListModel.size() > 0) {
+                for (int i = 0; i < contactsListModel.size(); i++) {
+                    Contact c = contactsListModel.get(i);
+                    String num = c.getPhoneNumber().trim();
+                    String phNo = num.replaceAll("[()\\s-]+", "");
+                    jsonObject.put(c.displayName, phNo);
+
+                }
+            }
+
             jsonArray.put(jsonObject);
-
-            JSONObject jsonObject1 = new JSONObject();
-            jsonObject1.put("contactname", "Ramesh");
-            jsonObject1.put("contactnumber", "8665656522");
-            jsonArray.put(jsonObject1);
-
             linkedHashMap.put("contacts", jsonArray.toString());
 
             LookUpEventTypeParser lookUpEventTypeParser = new LookUpEventTypeParser();
