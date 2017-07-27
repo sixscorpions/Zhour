@@ -66,4 +66,5 @@
     <string name="unauthorized_access">Unauthorized access</string>
     <string name="select_contact">Select Contact</string>
     <string name="search">Search</string>
+    <string name="invite_type">Invite Type</string>
 </resources>

@@ -19,6 +19,7 @@ public class APIConstants {
     //public static String BASE_URL = "http://icuepro.com/api/v1.0/";
 
     public static String AUTHENTICATE_USER = BASE_URL + "authenticateUser";
+    public static String GET_LOOKUP_DATA_BY_ENTITY_NAME = BASE_URL + "getLookupDataByEntityName";
 
 
 }

@@ -1,9 +1,13 @@
 package com.zhour.fragments;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
@@ -34,18 +38,29 @@ import com.zhour.R;
 import com.zhour.activities.DashboardActivity;
 import com.zhour.adapters.ContactsAdapter;
 import com.zhour.adapters.PartyInviteAdapter;
+import com.zhour.adapters.SpinnerAdapter;
 import com.zhour.aynctask.IAsyncCaller;
+import com.zhour.aynctask.ServerJSONAsyncTask;
+import com.zhour.models.AuthenticateUserModel;
 import com.zhour.models.Contact;
+import com.zhour.models.LookUpEventsTypeModel;
 import com.zhour.models.Model;
 import com.zhour.models.PartyInviteModel;
+import com.zhour.models.SpinnerModel;
+import com.zhour.parser.AuthenticateUserParser;
+import com.zhour.parser.LookUpEventTypeParser;
+import com.zhour.utils.APIConstants;
 import com.zhour.utils.Constants;
 import com.zhour.utils.Utility;
+
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -96,8 +111,8 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
 
     @BindView(R.id.rl_parent)
     RelativeLayout rl_parent;
-    @BindView(R.id.ll_phone)
-    LinearLayout ll_phone;
+    @BindView(R.id.ll_party_invite)
+    LinearLayout ll_party_invite;
     @BindView(R.id.iv_occations)
     ImageView iv_occations;
 
@@ -108,12 +123,15 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     @BindView(R.id.et_party_date)
     EditText et_party_date;
 
+    @BindView(R.id.et_invite_types)
+    EditText et_invite_types;
+
     public static ArrayList<String> contactsListModel = new ArrayList<>();
 
     private PartyInviteAdapter partyInviteAdapter;
     private Cursor mCursor;
     private Set<Contact> result;
-
+    private LookUpEventsTypeModel lookUpEventsTypeModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -137,6 +155,23 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
 
     private void inItUI() {
         askPermission();
+        getInviteTypes();
+    }
+
+    private void getInviteTypes() {
+        try {
+            LinkedHashMap linkedHashMap = new LinkedHashMap();
+            linkedHashMap.put("entityname", "Event%20Types");
+            LookUpEventTypeParser lookUpEventTypeParser = new LookUpEventTypeParser();
+            ServerJSONAsyncTask serverJSONAsyncTask = new ServerJSONAsyncTask(
+                    parent, Utility.getResourcesString(parent, R.string.please_wait), true,
+                    APIConstants.GET_LOOKUP_DATA_BY_ENTITY_NAME, linkedHashMap,
+                    APIConstants.REQUEST_TYPE.POST, this, lookUpEventTypeParser);
+            Utility.execute(serverJSONAsyncTask);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void askPermission() {
@@ -316,7 +351,6 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     }
 
 
-
     @OnClick(R.id.et_date)
     public void getEventDate() {
         Utility.hideSoftKeyboard(parent, et_party_date);
@@ -345,7 +379,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
         rl_parent.setVisibility(View.VISIBLE);
         ll_list_parent.setVisibility(View.GONE);
         et_date.setVisibility(View.VISIBLE);
-        ll_phone.setVisibility(View.GONE);
+        ll_party_invite.setVisibility(View.GONE);
         tv_event_invite.setBackground(Utility.getDrawable(parent, R.drawable.rectangel_edit_fill_right));
         tv_event_invite.setTextColor(Utility.getColor(parent, R.color.colorWhite));
 
@@ -363,7 +397,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
         rl_parent.setVisibility(View.VISIBLE);
         ll_list_parent.setVisibility(View.GONE);
         et_date.setVisibility(View.GONE);
-        ll_phone.setVisibility(View.VISIBLE);
+        ll_party_invite.setVisibility(View.VISIBLE);
         tv_party_invite.setBackground(Utility.getDrawable(parent, R.drawable.rectangel_edit_fill_left));
         tv_party_invite.setTextColor(Utility.getColor(parent, R.color.colorWhite));
 
@@ -413,7 +447,53 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
 
     @Override
     public void onComplete(Model model) {
+        if (model != null) {
+            if (model instanceof LookUpEventsTypeModel) {
+                lookUpEventsTypeModel = (LookUpEventsTypeModel) model;
+                if (!lookUpEventsTypeModel.isError()) {
+                }
+            }
+        }
+    }
+
+    /*This method is used to set data to spinner*/
+    @OnClick(R.id.et_invite_types)
+    void setInviteTypeData() {
+        if (lookUpEventsTypeModel != null &&
+                lookUpEventsTypeModel.getLookUpModels() != null &&
+                lookUpEventsTypeModel.getLookUpModels().size() > 0)
+            showSpinnerDialog(getActivity(), Utility.getResourcesString(parent, R.string.invite_type),
+                    et_invite_types, lookUpEventsTypeModel.getLookupNames(), 1);
+    }
+
+    public void showSpinnerDialog(final Context context, final String title, final EditText et_spinner,
+                                  ArrayList<SpinnerModel> itemsList, final int id) {
+
+        AlertDialog.Builder builderSingle = new AlertDialog.Builder(context);
+
+        /*CUSTOM TITLE*/
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.layout_alert_dialog_title, null);
+        TextView tv_title = (TextView) view.findViewById(R.id.tv_alert_dialog_title);
+        RelativeLayout dialog_back_ground = (RelativeLayout) view.findViewById(R.id.dialog_back_ground);
+        dialog_back_ground.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
+        tv_title.setText(title);
+        tv_title.setTextColor(context.getResources().getColor(R.color.colorWhite));
+        builderSingle.setCustomTitle(view);
 
 
+        final SpinnerAdapter adapter = new SpinnerAdapter(context, itemsList);
+        builderSingle.setAdapter(adapter,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        SpinnerModel mData = (SpinnerModel) adapter.getItem(which);
+                        if (id == 1) {
+                            String text = mData.getTitle();
+                            et_spinner.setText(text);
+                        }
+                    }
+                });
+        builderSingle.show();
     }
 }

@@ -156,11 +156,13 @@ public class ServerJSONAsyncTask extends BaseAsyncTask {
             }*/
             }
 
-            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            connection.setRequestProperty("Content", "application/x-www-form-urlencoded");
             connection.setRequestProperty("Accept", "application/x-www-form-urlencoded");
-            /*if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(mContext, Constants.LOGIN_SESSION_ID))) {
-                connection.setRequestProperty("Cookie", "connect.sid=" + Utility.getSharedPrefStringData(mContext, Constants.LOGIN_SESSION_ID));
-            }*/
+            if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(mContext, Constants.TOKEN))) {
+                String token = Utility.getSharedPrefStringData(mContext, Constants.TOKEN);
+                connection.setRequestProperty("token", token);
+                connection.setRequestProperty("sesid", Utility.getSharedPrefStringData(mContext, Constants.SESSION_ID));
+            }
             connection.setUseCaches(false);
         } catch (Exception e) {
             e.printStackTrace();
@@ -173,7 +175,7 @@ public class ServerJSONAsyncTask extends BaseAsyncTask {
                 Utility.showLog("param1", "" + param1);
                 OutputStream os = connection.getOutputStream();
                 Writer writer = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream(), "UTF-8"));
-                if (mUrl.contains(APIConstants.AUTHENTICATE_USER)) {
+                if (mUrl.contains(APIConstants.AUTHENTICATE_USER) || mUrl.contains(APIConstants.GET_LOOKUP_DATA_BY_ENTITY_NAME)) {
                     Utility.showLog("mParams", "" + getURL(mParams));
                     writer.write(getURL(mParams));
                 } else {
