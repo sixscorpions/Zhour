@@ -39,6 +39,22 @@ import android.widget.Toast;
 import com.zhour.R;
 import com.zhour.designes.SnackBar;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicHeader;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.protocol.HTTP;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by Shankar on 6/29/2017.
  **/
@@ -48,6 +64,7 @@ public class Utility {
     public static final int NO_INTERNET_CONNECTION = 1;
     private static final int NO_GPS_ACCESS = 2;
 
+    private static final int CONNECTION_TIMEOUT = 25000;
 
     /*
      *
@@ -420,4 +437,58 @@ public class Utility {
     }
 
 
+    public static String httpJsonRequest(String url, HashMap<String, String> mParams, Context context) {
+        String websiteData = "error";
+        HttpClient client = new DefaultHttpClient();
+        HttpConnectionParams.setConnectionTimeout(client.getParams(),
+                CONNECTION_TIMEOUT); // Timeout
+        // Limit
+        HttpResponse response;
+        HttpPost post = new HttpPost(url);
+        post.setHeader("token", Utility.getSharedPrefStringData(context, Constants.TOKEN));
+        StringEntity se;
+        try {
+            se = new StringEntity(getJsonParams(mParams));
+            se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE,
+                    "application/json"));
+            post.setEntity(se);
+            response = client.execute(post);
+            //* Checking response *//*
+            if (response != null) {
+                websiteData = EntityUtils.toString(response.getEntity());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            websiteData = "error";
+            return websiteData;
+        }
+        return websiteData;
+    }
+
+    public static String getJsonParams(HashMap<String, String> paramMap) {
+        if (paramMap == null) {
+            return null;
+        }
+        JSONObject jsonObject = new JSONObject();
+        for (Map.Entry<String, String> entry : paramMap.entrySet()) {
+            try {
+                if (entry.getKey().equalsIgnoreCase("contacts")) {
+                    JSONArray jsonArray = new JSONArray(entry
+                            .getValue());
+                    jsonObject.accumulate(entry.getKey(), jsonArray);
+                } else if (entry.getKey().equalsIgnoreCase("login")) {
+                    JSONObject jsonArrayLogin = new JSONObject(entry
+                            .getValue());
+                    jsonObject.accumulate(entry.getKey(), jsonArrayLogin);
+                } else {
+                    jsonObject.accumulate(entry.getKey(), entry
+                            .getValue());
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return jsonObject.toString();
+    }
 }

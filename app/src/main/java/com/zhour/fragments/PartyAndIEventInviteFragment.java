@@ -40,6 +40,7 @@ import com.zhour.adapters.PartyInviteAdapter;
 import com.zhour.adapters.SpinnerAdapter;
 import com.zhour.aynctask.IAsyncCaller;
 import com.zhour.aynctask.ServerJSONAsyncTask;
+import com.zhour.aynctaskold.ServerIntractorAsync;
 import com.zhour.models.Contact;
 import com.zhour.models.LookUpEventsTypeModel;
 import com.zhour.models.Model;
@@ -428,19 +429,19 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
 
             JSONArray jsonArray = new JSONArray();
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("contactname", "Shankar");
-            jsonObject.put("contactnumber", "9014322622");
+            jsonObject.put("contactname", "Prasad");
+            jsonObject.put("contactnumber", "8688556795");
             jsonArray.put(jsonObject);
 
             JSONObject jsonObject1 = new JSONObject();
-            jsonObject1.put("contactname", "Anil");
-            jsonObject1.put("contactnumber", "8685542544");
+            jsonObject1.put("contactname", "Ramesh");
+            jsonObject1.put("contactnumber", "8665656522");
             jsonArray.put(jsonObject1);
 
             linkedHashMap.put("contacts", jsonArray.toString());
 
             LookUpEventTypeParser lookUpEventTypeParser = new LookUpEventTypeParser();
-            ServerJSONAsyncTask serverJSONAsyncTask = new ServerJSONAsyncTask(
+            ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
                     parent, Utility.getResourcesString(parent, R.string.please_wait), true,
                     APIConstants.SAVE_INVITE, linkedHashMap,
                     APIConstants.REQUEST_TYPE.POST, this, lookUpEventTypeParser);

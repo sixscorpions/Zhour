@@ -244,7 +244,7 @@ public class ServerJSONAsyncTask extends BaseAsyncTask {
                 List<HttpCookie> cookies = msCookieManager.getCookieStore().getCookies();
                 if (cookies != null) {
                     for (HttpCookie cookie : cookies) {
-                        Utility.setSharedPrefStringData(mContext, Constants.TOKEN, cookie.getValue());
+                      //  Utility.setSharedPrefStringData(mContext, Constants.TOKEN, cookie.getValue());
                     }
                 }
             }
