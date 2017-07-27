@@ -67,4 +67,6 @@
     <string name="select_contact">Select Contact</string>
     <string name="search">Search</string>
     <string name="invite_type">Invite Type</string>
+    <string name="venue">Venue</string>
+    <string name="phone_numbers">Phone numbers</string>
 </resources>

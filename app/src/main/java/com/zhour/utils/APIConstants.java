@@ -20,6 +20,7 @@ public class APIConstants {
 
     public static String AUTHENTICATE_USER = BASE_URL + "authenticateUser";
     public static String GET_LOOKUP_DATA_BY_ENTITY_NAME = BASE_URL + "getLookupDataByEntityName";
+    public static String SAVE_INVITE = BASE_URL + "saveInvite";
 
 
 }

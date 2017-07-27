@@ -46,7 +46,7 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/iv_occations"
+            android:id="@+id/iv_occasions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/ll_parent"
@@ -57,7 +57,7 @@
             android:id="@+id/ll_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/iv_occations"
+            android:layout_below="@+id/iv_occasions"
             android:layout_marginBottom="@dimen/_10dp"
             android:layout_marginEnd="@dimen/_30dp"
             android:layout_marginStart="@dimen/_30dp"

@@ -26,13 +26,18 @@ public class AuthenticateUserParser implements Parser<Model> {
                 mAuthenticateUserModel.setUserid(dataObject.optString("userid"));
                 mAuthenticateUserModel.setUsername(dataObject.optString("username"));
                 mAuthenticateUserModel.setContactnumber(dataObject.optString("contactnumber"));
-                mAuthenticateUserModel.setRolename(dataObject.optString("rolename"));
                 mAuthenticateUserModel.setLastlogin(dataObject.optString("lastlogin"));
-                mAuthenticateUserModel.setCommunityid(dataObject.optString("communityid"));
-                mAuthenticateUserModel.setCommunityname(dataObject.optString("communityname"));
-                mAuthenticateUserModel.setResidentid(dataObject.optString("residentid"));
                 mAuthenticateUserModel.setSesid(dataObject.optString("sesid"));
                 mAuthenticateUserModel.setToken(dataObject.optString("token"));
+
+                JSONArray jsonDataArray = dataObject.optJSONArray("communities");
+                JSONObject communityObject = jsonDataArray.optJSONObject(0);
+
+                mAuthenticateUserModel.setCommunityid(communityObject.optString("communityid"));
+                mAuthenticateUserModel.setCommunityname(communityObject.optString("communityname"));
+                mAuthenticateUserModel.setResidentid(communityObject.optString("residentid"));
+                mAuthenticateUserModel.setRolename(communityObject.optString("rolename"));
+
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -7,7 +7,6 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
@@ -41,19 +40,18 @@ import com.zhour.adapters.PartyInviteAdapter;
 import com.zhour.adapters.SpinnerAdapter;
 import com.zhour.aynctask.IAsyncCaller;
 import com.zhour.aynctask.ServerJSONAsyncTask;
-import com.zhour.models.AuthenticateUserModel;
 import com.zhour.models.Contact;
 import com.zhour.models.LookUpEventsTypeModel;
 import com.zhour.models.Model;
 import com.zhour.models.PartyInviteModel;
 import com.zhour.models.SpinnerModel;
-import com.zhour.parser.AuthenticateUserParser;
 import com.zhour.parser.LookUpEventTypeParser;
 import com.zhour.utils.APIConstants;
 import com.zhour.utils.Constants;
 import com.zhour.utils.Utility;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -101,9 +99,6 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     @BindView(R.id.et_phone)
     EditText et_phone;
 
-    @BindView(R.id.ll_code_phone)
-    LinearLayout ll_code_phone;
-
     private ArrayList<PartyInviteModel> list;
 
     @BindView(R.id.ll_list_parent)
@@ -113,7 +108,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     RelativeLayout rl_parent;
     @BindView(R.id.ll_party_invite)
     LinearLayout ll_party_invite;
-    @BindView(R.id.iv_occations)
+    @BindView(R.id.iv_occasions)
     ImageView iv_occations;
 
     @BindView(R.id.view_et_date)
@@ -125,6 +120,11 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
 
     @BindView(R.id.et_invite_types)
     EditText et_invite_types;
+    @BindView(R.id.et_venue)
+    EditText et_venue;
+    @BindView(R.id.et_invite_note)
+    EditText et_invite_note;
+
 
     public static ArrayList<String> contactsListModel = new ArrayList<>();
 
@@ -361,7 +361,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
                 int month = monthOfYear + 1;
-                et_date.setText("" + year + "-" + month + "-" + dayOfMonth);
+                et_date.setText("" + month + "/" + dayOfMonth + "/" + year);
 
             }
         }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
@@ -407,7 +407,83 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
 
     @OnClick(R.id.btn_submit)
     public void submit() {
+        if (isValidFields()) {
+            saveInvite();
+        }
+    }
 
+    /**
+     * This method is used to save invite
+     */
+    private void saveInvite() {
+        try {
+            LinkedHashMap linkedHashMap = new LinkedHashMap();
+            linkedHashMap.put("invitetypeid", getInviteTypeId(et_invite_types.getText().toString()));
+            linkedHashMap.put("eventdate", et_party_date.getText().toString());
+            linkedHashMap.put("eventtime", et_party_time.getText().toString());
+            linkedHashMap.put("invitenote", et_invite_note.getText().toString());
+            linkedHashMap.put("venue", et_venue.getText().toString());
+            linkedHashMap.put("communityid", Utility.getSharedPrefStringData(parent, Constants.COMMUNITY_ID));
+            linkedHashMap.put("residentid", Utility.getSharedPrefStringData(parent, Constants.RESIDENT_ID));
+
+            JSONArray jsonArray = new JSONArray();
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("contactname", "Shankar");
+            jsonObject.put("contactnumber", "9014322622");
+            jsonArray.put(jsonObject);
+
+            JSONObject jsonObject1 = new JSONObject();
+            jsonObject1.put("contactname", "Anil");
+            jsonObject1.put("contactnumber", "8685542544");
+            jsonArray.put(jsonObject1);
+
+            linkedHashMap.put("contacts", jsonArray.toString());
+
+            LookUpEventTypeParser lookUpEventTypeParser = new LookUpEventTypeParser();
+            ServerJSONAsyncTask serverJSONAsyncTask = new ServerJSONAsyncTask(
+                    parent, Utility.getResourcesString(parent, R.string.please_wait), true,
+                    APIConstants.SAVE_INVITE, linkedHashMap,
+                    APIConstants.REQUEST_TYPE.POST, this, lookUpEventTypeParser);
+            Utility.execute(serverJSONAsyncTask);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String getInviteTypeId(String s) {
+        String mInviteTypeId = "";
+        for (int i = 0; i < lookUpEventsTypeModel.getLookupNames().size(); i++) {
+            if (lookUpEventsTypeModel.getLookUpModels().get(i).getLookupname().equals(s)) {
+                mInviteTypeId = lookUpEventsTypeModel.getLookUpModels().get(i).getLookupid();
+            }
+        }
+        return mInviteTypeId;
+    }
+
+    /**
+     * This method is used check is the field are valid
+     */
+    private boolean isValidFields() {
+        boolean isValidated = false;
+        if (Utility.isValueNullOrEmpty(et_invite_types.getText().toString().trim())) {
+            Utility.setSnackBar(parent, et_invite_types, "Please select invite type");
+            et_invite_types.requestFocus();
+        } else if (Utility.isValueNullOrEmpty(et_party_date.getText().toString().trim())) {
+            Utility.setSnackBar(parent, et_party_date, "Please select date");
+            et_party_date.requestFocus();
+        } else if (Utility.isValueNullOrEmpty(et_party_time.getText().toString().trim())) {
+            Utility.setSnackBar(parent, et_party_time, "Please select time");
+            et_party_date.requestFocus();
+        } else if (Utility.isValueNullOrEmpty(et_venue.getText().toString().trim())) {
+            Utility.setSnackBar(parent, et_venue, "Please enter venue");
+            et_party_date.requestFocus();
+        } else if (Utility.isValueNullOrEmpty(et_invite_note.getText().toString().trim())) {
+            Utility.setSnackBar(parent, et_invite_note, "Please enter venue");
+            et_party_date.requestFocus();
+        } else {
+            isValidated = true;
+        }
+        return isValidated;
     }
 
     @OnClick(R.id.et_party_date)
@@ -421,7 +497,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
                 int month = monthOfYear + 1;
-                et_party_date.setText("" + year + "-" + month + "-" + dayOfMonth);
+                et_party_date.setText("" + month + "/" + dayOfMonth + "/" + year);
 
             }
         }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));

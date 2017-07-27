@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
@@ -36,6 +37,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zhour.R;
+import com.zhour.designes.SnackBar;
 
 /**
  * Created by Shankar on 6/29/2017.
@@ -286,6 +288,7 @@ public class Utility {
         return "";
 
     }
+
     public static void navigateDashBoardFragment(Fragment fragment,
                                                  String tag, Bundle bundle, FragmentActivity fragmentActivity) {
         FragmentManager fragmentManager = fragmentActivity
@@ -403,7 +406,18 @@ public class Utility {
         }
     }
 
-
+    public static void setSnackBar(AppCompatActivity parent, View mView, String message) {
+        /*Typeface mProximaNovaRegular = Utility.getProximaNovaRegular(parent);*/
+        SnackBar snackBarIconTitle = new SnackBar();
+        snackBarIconTitle.view(mView)
+                .text(message, "OK", 2)
+                .textColors(Color.WHITE, Color.BLACK)
+                /*.customTitleFont(mProximaNovaRegular)
+                .customActionFont(mProximaNovaRegular)*/
+                .backgroundColor(Utility.getColor(parent, R.color.colorPrimary))
+                .duration(SnackBar.SnackBarDuration.SHORT)
+                .show();
+    }
 
 
 }
