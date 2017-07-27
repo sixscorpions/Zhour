@@ -23,5 +23,8 @@
     <color name="light_green">#20AF89</color>
     <color name="text_color">#455A64</color>
 
+    <color name="background">#e7e7e7</color>
+    <color name="dialog_divider_line">#c1bfbf</color>
+
 
 </resources>

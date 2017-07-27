@@ -1,9 +1,13 @@
 package com.zhour.fragments;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +17,13 @@ import android.widget.TextView;
 
 import com.zhour.R;
 import com.zhour.activities.DashboardActivity;
+import com.zhour.adapters.SliderPagerAdapter;
+import com.zhour.models.ImageModel;
 import com.zhour.utils.Utility;
+
+import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -73,6 +83,13 @@ public class HomeFragment extends Fragment {
     @BindView(R.id.ll_complaints)
     LinearLayout ll_complaints;
 
+    private ViewPager vp_slider;
+    private LinearLayout ll_dots;
+    private SliderPagerAdapter sliderPagerAdapter;
+    ArrayList<ImageModel> slider_image_list;
+    private TextView[] dots;
+    int page_position = 0;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -99,6 +116,67 @@ public class HomeFragment extends Fragment {
 
     private void inItUI() {
 
+        vp_slider = (ViewPager)view. findViewById(R.id.view_pager);
+        ll_dots = (LinearLayout)view. findViewById(R.id.ll_dots);
+
+        slider_image_list = new ArrayList<>();
+
+        ImageModel imageModel = new ImageModel();
+        imageModel.setUrl("http://images.all-free-download.com/images/graphiclarge/mountain_bongo_animal_mammal_220289.jpg");
+        ImageModel imageModel1 = new ImageModel();
+        imageModel1.setUrl("http://images.all-free-download.com/images/graphiclarge/bird_mountain_bird_animal_226401.jpg");
+        ImageModel imageModel2 = new ImageModel();
+        imageModel2.setUrl("http://images.all-free-download.com/images/graphiclarge/mountain_bongo_animal_mammal_220289.jpg");
+        ImageModel imageModel3 = new ImageModel();
+        imageModel3.setUrl("http://images.all-free-download.com/images/graphiclarge/bird_mountain_bird_animal_226401.jpg");
+        slider_image_list.add(imageModel);
+        slider_image_list.add(imageModel1);
+        slider_image_list.add(imageModel2);
+        slider_image_list.add(imageModel3);
+
+
+        sliderPagerAdapter = new SliderPagerAdapter(parent, slider_image_list);
+        vp_slider.setAdapter(sliderPagerAdapter);
+
+        vp_slider.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                addBottomDots(position);
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        addBottomDots(0);
+        final Handler handler = new Handler();
+
+        final Runnable update = new Runnable() {
+            public void run() {
+                if (page_position == slider_image_list.size()) {
+                    page_position = 0;
+                } else {
+                    page_position = page_position + 1;
+                }
+                vp_slider.setCurrentItem(page_position, true);
+            }
+        };
+
+        new Timer().schedule(new TimerTask() {
+
+            @Override
+            public void run() {
+                handler.post(update);
+            }
+        }, 100, 3000);
+
     }
 
     @OnClick(R.id.ll_invite)
@@ -112,6 +190,22 @@ public class HomeFragment extends Fragment {
     public void maidFragment() {
         Bundle bundle = new Bundle();
         Utility.navigateDashBoardFragment(new MaidStatusFragment(), MaidStatusFragment.TAG, bundle, getActivity());
+
+    }
+    private void addBottomDots(int currentPage) {
+        dots = new TextView[slider_image_list.size()];
+
+        ll_dots.removeAllViews();
+        for (int i = 0; i < dots.length; i++) {
+            dots[i] = new TextView(parent);
+            dots[i].setText(Html.fromHtml("&#8226;"));
+            dots[i].setTextSize(35);
+            dots[i].setTextColor(Color.parseColor("#757575"));
+            ll_dots.addView(dots[i]);
+        }
+
+        if (dots.length > 0)
+            dots[currentPage].setTextColor(Color.parseColor("#00796B"));
 
     }
 

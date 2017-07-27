@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical"
+        android:padding="@dimen/_10dp"
+        tools:ignore="UselessParent">
+
+        <LinearLayout
+            android:id="@+id/ll_search_location"
+            style="@style/match_wrap_style"
+            android:background="@drawable/search_round_corners"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <TextView
+                android:id="@+id/tv_et_search_image"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="0.15"
+                android:gravity="center"
+                android:text="@string/search_icon"
+                android:textColor="@color/dialog_divider_line"
+                android:textSize="@dimen/_20sp" />
+
+            <EditText
+                android:id="@+id/et_search"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="0.85"
+                android:background="@color/transparent"
+                android:hint="@string/search"
+                android:imeOptions="actionSearch"
+                android:inputType="textNoSuggestions"
+                android:lines="1"
+                android:textColor="@color/black"
+                android:textColorHint="@color/dialog_divider_line" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

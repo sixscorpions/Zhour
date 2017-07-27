@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:minHeight="@dimen/_40dp"
+        android:text="@string/select_contact"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/_17sp" />
+
+    <include layout="@layout/layout_include_header_search" />
+
+    <ListView
+        android:id="@+id/ll_contacts"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/tv_pick"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:minHeight="@dimen/_40dp"
+        android:text="@string/submit"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/_17sp" />
+
+</LinearLayout>

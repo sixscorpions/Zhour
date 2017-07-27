@@ -5,15 +5,31 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <ImageView
+    <LinearLayout
         android:id="@+id/ll_ic_diwali"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/_15dp"
-        android:layout_marginRight="@dimen/_15dp"
-        android:layout_marginTop="@dimen/_10dp"
-        android:scaleType="fitEnd"
-        android:src="@drawable/ic_diwali" />
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_180dp" />
+
+            <LinearLayout
+                android:id="@+id/ll_dots"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30dp"
+                android:layout_gravity="bottom"
+                android:gravity="center"
+                android:orientation="horizontal" />
+        </FrameLayout>
+
+    </LinearLayout>
 
 
     <LinearLayout
@@ -68,8 +84,7 @@
             <View
                 android:layout_width="@dimen/_1dp"
                 android:layout_height="match_parent"
-                android:background="@color/colorWhite"
-                />
+                android:background="@color/colorWhite" />
 
             <LinearLayout
                 android:id="@+id/ll_notice"
@@ -150,8 +165,7 @@
             <View
                 android:layout_width="@dimen/_1dp"
                 android:layout_height="match_parent"
-                android:background="@color/colorWhite"
-                 />
+                android:background="@color/colorWhite" />
 
             <LinearLayout
                 android:id="@+id/ll_maid"
@@ -244,8 +258,7 @@
             <View
                 android:layout_width="@dimen/_1dp"
                 android:layout_height="match_parent"
-                android:background="@color/colorWhite"
-                />
+                android:background="@color/colorWhite" />
 
             <LinearLayout
                 android:id="@+id/ll_emergency"

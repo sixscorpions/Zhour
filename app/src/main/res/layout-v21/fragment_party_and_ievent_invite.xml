@@ -110,11 +110,13 @@
                 android:layout_marginEnd="@dimen/_25dp"
                 android:layout_marginStart="@dimen/_25dp"
                 android:layout_marginTop="@dimen/_15dp"
-
                 android:backgroundTint="@color/transparent"
                 android:drawableEnd="@drawable/ic_calender"
+                android:focusable="false"
+                android:focusableInTouchMode="true"
                 android:lines="1"
                 android:textColor="@color/text_color"
+                android:textSize="@dimen/_15sp"
                 android:visibility="visible" />
 
             <View
@@ -140,51 +142,117 @@
                 android:visibility="gone">
 
                 <LinearLayout
+                    android:id="@+id/ll_code_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:weightSum="1">
 
-                    <EditText
-                        android:layout_width="@dimen/_0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.25"
-                        android:backgroundTint="@color/colorPrimaryDark"
-                        android:inputType="number"
-                        android:text="+91"
-                        android:textColor="@color/colorPrimaryDark" />
 
-                    <EditText
+                    <LinearLayout
+                        android:layout_width="@dimen/_0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.25"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <EditText
+                            android:id="@+id/et_code"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="@dimen/_5dp"
+                            android:layout_marginStart="@dimen/_5dp"
+                            android:background="@color/transparent"
+                            android:focusable="false"
+                            android:focusableInTouchMode="true"
+                            android:inputType="number"
+                            android:text="+91"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/_15sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1dp"
+                            android:layout_marginEnd="@dimen/_5dp"
+                            android:background="@color/colorPrimaryDark" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:layout_width="@dimen/_0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.75"
-                        android:backgroundTint="@color/colorPrimaryDark"
-                        android:drawableEnd="@drawable/ic_contacts"
-                        android:inputType="phone"
-                        android:textColor="@color/text_color" />
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:weightSum="1">
+
+                            <EditText
+                                android:id="@+id/et_phone"
+                                android:layout_width="@dimen/_0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_5dp"
+                                android:layout_weight="0.8"
+                                android:background="@color/transparent"
+                                android:focusable="true"
+                                android:inputType="phone"
+                                android:textColor="@color/text_color"
+                                android:textSize="@dimen/_15sp" />
+
+                            <ImageView
+                                android:id="@+id/iv_phone_book"
+                                android:layout_width="@dimen/_0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_5dp"
+                                android:layout_marginStart="@dimen/_5dp"
+                                android:layout_marginTop="@dimen/_5dp"
+                                android:layout_weight="0.2"
+                                android:src="@drawable/ic_contacts" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1dp"
+                            android:background="@color/colorPrimaryDark" />
+                    </LinearLayout>
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10dp"
                     android:layout_weight="1">
 
                     <EditText
                         android:id="@+id/et_party_date"
                         android:layout_width="@dimen/_0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_5dp"
                         android:layout_weight="0.4"
                         android:backgroundTint="@color/colorPrimary"
                         android:drawableEnd="@drawable/ic_calender"
-                        android:textColor="@color/text_color" />
+                        android:focusable="false"
+                        android:focusableInTouchMode="true"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/_15sp" />
 
                     <EditText
                         android:id="@+id/et_party_time"
                         android:layout_width="@dimen/_0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_5dp"
                         android:layout_weight="0.4"
                         android:backgroundTint="@color/colorPrimary"
                         android:drawableEnd="@drawable/ic_clock"
-                        android:textColor="@color/text_color" />
+                        android:focusable="false"
+                        android:focusableInTouchMode="true"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/_15sp" />
 
                 </LinearLayout>
 
@@ -198,14 +266,14 @@
                 android:layout_marginBottom="@dimen/_15dp"
                 android:layout_marginEnd="@dimen/_30dp"
                 android:layout_marginStart="@dimen/_30dp"
-                android:layout_marginTop="@dimen/_10dp"
+                android:layout_marginTop="@dimen/_15dp"
                 android:background="@drawable/dotted_rectangel_boarder"
                 android:gravity="start|top"
                 android:hint="@string/invite_note"
                 android:lines="4"
                 android:padding="@dimen/_10dp"
                 android:textColor="@color/text_color"
-                android:textSize="@dimen/_13sp" />
+                android:textSize="@dimen/_15sp" />
         </RelativeLayout>
 
         <Button

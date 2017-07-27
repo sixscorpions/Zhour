@@ -22,4 +22,7 @@ public class Constants {
     public static final String COMMUNITY_NAME = "COMMUNITY_NAME";
     public static final String RESIDENT_ID = "RESIDENT_ID";
     public static final String TOKEN = "TOKEN";
+
+    public static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 200;
+    public static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 201;
 }
