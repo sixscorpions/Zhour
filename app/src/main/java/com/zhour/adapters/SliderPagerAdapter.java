@@ -37,9 +37,7 @@ public class SliderPagerAdapter extends PagerAdapter {
         ImageModel imageModel = image_arraylist.get(position);
         ImageView iv_pager = (ImageView) view.findViewById(R.id.iv_pager);
         Picasso.with(activity.getApplicationContext())
-                .load(imageModel.getUrl())
-                .placeholder(R.drawable.ic_diwali) // optional
-                .error(R.drawable.ic_diwali)         // optional
+                .load(imageModel.getUrl())     // optional
                 .into(iv_pager);
         container.addView(view);
 

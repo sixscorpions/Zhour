@@ -12,7 +12,6 @@
         android:layout_marginLeft="@dimen/_15dp"
         android:layout_marginRight="@dimen/_15dp"
         android:layout_marginTop="@dimen/_10dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_diwali" />
+        android:scaleType="fitXY"/>
 
 </LinearLayout>
