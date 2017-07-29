@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class LookUpEventsTypeModel extends Model {
     private boolean IsError;
     private String Message;
+    private String Output;
     private ArrayList<LookUpModel> lookUpModels;
     private ArrayList<SpinnerModel> lookupNames;
 
@@ -44,5 +45,13 @@ public class LookUpEventsTypeModel extends Model {
 
     public void setLookupNames(ArrayList<SpinnerModel> lookupNames) {
         this.lookupNames = lookupNames;
+    }
+
+    public String getOutput() {
+        return Output;
+    }
+
+    public void setOutput(String output) {
+        Output = output;
     }
 }

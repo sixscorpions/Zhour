@@ -188,6 +188,8 @@
                                     android:focusable="true"
                                     android:gravity="bottom"
                                     android:hint="@string/phone_numbers"
+                                    android:lines="1"
+                                    android:maxLength="10"
                                     android:inputType="phone"
                                     android:textColor="@color/text_color"
                                     android:textSize="@dimen/_15sp" />

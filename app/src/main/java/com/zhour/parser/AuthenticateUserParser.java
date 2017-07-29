@@ -1,16 +1,23 @@
 package com.zhour.parser;
 
 import com.zhour.models.AuthenticateUserModel;
+import com.zhour.models.CommunityUserModel;
 import com.zhour.models.Model;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /**
  * Created by shankar on 7/17/2017.
  */
 
 public class AuthenticateUserParser implements Parser<Model> {
+
+    AuthenticateUserModel mAuthenticateUserModel = new AuthenticateUserModel();
+
+
     @Override
     public Model parse(String s) {
         AuthenticateUserModel mAuthenticateUserModel = new AuthenticateUserModel();
@@ -31,12 +38,24 @@ public class AuthenticateUserParser implements Parser<Model> {
                 mAuthenticateUserModel.setToken(dataObject.optString("token"));
 
                 JSONArray jsonDataArray = dataObject.optJSONArray("communities");
-                JSONObject communityObject = jsonDataArray.optJSONObject(0);
 
-                mAuthenticateUserModel.setCommunityid(communityObject.optString("communityid"));
-                mAuthenticateUserModel.setCommunityname(communityObject.optString("communityname"));
-                mAuthenticateUserModel.setResidentid(communityObject.optString("residentid"));
-                mAuthenticateUserModel.setRolename(communityObject.optString("rolename"));
+
+                ArrayList<CommunityUserModel> communitiesList = new ArrayList<>();
+
+                for (int j = 0; j < jsonDataArray.length(); j++) {
+                    CommunityUserModel mCommunityUserModel = new CommunityUserModel();
+                    JSONObject communityObject = jsonDataArray.optJSONObject(j);
+                    mCommunityUserModel.setUserid(communityObject.optString("userid"));
+                    mCommunityUserModel.setRoleid(communityObject.optString("userid"));
+                    mCommunityUserModel.setCommunityid(communityObject.optString("communityid"));
+                    mCommunityUserModel.setCommunityname(communityObject.optString("communityname"));
+                    mCommunityUserModel.setResidentid(communityObject.optString("residentid"));
+                    mCommunityUserModel.setRolename(communityObject.optString("rolename"));
+                    communitiesList.add(mCommunityUserModel);
+
+                }
+
+                mAuthenticateUserModel.setCommunitiesList(communitiesList);
 
             }
         } catch (Exception e) {

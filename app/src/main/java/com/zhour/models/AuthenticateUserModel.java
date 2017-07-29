@@ -1,5 +1,7 @@
 package com.zhour.models;
 
+import java.util.ArrayList;
+
 /**
  * Created by shankar on 7/17/2017.
  */
@@ -10,13 +12,18 @@ public class AuthenticateUserModel extends Model {
     private String userid;
     private String username;
     private String contactnumber;
-    private String rolename;
     private String lastlogin;
-    private String communityid;
-    private String communityname;
-    private String residentid;
     private String sesid;
     private String token;
+    private ArrayList<CommunityUserModel> communitiesList = new ArrayList<>();
+
+    public ArrayList<CommunityUserModel> getCommunitiesList() {
+        return communitiesList;
+    }
+
+    public void setCommunitiesList(ArrayList<CommunityUserModel> communitiesList) {
+        this.communitiesList = communitiesList;
+    }
 
     public boolean isError() {
         return IsError;
@@ -59,47 +66,6 @@ public class AuthenticateUserModel extends Model {
     public void setContactnumber(String contactnumber) {
         this.contactnumber = contactnumber;
     }
-
-    public String getRolename() {
-        return rolename;
-    }
-
-    public void setRolename(String rolename) {
-        this.rolename = rolename;
-    }
-
-    public String getLastlogin() {
-        return lastlogin;
-    }
-
-    public void setLastlogin(String lastlogin) {
-        this.lastlogin = lastlogin;
-    }
-
-    public String getCommunityid() {
-        return communityid;
-    }
-
-    public void setCommunityid(String communityid) {
-        this.communityid = communityid;
-    }
-
-    public String getCommunityname() {
-        return communityname;
-    }
-
-    public void setCommunityname(String communityname) {
-        this.communityname = communityname;
-    }
-
-    public String getResidentid() {
-        return residentid;
-    }
-
-    public void setResidentid(String residentid) {
-        this.residentid = residentid;
-    }
-
     public String getSesid() {
         return sesid;
     }
@@ -114,5 +80,13 @@ public class AuthenticateUserModel extends Model {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getLastlogin() {
+        return lastlogin;
+    }
+
+    public void setLastlogin(String lastlogin) {
+        this.lastlogin = lastlogin;
     }
 }

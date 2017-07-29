@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_splash"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iv_tool_icon"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layout_gravity="center"
+        android:background="@drawable/toolbr_bg"
+        android:contentDescription="@string/empty"
+        android:src="@drawable/logo" />
+
+    <ListView
+        android:id="@+id/lv_communities"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/_5dp"
+        android:layout_marginTop="@dimen/_5dp"
+        android:background="@color/transparent"
+        android:divider="@color/colorPrimary"
+        android:dividerHeight="@dimen/_1px">
+
+    </ListView>
+
+</LinearLayout>
+

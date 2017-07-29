@@ -116,8 +116,8 @@ public class HomeFragment extends Fragment {
 
     private void inItUI() {
 
-        vp_slider = (ViewPager)view. findViewById(R.id.view_pager);
-        ll_dots = (LinearLayout)view. findViewById(R.id.ll_dots);
+        vp_slider = (ViewPager) view.findViewById(R.id.view_pager);
+        ll_dots = (LinearLayout) view.findViewById(R.id.ll_dots);
 
         slider_image_list = new ArrayList<>();
 
@@ -186,12 +186,39 @@ public class HomeFragment extends Fragment {
 
     }
 
+    /*EMERGENCY */
+
+    @OnClick(R.id.ll_emergency)
+    public void emergencyFragment() {
+        Bundle bundle = new Bundle();
+        Utility.navigateDashBoardFragment(new EmergencyFragment(), EmergencyFragment.TAG, bundle, getActivity());
+
+    }
+    /*ALIEN CAR*/
+
+    @OnClick(R.id.ll_car)
+    public void alienFragment() {
+        Bundle bundle = new Bundle();
+        Utility.navigateDashBoardFragment(new AlienCarFragment(), AlienCarFragment.TAG, bundle, getActivity());
+
+    }
+    /*COMPLAINTS*/
+
+    @OnClick(R.id.ll_complaints)
+    public void complaintsFragment() {
+        Bundle bundle = new Bundle();
+        Utility.navigateDashBoardFragment(new ComplaintsFragment(), ComplaintsFragment.TAG, bundle, getActivity());
+
+    }
+    /*MAID STATUS*/
+
     @OnClick(R.id.ll_maid)
     public void maidFragment() {
         Bundle bundle = new Bundle();
         Utility.navigateDashBoardFragment(new MaidStatusFragment(), MaidStatusFragment.TAG, bundle, getActivity());
 
     }
+
     private void addBottomDots(int currentPage) {
         dots = new TextView[slider_image_list.size()];
 
@@ -206,6 +233,14 @@ public class HomeFragment extends Fragment {
 
         if (dots.length > 0)
             dots[currentPage].setTextColor(Color.parseColor("#00796B"));
+
+    }
+
+    /*NOTICE BOARD */
+    @OnClick(R.id.ll_notice)
+    public void gotoNoticeBoard() {
+        Bundle bundle = new Bundle();
+        Utility.navigateDashBoardFragment(new NoticeBoardFragment(), NoticeBoardFragment.TAG, bundle, parent);
 
     }
 

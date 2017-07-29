@@ -548,6 +548,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
             if (model instanceof LookUpEventsTypeModel) {
                 lookUpEventsTypeModel = (LookUpEventsTypeModel) model;
                 if (!lookUpEventsTypeModel.isError()) {
+
                 }
             }
         }

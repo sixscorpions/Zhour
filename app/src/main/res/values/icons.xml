@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search_icon">&#xE8B6;</string>
+    <string name="sad_icon">&#xf119;</string>
 </resources>

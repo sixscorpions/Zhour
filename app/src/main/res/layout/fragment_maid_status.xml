@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:alpha="1"
         android:background="@drawable/ic_invite_event"
-        android:orientation="vertical">
+        >
 
         <LinearLayout
             android:id="@+id/ll_parent"

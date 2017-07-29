@@ -12,6 +12,7 @@ import com.zhour.R;
 import com.zhour.aynctask.IAsyncCaller;
 import com.zhour.aynctask.ServerJSONAsyncTask;
 import com.zhour.models.AuthenticateUserModel;
+import com.zhour.models.CommunityUserModel;
 import com.zhour.models.Model;
 import com.zhour.parser.AuthenticateUserParser;
 import com.zhour.utils.APIConstants;
@@ -20,6 +21,7 @@ import com.zhour.utils.Utility;
 
 import org.json.JSONArray;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import butterknife.BindView;
@@ -71,8 +73,9 @@ public class SignInActivity extends BaseActivity implements IAsyncCaller {
         try {
             LinkedHashMap linkedHashMap = new LinkedHashMap();
             JSONArray jsonArray = new JSONArray();
-            linkedHashMap.put("contactnumber", et_username.getText().toString());
+            linkedHashMap.put("contactnumber", "9160163366");
             linkedHashMap.put("pwd", et_password.getText().toString());
+
             AuthenticateUserParser authenticateUserParser = new AuthenticateUserParser();
             ServerJSONAsyncTask serverJSONAsyncTask = new ServerJSONAsyncTask(
                     this, Utility.getResourcesString(this, R.string.please_wait), true,
@@ -90,21 +93,34 @@ public class SignInActivity extends BaseActivity implements IAsyncCaller {
         if (model != null) {
             if (model instanceof AuthenticateUserModel) {
                 AuthenticateUserModel authenticateUserModel = (AuthenticateUserModel) model;
-                if (!authenticateUserModel.isError()) {
-                    Utility.setSharedPrefStringData(context, Constants.USER_ID, authenticateUserModel.getUserid());
-                    Utility.setSharedPrefStringData(context, Constants.SESSION_ID, authenticateUserModel.getSesid());
-                    Utility.setSharedPrefStringData(context, Constants.USER_NAME, authenticateUserModel.getUsername());
-                    Utility.setSharedPrefStringData(context, Constants.CONTACT_NUMBER, authenticateUserModel.getUsername());
-                    Utility.setSharedPrefStringData(context, Constants.ROLE_NAME, authenticateUserModel.getRolename());
-                    Utility.setSharedPrefStringData(context, Constants.COMMUNITY_ID, authenticateUserModel.getCommunityid());
-                    Utility.setSharedPrefStringData(context, Constants.COMMUNITY_NAME, authenticateUserModel.getCommunityname());
-                    Utility.setSharedPrefStringData(context, Constants.RESIDENT_ID, authenticateUserModel.getResidentid());
-                    Utility.setSharedPrefStringData(context, Constants.TOKEN, authenticateUserModel.getToken());
 
-                    Intent intent = new Intent(context, DashboardActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                    finish();
+                Utility.setSharedPrefStringData(context, Constants.USER_NAME, authenticateUserModel.getUsername());
+                Utility.setSharedPrefStringData(context, Constants.CONTACT_NUMBER, authenticateUserModel.getContactnumber());
+
+
+                if (!authenticateUserModel.isError()) {
+                    if (authenticateUserModel != null && authenticateUserModel.getCommunitiesList().size() > 0) {
+
+                        ArrayList<CommunityUserModel> userList = authenticateUserModel.getCommunitiesList();
+                        Intent intent = new Intent(context, ChooseCommunityActivity.class);
+                        intent.putExtra(Constants.COMMUNITY_LIST, userList);
+                        intent.putExtra(Constants.TOKEN, authenticateUserModel.getToken());
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                        finish();
+
+                    } else {
+                        Utility.setSharedPrefStringData(context, Constants.USER_ID, authenticateUserModel.getUserid());
+                        Utility.setSharedPrefStringData(context, Constants.SESSION_ID, authenticateUserModel.getSesid());
+                        Utility.setSharedPrefStringData(context, Constants.TOKEN, authenticateUserModel.getToken());
+
+                        Intent intent = new Intent(context, DashboardActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                        finish();
+                    }
+
+
                 }
             }
         }

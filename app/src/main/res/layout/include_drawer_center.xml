@@ -4,7 +4,6 @@
     android:layout_height="wrap_content"
     android:layout_above="@+id/iv_bottom"
     android:layout_below="@+id/iv_header"
-    android:layout_centerInParent="true"
     android:background="@android:color/black"
     android:orientation="vertical">
 

@@ -10,14 +10,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.zhour.R;
-import com.zhour.customviews.CircularImageView;
 import com.zhour.fragments.AboutUsFragment;
 import com.zhour.fragments.HomeFragment;
-import com.zhour.fragments.MaidStatusFragment;
 import com.zhour.fragments.PaymentFragment;
+import com.zhour.utils.Constants;
 import com.zhour.utils.Utility;
 
 import butterknife.BindView;
@@ -55,8 +53,11 @@ public class DashboardActivity extends BaseActivity {
     @BindView(R.id.tv_logout)
     TextView tv_logout;
 
-    @BindView(R.id.iv_dp_pic)
-    CircularImageView iv_dp_pic;
+    @BindView(R.id.tv_username)
+    TextView tv_username;
+
+    @BindView(R.id.tv_phone)
+    TextView tv_phone;
 
 
     @BindView(R.id.ll_home)
@@ -89,6 +90,17 @@ public class DashboardActivity extends BaseActivity {
 
         initNavigationDrawer();
         ll_home.performClick();
+
+        /*USER NAME */
+        tv_username.setTypeface(Utility.setRobotoRegular(this));
+        String UserName = Utility.getSharedPrefStringData(this, Constants.USER_NAME);
+        tv_username.setText(UserName);
+
+
+         /*USER NAME */
+        tv_phone.setTypeface(Utility.setRobotoRegular(this));
+        String phoneNumber = Utility.getSharedPrefStringData(this, Constants.CONTACT_NUMBER);
+        tv_phone.setText(phoneNumber);
 
 
     }
@@ -170,10 +182,10 @@ public class DashboardActivity extends BaseActivity {
     @OnClick(R.id.ll_logout)
     public void navigateToLogout() {
         Intent intent = new Intent(this, SignInActivity.class);
+        Utility.setSharedPrefStringData(this, Constants.TOKEN, "");
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
-        Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -194,7 +206,7 @@ public class DashboardActivity extends BaseActivity {
             }
         });*/
 
-        CircularImageView iv_profile_pic = (CircularImageView) findViewById(R.id.iv_dp_pic);
+        /*CircularImageView iv_profile_pic = (CircularImageView) findViewById(R.id.iv_dp_pic);
         iv_profile_pic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -202,7 +214,7 @@ public class DashboardActivity extends BaseActivity {
 
             }
         });
-
+*/
 
     }
 

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/_10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_rectangel_drawble"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_notice"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_120dp"
+            android:background="@drawable/bg_rectangel_drawble"
+            android:maxHeight="@dimen/_120dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_home_sample" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <LinearLayout
+                android:layout_width="@dimen/_0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/_10dp"
+                android:layout_weight="0.8"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_3dp"
+                    android:layout_marginTop="@dimen/_3dp"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:text="@string/app_name"
+                    android:textSize="@dimen/_15sp" />
+
+                <TextView
+                    android:id="@+id/tv_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_3dp"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:text="@string/app_name"
+                    android:textSize="@dimen/_15sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="@dimen/_2dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/_5dp"
+                android:layout_marginTop="@dimen/_5dp"
+                android:background="@color/grey_back" />
+
+            <ImageView
+                android:id="@+id/iv_favorite"
+                android:layout_width="@dimen/_0dp"
+                android:layout_height="@dimen/_40dp"
+                android:layout_gravity="center"
+                android:layout_weight="0.2"
+                android:padding="@dimen/_5dp"
+                android:src="@drawable/ic_favorite" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

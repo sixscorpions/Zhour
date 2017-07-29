@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_communities_parent"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_100dp"
+        android:orientation="horizontal"
+        android:padding="@dimen/_5dp">
+
+        <ImageView
+            android:id="@+id/iv_community"
+            android:layout_width="@dimen/_180dp"
+            android:layout_height="@dimen/_100dp"
+            android:layout_marginEnd="@dimen/_5dp"
+            android:contentDescription="@string/txt_cd"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_home_sample" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/_5dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_community_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10dp"
+                android:ellipsize="end"
+                android:textAllCaps="true"
+                android:hint="@string/app_name"
+                android:lines="1"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_15sp" />
+
+            <TextView
+                android:id="@+id/tv_community"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20dp"
+                android:hint="@string/app_name"
+                android:lines="1"
+                android:textAllCaps="true"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_15sp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_line_height"
+        android:background="@color/dialog_divider_line" />
+</LinearLayout>

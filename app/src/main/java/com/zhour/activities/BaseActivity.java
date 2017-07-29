@@ -1,6 +1,7 @@
 package com.zhour.activities;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -21,6 +22,10 @@ import com.zhour.utils.Utility;
 public class BaseActivity extends AppCompatActivity {
 
     private int mClosePressCount = 0;
+
+    public Dialog progressDialog = null;
+    public Dialog alertDialog = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

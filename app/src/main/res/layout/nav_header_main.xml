@@ -1,83 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="@dimen/_16dp"
     android:background="@android:color/black"
-    android:gravity="top"
     android:orientation="vertical"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_30dp"
-        android:gravity="center"
-        android:paddingLeft="@dimen/_8dp"
-        android:paddingRight="@dimen/_8dp">
-
-        <com.zhour.customviews.CircularImageView
-            android:id="@+id/iv_dp_pic"
-            android:layout_width="@dimen/iv_profile_pic_h_w"
-            android:layout_height="@dimen/iv_profile_pic_h_w"
-            android:layout_gravity="center_horizontal"
-            android:background="@color/transparent"
-            android:padding="@dimen/_1dp"
-            android:paddingTop="@dimen/_10dp"
-            android:src="@drawable/ic_profile_pic"
-            app:civ_border="true"
-            app:civ_border_color="@color/colorAccent"
-            app:civ_shadow="false" />
-    </RelativeLayout>
-
     <TextView
+        android:id="@+id/tv_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/_15dp"
+        android:layout_marginBottom="@dimen/_15dp"
+        android:layout_marginTop="@dimen/_40dp"
         android:gravity="center_horizontal"
         android:text="@string/jaquline"
+        android:layout_alignParentTop="true"
         android:textAllCaps="false"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="@dimen/_20sp" />
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:id="@+id/tv_phone"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_username"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="@dimen/_10dp"
-        android:layout_marginTop="@dimen/_10dp"
+        android:layout_marginBottom="@dimen/_15dp"
         android:gravity="center_horizontal"
         android:text="9696969696"
         android:textColor="@color/yello_text"
-        android:textSize="@dimen/_18sp" />
+        android:textSize="@dimen/_20sp" />
 
     <View
+        android:id="@+id/view"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_1dp"
+        android:layout_height="@dimen/_2px"
+        android:layout_marginTop="@dimen/_15dp"
+        android:layout_below="@+id/tv_phone"
         android:background="@color/colorWhite"
         android:paddingEnd="@dimen/_20dp"
         android:paddingStart="@dimen/_20dp" />
 
 
     <LinearLayout
+        android:id="@+id/ll_home"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:layout_margin="@dimen/_10dp"
+        android:gravity="bottom"
         android:orientation="vertical">
 
         <include layout="@layout/include_drawer_center" />
-
     </LinearLayout>
+
 
     <ImageView
         android:id="@+id/iv_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/btnDefaultColor"
         android:scaleType="fitXY"
         android:src="@drawable/ic_bottom_drwer" />
 
 
-</LinearLayout>
+</RelativeLayout>
