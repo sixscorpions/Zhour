@@ -2,133 +2,148 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/background"
+    android:layout_marginEnd="@dimen/_10dp"
+    android:layout_marginLeft="@dimen/_10dp"
     android:orientation="vertical">
 
     <FrameLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|center_vertical"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:weightSum="1">
 
         <ImageView
-            android:layout_width="@dimen/_30dp"
+            android:id="@+id/iv_cross"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/_30dp"
             android:layout_gravity="end"
-            android:layout_marginEnd="@dimen/_15dp"
-            android:layout_marginTop="@dimen/_5dp"
+            android:layout_marginEnd="@dimen/_5dp"
+            android:layout_marginTop="@dimen/_3dp"
             android:src="@drawable/ic_cross" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_30dp"
-            android:layout_marginTop="@dimen/_18dp"
-            android:background="@drawable/ic_pop_back"
-            android:orientation="vertical">
+            android:padding="@dimen/_15dp">
+
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="@dimen/_15dp"
-                android:layout_marginRight="@dimen/_15dp"
-                android:layout_marginTop="@dimen/_30dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:weightSum="1">
-
-                <ImageView
-                    android:id="@+id/iv_profile"
-                    android:layout_width="@dimen/_0dp"
-                    android:layout_height="@dimen/_30dp"
-                    android:layout_weight="0.3"
-                    android:src="@drawable/ic_phone" />
-
-                <TextView
-                    android:id="@+id/tv_user_name"
-                    android:layout_width="@dimen/_0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.7"
-                    android:text="Mr.Chakravarthi"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="@dimen/_18sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_15dp"
-                android:orientation="horizontal"
-                android:weightSum="1">
-
-                <LinearLayout
-                    android:layout_width="@dimen/_0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="0.5"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/iv_plot"
-                        android:layout_width="@dimen/_50dp"
-                        android:layout_height="@dimen/_70dp"
-                        android:src="@drawable/ic_home" />
-
-                    <TextView
-                        android:id="@+id/tv_plot_address"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10dp"
-                        android:text="Block-A,Flat-301"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="@dimen/_15sp" />
-
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="@dimen/_0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="0.5"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/iv_mobile"
-                        android:layout_width="@dimen/_50dp"
-                        android:layout_height="@dimen/_70dp"
-                        android:src="@drawable/ic_home" />
-
-                    <TextView
-                        android:id="@+id/tv_mobile"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10dp"
-                        android:text="+91 9177177728"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="@dimen/_15sp" />
-
-                </LinearLayout>
-
-
-            </LinearLayout>
-
-            <Button
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/_40dp"
-                android:layout_marginLeft="@dimen/_15dp"
-                android:layout_marginRight="@dimen/_15dp"
-                android:layout_marginTop="@dimen/_25dp"
-                android:background="@drawable/ic_alien_call"
-                android:text="@string/txt_call_now"
-                android:textColor="@color/colorPrimaryDark" />
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_pop_back"
+                android:orientation="vertical">
 
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="@dimen/_15dp"
+                    android:layout_marginRight="@dimen/_15dp"
+                    android:layout_marginTop="@dimen/_30dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <ImageView
+                        android:id="@+id/iv_profile"
+                        android:layout_width="@dimen/_0dp"
+                        android:layout_height="@dimen/_30dp"
+                        android:layout_weight="0.3"
+                        android:src="@drawable/ic_pop_user" />
+
+                    <TextView
+                        android:id="@+id/tv_user_name"
+                        android:layout_width="@dimen/_0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.7"
+                        android:ellipsize="end"
+                        android:lines="1"
+                        android:text="Mr.Chakravarthi"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/_20sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_20dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <LinearLayout
+                        android:layout_width="@dimen/_0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/iv_plot"
+                            android:layout_width="@dimen/_40dp"
+                            android:layout_height="@dimen/_60dp"
+                            android:src="@drawable/ic_pop_apartment" />
+
+                        <TextView
+                            android:id="@+id/tv_plot_address"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10dp"
+                            android:text="Block-A,Flat-301"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/_15sp" />
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="@dimen/_0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/iv_mobile"
+                            android:layout_width="@dimen/_40dp"
+                            android:layout_height="@dimen/_60dp"
+                            android:src="@drawable/ic_pop_mobile" />
+
+                        <TextView
+                            android:id="@+id/tv_mobile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10dp"
+                            android:text="+91 9177177728"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/_15sp" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_call"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_40dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="@dimen/_15dp"
+                    android:layout_marginRight="@dimen/_15dp"
+                    android:layout_marginTop="@dimen/_40dp"
+                    android:background="@drawable/ic_alien_call"
+                    android:gravity="center"
+                    android:text="@string/txt_call_now"
+                    android:textColor="@color/colorPrimaryDark" />
+
+
+            </LinearLayout>
         </LinearLayout>
 
     </FrameLayout>

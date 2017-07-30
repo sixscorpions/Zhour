@@ -1,17 +1,23 @@
 package com.zhour.fragments;
 
 
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.zhour.R;
 import com.zhour.activities.DashboardActivity;
+import com.zhour.utils.Utility;
 
 
 public class AlienCarFragment extends Fragment {
@@ -20,6 +26,10 @@ public class AlienCarFragment extends Fragment {
     private View view;
 
     private Button iv_get_details;
+
+
+    private View mDialogView;
+    private android.support.v7.app.AlertDialog alertDialog;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,23 +54,71 @@ public class AlienCarFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-              //  getCarparkingPopUp();
+                getCarparkingPopUp();
 
             }
         });
     }
 
+    @SuppressWarnings("ConstantConditions")
     private void getCarparkingPopUp() {
-         View mDialogView;
-
         AlertDialog.Builder mAlertDialogBuilder = new AlertDialog.Builder(parent);
         LayoutInflater inflater = parent.getLayoutInflater();
         mDialogView = inflater.inflate(R.layout.dialog_car_parking_popup, null);
         mAlertDialogBuilder.setView(mDialogView);
 
-        final AlertDialog alertDialog = mAlertDialogBuilder.create();
+
+        alertDialog = mAlertDialogBuilder.create();
+        try {
+            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
 
 
+        alertDialog.setCanceledOnTouchOutside(false);
+        alertDialog.setCancelable(true);
+
+        /*PROFILE USER AND IMAGE */
+
+          /*TITLE*/
+        ImageView iv_profile = (ImageView) mDialogView.findViewById(R.id.iv_profile);
+        TextView tv_user_name = (TextView) mDialogView.findViewById(R.id.tv_user_name);
+        tv_user_name.setTypeface(Utility.setRobotoRegular(parent));
+
+
+
+        /*CLOSE BUTTON*/
+        ImageView iv_cross = (ImageView) mDialogView.findViewById(R.id.iv_cross);
+        iv_cross.setVisibility(View.VISIBLE);
+        iv_cross.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        /*PLOT ICON*/
+        ImageView iv_plot = (ImageView) mDialogView.findViewById(R.id.iv_plot);
+        TextView tv_plot_address = (TextView) mDialogView.findViewById(R.id.tv_plot_address);
+        tv_plot_address.setTypeface(Utility.setRobotoRegular(parent));
+
+        /*MOBILE ICON*/
+        ImageView iv_mobile = (ImageView) mDialogView.findViewById(R.id.iv_mobile);
+        TextView tv_mobile = (TextView) mDialogView.findViewById(R.id.tv_mobile);
+        tv_plot_address.setTypeface(Utility.setRobotoRegular(parent));
+
+
+        Button btn_call = (Button) mDialogView.findViewById(R.id.btn_call);
+        btn_call.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        alertDialog.show();
 
     }
 
