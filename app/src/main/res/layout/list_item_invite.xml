@@ -4,109 +4,114 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_15dp">
-
-        <ImageView
-            android:id="@+id/iv_background"
-            android:layout_width="match_parent"
-         android:paddingStart="@dimen/_10dp"
-            android:paddingEnd="@dimen/_10dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/_30dp"
-            android:src="@drawable/ic_blue_fill" />
-
-        <ImageView
-            android:id="@+id/iv_event"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_20dp"
-            android:layout_marginStart="@dimen/_20dp"
-            android:src="@drawable/ic_sample" />
-
-        <TextView
-            android:id="@+id/tv_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:lines="2"
-            android:textSize="@dimen/_15sp"
-            android:layout_marginEnd="@dimen/_20dp"
-            android:layout_marginBottom="@dimen/_10dp"
-            android:layout_marginStart="@dimen/_20dp"
-            android:layout_marginTop="@dimen/_40dp"
-            android:text="@string/loreum_ipsum_is_simply_dummy_text_of_the_printing_typesetting_industry"
-            android:textColor="@android:color/white" />
+        android:layout_marginTop="@dimen/_15dp"
+        android:orientation="vertical"
+        android:padding="@dimen/_10dp">
 
         <LinearLayout
-            android:id="@+id/ll_parent"
+            android:id="@+id/iv_background"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:paddingBottom="@dimen/_10dp"
-            android:paddingTop="@dimen/_10dp"
-            android:layout_marginEnd="@dimen/_20dp"
-            android:layout_marginStart="@dimen/_20dp"
-            android:gravity="bottom"
-            android:orientation="horizontal"
-            android:weightSum="1">
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/ic_blue_fill"
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/ll_calander"
+            <TextView
+                android:id="@+id/tv_inviteType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_10dp"
+                android:layout_marginLeft="@dimen/_10dp"
+                android:layout_marginTop="@dimen/_10dp"
+                android:text="@string/about_us"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_15sp" />
+
+            <TextView
+                android:id="@+id/tv_invitenote"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5">
-
-                <ImageView
-                    android:id="@+id/iv_calander"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_8dp"
-                    android:src="@drawable/ic_calender_white" />
-
-                <TextView
-                    android:id="@+id/tv_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_10dp"
-                    android:layout_marginTop="@dimen/_5dp"
-                    android:text="@string/may_23"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/_13sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_time"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
+                android:layout_gravity="top"
                 android:layout_marginEnd="@dimen/_10dp"
-                android:layout_weight="0.5"
-                android:gravity="end">
+                android:layout_marginStart="@dimen/_10dp"
+                android:layout_marginTop="@dimen/_10dp"
+                android:gravity="top"
+                android:lines="2"
+                android:text="@string/loreum_ipsum_is_simply_dummy_text_of_the_printing_typesetting_industry"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/_15sp" />
 
-                <ImageView
-                    android:id="@+id/iv_clock"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_clock_white" />
 
-                <TextView
-                    android:id="@+id/tv_time"
-                    android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/ll_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginEnd="@dimen/_10dp"
+                android:layout_marginStart="@dimen/_10dp"
+                android:gravity="bottom"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/_10dp"
+                android:paddingTop="@dimen/_10dp"
+                android:weightSum="1">
+
+                <LinearLayout
+                    android:id="@+id/ll_calander"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_10dp"
-                    android:layout_marginTop="@dimen/_5dp"
-                    android:text="@string/_7_00_pm"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/_13sp" />
+                    android:layout_weight="0.5">
+
+                    <ImageView
+                        android:id="@+id/iv_calander"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_8dp"
+                        android:src="@drawable/ic_calender_white" />
+
+                    <TextView
+                        android:id="@+id/tv_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_10dp"
+                        android:layout_marginTop="@dimen/_5dp"
+                        android:text="@string/may_23"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/_13sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="@dimen/_10dp"
+                    android:layout_weight="0.5"
+                    android:gravity="end">
+
+                    <ImageView
+                        android:id="@+id/iv_clock"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_clock_white" />
+
+                    <TextView
+                        android:id="@+id/tv_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_10dp"
+                        android:layout_marginTop="@dimen/_5dp"
+                        android:text="@string/_7_00_pm"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/_13sp" />
+                </LinearLayout>
+
             </LinearLayout>
-
         </LinearLayout>
-    </FrameLayout>
+    </LinearLayout>
 
 
 </LinearLayout>

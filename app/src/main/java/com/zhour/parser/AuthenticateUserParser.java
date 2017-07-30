@@ -15,7 +15,6 @@ import java.util.ArrayList;
 
 public class AuthenticateUserParser implements Parser<Model> {
 
-    AuthenticateUserModel mAuthenticateUserModel = new AuthenticateUserModel();
 
 
     @Override

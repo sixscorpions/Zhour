@@ -19,9 +19,6 @@ import com.zhour.utils.Utility;
 
 import java.util.ArrayList;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 
 public class NoticeBoardFragment extends Fragment {
     public static final String TAG = NoticeBoardFragment.class.getSimpleName();
@@ -30,7 +27,7 @@ public class NoticeBoardFragment extends Fragment {
     private ArrayList<NoticeBoardModel> noticeList;
 
 
-   /* @BindView(R.id.lv_notice)*/
+    /* @BindView(R.id.lv_notice)*/
     ListView lv_notice;
 
     private NoticeBoardAdapter mNoticeBoardAdapter;
@@ -47,7 +44,7 @@ public class NoticeBoardFragment extends Fragment {
         if (view != null)
             return view;
         view = inflater.inflate(R.layout.fragment_notice_board, container, false);
-       // ButterKnife.bind(parent, view);
+        // ButterKnife.bind(parent, view);
         inITUI();
         return view;
     }

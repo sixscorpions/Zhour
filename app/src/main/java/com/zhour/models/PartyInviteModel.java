@@ -1,35 +1,41 @@
 package com.zhour.models;
 
+import java.util.ArrayList;
+
 /**
  * Created by madhu on 14-Jul-17.
  */
 
-public class PartyInviteModel {
-    private String desrciption;
-    private String date;
-    private String time;
+public class PartyInviteModel extends Model {
+    private boolean IsError;
+    private String Message;
 
-    public String getDesrciption() {
-        return desrciption;
+    private ArrayList<InvitesModel> invitesList = new ArrayList<>();
+
+    public ArrayList<InvitesModel> getInvitesList() {
+        return invitesList;
     }
 
-    public void setDesrciption(String desrciption) {
-        this.desrciption = desrciption;
+    public void setInvitesList(ArrayList<InvitesModel> invitesList) {
+        this.invitesList = invitesList;
     }
 
-    public String getDate() {
-        return date;
+
+    public boolean isError() {
+        return IsError;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setError(boolean error) {
+        IsError = error;
     }
 
-    public String getTime() {
-        return time;
+    @Override
+    public String getMessage() {
+        return Message;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    @Override
+    public void setMessage(String message) {
+        Message = message;
     }
 }

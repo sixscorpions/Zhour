@@ -73,7 +73,7 @@ public class SignInActivity extends BaseActivity implements IAsyncCaller {
         try {
             LinkedHashMap linkedHashMap = new LinkedHashMap();
             JSONArray jsonArray = new JSONArray();
-            linkedHashMap.put("contactnumber", "9160163366");
+            linkedHashMap.put("contactnumber", et_username.getText().toString());
             linkedHashMap.put("pwd", et_password.getText().toString());
 
             AuthenticateUserParser authenticateUserParser = new AuthenticateUserParser();

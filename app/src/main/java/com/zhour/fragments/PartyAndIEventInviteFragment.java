@@ -30,6 +30,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -42,11 +43,13 @@ import com.zhour.aynctask.IAsyncCaller;
 import com.zhour.aynctask.ServerJSONAsyncTask;
 import com.zhour.aynctaskold.ServerIntractorAsync;
 import com.zhour.models.Contact;
+import com.zhour.models.InvitesModel;
 import com.zhour.models.LookUpEventsTypeModel;
 import com.zhour.models.Model;
 import com.zhour.models.PartyInviteModel;
 import com.zhour.models.SpinnerModel;
 import com.zhour.parser.LookUpEventTypeParser;
+import com.zhour.parser.PartyInviteParser;
 import com.zhour.utils.APIConstants;
 import com.zhour.utils.Constants;
 import com.zhour.utils.Utility;
@@ -100,7 +103,6 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     @BindView(R.id.et_phone)
     EditText et_phone;
 
-    private ArrayList<PartyInviteModel> list;
 
     @BindView(R.id.ll_list_parent)
     LinearLayout ll_list_parent;
@@ -126,16 +128,21 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     @BindView(R.id.et_invite_note)
     EditText et_invite_note;
 
+    @BindView(R.id.scroll_view)
+    ScrollView scroll_view;
+
 
     public static ArrayList<Contact> contactsListModel;
 
     private ArrayList<Contact> newList;
+    private ArrayList<InvitesModel> inviteEventList;
 
-    private PartyInviteAdapter partyInviteAdapter;
     private Cursor mCursor;
     private Set<Contact> result;
     private LookUpEventsTypeModel lookUpEventsTypeModel;
+    private PartyInviteModel partyInviteModel;
     private ContactsAdapter mAdapter;
+    private PartyInviteAdapter partyInviteAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -195,46 +202,6 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
         }
     }
 
-
-    private void getListData() {
-        list = new ArrayList<>();
-
-        PartyInviteModel partyInviteModel = new PartyInviteModel();
-        partyInviteModel.setDesrciption("Hello every one ");
-        partyInviteModel.setDate("May 23");
-        partyInviteModel.setTime("7:00");
-
-        PartyInviteModel partyInviteModel1 = new PartyInviteModel();
-        partyInviteModel1.setDesrciption("Hello every one ");
-        partyInviteModel1.setDate("May 23");
-        partyInviteModel1.setTime("7:00");
-
-        PartyInviteModel partyInviteModel2 = new PartyInviteModel();
-        partyInviteModel2.setDesrciption("Hello every one ");
-        partyInviteModel2.setDate("May 23");
-        partyInviteModel2.setTime("7:00");
-
-        PartyInviteModel partyInviteModel3 = new PartyInviteModel();
-        partyInviteModel3.setDesrciption("Hello every one ");
-        partyInviteModel3.setDate("May 23");
-        partyInviteModel3.setTime("7:00");
-
-
-        PartyInviteModel partyInviteModel4 = new PartyInviteModel();
-        partyInviteModel4.setDesrciption("Hello every one ");
-        partyInviteModel4.setDate("May 23");
-        partyInviteModel4.setTime("7:00");
-
-        list.add(partyInviteModel);
-        list.add(partyInviteModel1);
-        list.add(partyInviteModel2);
-        list.add(partyInviteModel3);
-        list.add(partyInviteModel4);
-
-        partyInviteAdapter = new PartyInviteAdapter(list, parent);
-        list_view.setAdapter(partyInviteAdapter);
-    }
-
     @OnClick(R.id.iv_date)
     public void eventsAndParty() {
         iv_date.setImageDrawable(Utility.getDrawable(parent, R.drawable.ic_time_fill));
@@ -249,8 +216,12 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
         rl_parent.setVisibility(View.GONE);
         ll_list_parent.setVisibility(View.VISIBLE);
         btn_submit.setVisibility(View.GONE);
-        getListData();
+        scroll_view.setVisibility(View.GONE);
+
+
+        getInviteService();
     }
+
 
     @OnClick(R.id.iv_phone_book)
     public void phoneBook() {
@@ -392,6 +363,8 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
 
     @OnClick(R.id.tv_event_invite)
     public void eventInvite() {
+        Utility.hideSoftKeyboard(parent, tv_event_invite);
+        scroll_view.setVisibility(View.VISIBLE);
         btn_submit.setVisibility(View.VISIBLE);
         view_et_date.setVisibility(View.VISIBLE);
         iv_date.setImageDrawable(Utility.getDrawable(parent, R.drawable.ic_date));
@@ -410,6 +383,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     @OnClick(R.id.tv_party_invite)
     public void partyInvite() {
         Utility.hideSoftKeyboard(parent, tv_party_invite);
+        scroll_view.setVisibility(View.VISIBLE);
         btn_submit.setVisibility(View.VISIBLE);
         view_et_date.setVisibility(View.GONE);
         iv_date.setImageDrawable(Utility.getDrawable(parent, R.drawable.ic_date));
@@ -430,6 +404,27 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
             saveInvite();
         }
     }
+    /*INVITE LIST SERVICE CALL*/
+
+    private void getInviteService() {
+
+        String communityID = Utility.getSharedPrefStringData(parent, Constants.COMMUNITY_ID);
+        String residentID = Utility.getSharedPrefStringData(parent, Constants.RESIDENT_ID);
+
+        LinkedHashMap linkedHashMap = new LinkedHashMap();
+        linkedHashMap.put("communityid", communityID);
+        linkedHashMap.put("residentid", residentID);
+
+
+        PartyInviteParser partyInviteParser = new PartyInviteParser();
+        ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                parent, Utility.getResourcesString(parent, R.string.please_wait), true,
+                APIConstants.GET_INVITES, linkedHashMap,
+                APIConstants.REQUEST_TYPE.POST, this, partyInviteParser);
+        Utility.execute(serverJSONAsyncTask);
+
+    }
+
 
     /**
      * This method is used to save invite
@@ -550,8 +545,34 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
                 if (!lookUpEventsTypeModel.isError()) {
 
                 }
+            } else if (model instanceof PartyInviteModel) {
+                partyInviteModel = (PartyInviteModel) model;
+                if (!partyInviteModel.isError()) {
+                    inviteEventList = new ArrayList<>();
+                    getListData(partyInviteModel.getInvitesList());
+
+                }
+
             }
         }
+    }
+    /*GET INVITES DATA*/
+
+    private void getListData(ArrayList<InvitesModel> invitesList) {
+
+        if (invitesList.size() > 0 && invitesList != null) {
+            for (int i = 0; i < invitesList.size(); i++) {
+                InvitesModel invitesModel = invitesList.get(i);
+                inviteEventList.add(invitesModel);
+
+            }
+
+            partyInviteAdapter = new PartyInviteAdapter(inviteEventList, parent);
+            list_view.setAdapter(partyInviteAdapter);
+
+        }
+
+
     }
 
     /*This method is used to set data to spinner*/
