@@ -1,10 +1,16 @@
 package com.zhour.fragments;
 
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -17,6 +23,7 @@ import android.widget.Toast;
 
 import com.zhour.R;
 import com.zhour.activities.DashboardActivity;
+import com.zhour.utils.Constants;
 import com.zhour.utils.Utility;
 
 
@@ -48,6 +55,9 @@ public class AlienCarFragment extends Fragment {
     }
 
     private void inITUI() {
+        /*PERMISSION FOR CALL*/
+        askPermission();
+
         iv_get_details = (Button) view.findViewById(R.id.iv_get_details);
         iv_get_details.setOnClickListener(new View.OnClickListener() {
 
@@ -58,6 +68,23 @@ public class AlienCarFragment extends Fragment {
 
             }
         });
+    }
+
+    private void askPermission() {
+        if (ContextCompat.checkSelfPermission(parent,
+                Manifest.permission.CALL_PHONE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(parent,
+                    Manifest.permission.CALL_PHONE)) {
+
+            } else {
+
+                ActivityCompat.requestPermissions(parent,
+                        new String[]{Manifest.permission.CALL_PHONE},
+                        Constants.MY_PERMISSIONS_REQUEST_CALL_PHONE);
+            }
+        }
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -114,6 +141,8 @@ public class AlienCarFragment extends Fragment {
         btn_call.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "9177177728"));
+                startActivity(intent);
 
             }
         });

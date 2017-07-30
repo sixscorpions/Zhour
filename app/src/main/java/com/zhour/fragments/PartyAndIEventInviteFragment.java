@@ -144,6 +144,10 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     private ContactsAdapter mAdapter;
     private PartyInviteAdapter partyInviteAdapter;
 
+
+    private boolean isPartyInvite = false;
+    private boolean isEventInvite = false;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -363,6 +367,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
 
     @OnClick(R.id.tv_event_invite)
     public void eventInvite() {
+        isEventInvite = true;
         Utility.hideSoftKeyboard(parent, tv_event_invite);
         scroll_view.setVisibility(View.VISIBLE);
         btn_submit.setVisibility(View.VISIBLE);
@@ -382,6 +387,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
 
     @OnClick(R.id.tv_party_invite)
     public void partyInvite() {
+        isPartyInvite = true;
         Utility.hideSoftKeyboard(parent, tv_party_invite);
         scroll_view.setVisibility(View.VISIBLE);
         btn_submit.setVisibility(View.VISIBLE);
@@ -400,8 +406,13 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
 
     @OnClick(R.id.btn_submit)
     public void submit() {
-        if (isValidFields()) {
-            saveInvite();
+        if (isPartyInvite) {
+            if (isValidFields()) {
+                saveInvite();
+            }
+        } else if (isEventInvite) {
+            /*GET EVENT INVITE*/
+
         }
     }
     /*INVITE LIST SERVICE CALL*/

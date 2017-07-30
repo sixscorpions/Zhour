@@ -12,17 +12,25 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zhour.R;
+import com.zhour.aynctask.IAsyncCaller;
+import com.zhour.aynctaskold.ServerIntractorAsync;
 import com.zhour.fragments.AboutUsFragment;
 import com.zhour.fragments.HomeFragment;
 import com.zhour.fragments.PaymentFragment;
+import com.zhour.models.LogoutModel;
+import com.zhour.models.Model;
+import com.zhour.parser.LogoutParser;
+import com.zhour.utils.APIConstants;
 import com.zhour.utils.Constants;
 import com.zhour.utils.Utility;
+
+import java.util.LinkedHashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class DashboardActivity extends BaseActivity {
+public class DashboardActivity extends BaseActivity implements IAsyncCaller {
     private DrawerLayout drawer_layout;
 
     @BindView(R.id.toolbar)
@@ -71,6 +79,7 @@ public class DashboardActivity extends BaseActivity {
 
     private NavigationView navigationView;
     private View headerview;
+    private LogoutModel logoutModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -181,11 +190,18 @@ public class DashboardActivity extends BaseActivity {
 
     @OnClick(R.id.ll_logout)
     public void navigateToLogout() {
-        Intent intent = new Intent(this, SignInActivity.class);
-        Utility.setSharedPrefStringData(this, Constants.TOKEN, "");
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-        finish();
+
+        String userID = Utility.getSharedPrefStringData(this, Constants.USER_ID);
+
+        LinkedHashMap linkedHashMap = new LinkedHashMap();
+        linkedHashMap.put("userid", userID);
+
+        LogoutParser logoutParser = new LogoutParser();
+        ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                this, Utility.getResourcesString(this, R.string.please_wait), true,
+                APIConstants.LOGOUT, linkedHashMap,
+                APIConstants.REQUEST_TYPE.POST, this, logoutParser);
+        Utility.execute(serverJSONAsyncTask);
 
     }
 
@@ -226,5 +242,25 @@ public class DashboardActivity extends BaseActivity {
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public void onComplete(Model model) {
+        if (model != null) {
+            if (model instanceof LogoutModel) {
+                logoutModel = (LogoutModel) model;
+                if (!logoutModel.isError()) {
+                   logout();
+                }
+            }
+        }
+    }
+
+    private void logout() {
+        Intent intent = new Intent(this, SignInActivity.class);
+        Utility.setSharedPrefStringData(this, Constants.TOKEN, "");
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
     }
 }

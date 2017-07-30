@@ -7,19 +7,27 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.zhour.R;
 import com.zhour.activities.DashboardActivity;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+
 public class MaidStatusFragment extends Fragment {
 
     public static final String TAG = MaidStatusFragment.class.getSimpleName();
 
     private DashboardActivity parent;
     private View view;
+    @BindView(R.id.et_user_name)
+    EditText et_user_name;
+
+    @BindView(R.id.et_phone)
+    EditText et_phone;
 
 
     @Override
@@ -36,6 +44,7 @@ public class MaidStatusFragment extends Fragment {
 
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_maid_status, container, false);
+        ButterKnife.bind(this, view);
         inItUI();
         return view;
     }

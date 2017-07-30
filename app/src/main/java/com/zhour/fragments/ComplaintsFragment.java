@@ -34,6 +34,14 @@ public class ComplaintsFragment extends Fragment {
     }
 
     private void inITUI() {
+
+
+        getComplints();
+    }
+
+    private void getComplints() {
+
+
     }
 
 }

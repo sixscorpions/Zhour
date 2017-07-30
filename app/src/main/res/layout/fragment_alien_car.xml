@@ -12,6 +12,7 @@
         android:background="@drawable/ic_invite_event">
 
         <FrameLayout
+            android:id="@+id/fl_alien"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10dp">
@@ -33,6 +34,34 @@
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/_15sp" />
         </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_alien"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fl_alien"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/ic_alien"
+                android:layout_width="@dimen/_200dp"
+                android:layout_height="@dimen/_250dp"
+                android:layout_gravity="center"
+                android:padding="@dimen/_10dp"
+                android:src="@drawable/ic_alien_car" />
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/_10dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50dp">
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
 
         <Button
             android:id="@+id/iv_get_details"

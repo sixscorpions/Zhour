@@ -11,12 +11,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="@dimen/_15dp"
+        android:layout_marginBottom="@dimen/_12dp"
         android:layout_marginTop="@dimen/_40dp"
         android:gravity="center_horizontal"
         android:text="@string/jaquline"
         android:layout_alignParentTop="true"
         android:textAllCaps="false"
+        android:textStyle="bold"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="@dimen/_20sp" />
 
@@ -26,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_username"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="@dimen/_15dp"
+        android:layout_marginBottom="@dimen/_12dp"
         android:gravity="center_horizontal"
         android:text="9696969696"
         android:textColor="@color/yello_text"

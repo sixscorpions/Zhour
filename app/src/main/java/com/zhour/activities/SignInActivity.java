@@ -67,6 +67,11 @@ public class SignInActivity extends BaseActivity implements IAsyncCaller {
         tv_forgot_password.setPaintFlags(tv_forgot_password.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
     }
 
+    @OnClick(R.id.tv_forgot_password)
+    public void forgotPassword(){
+
+    }
+
 
     @OnClick(R.id.btn_login)
     public void loginButtonFunction() {
@@ -99,7 +104,7 @@ public class SignInActivity extends BaseActivity implements IAsyncCaller {
 
 
                 if (!authenticateUserModel.isError()) {
-                    if (authenticateUserModel != null && authenticateUserModel.getCommunitiesList().size() > 0) {
+                    if (authenticateUserModel != null && authenticateUserModel.getCommunitiesList().size() > 1) {
 
                         ArrayList<CommunityUserModel> userList = authenticateUserModel.getCommunitiesList();
                         Intent intent = new Intent(context, ChooseCommunityActivity.class);
@@ -113,6 +118,13 @@ public class SignInActivity extends BaseActivity implements IAsyncCaller {
                         Utility.setSharedPrefStringData(context, Constants.USER_ID, authenticateUserModel.getUserid());
                         Utility.setSharedPrefStringData(context, Constants.SESSION_ID, authenticateUserModel.getSesid());
                         Utility.setSharedPrefStringData(context, Constants.TOKEN, authenticateUserModel.getToken());
+
+                        Utility.setSharedPrefStringData(getApplicationContext(), Constants.ROLE_ID, authenticateUserModel.getCommunitiesList().get(0).getRoleid());
+                        Utility.setSharedPrefStringData(getApplicationContext(), Constants.ROLE_NAME, authenticateUserModel.getCommunitiesList().get(0).getRolename());
+                        Utility.setSharedPrefStringData(getApplicationContext(), Constants.COMMUNITY_ID, authenticateUserModel.getCommunitiesList().get(0).getCommunityid());
+                        Utility.setSharedPrefStringData(getApplicationContext(), Constants.COMMUNITY_NAME, authenticateUserModel.getCommunitiesList().get(0).getCommunityname());
+                        Utility.setSharedPrefStringData(getApplicationContext(), Constants.RESIDENT_ID, authenticateUserModel.getCommunitiesList().get(0).getResidentid());
+
 
                         Intent intent = new Intent(context, DashboardActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
