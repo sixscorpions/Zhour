@@ -1,41 +1,47 @@
 package com.zhour.fragments;
 
-
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.zhour.R;
 import com.zhour.activities.DashboardActivity;
 import com.zhour.adapters.NoticeBoardAdapter;
+import com.zhour.aynctask.IAsyncCaller;
+import com.zhour.aynctaskold.ServerIntractorAsync;
+import com.zhour.models.Model;
+import com.zhour.models.NoticeBoardListModel;
 import com.zhour.models.NoticeBoardModel;
+import com.zhour.parser.NoticeBoardParser;
+import com.zhour.utils.APIConstants;
 import com.zhour.utils.Constants;
 import com.zhour.utils.Utility;
 
-import java.util.ArrayList;
+import java.util.LinkedHashMap;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnItemClick;
 
 
-public class NoticeBoardFragment extends Fragment {
+public class NoticeBoardFragment extends Fragment implements IAsyncCaller {
     public static final String TAG = NoticeBoardFragment.class.getSimpleName();
-    private DashboardActivity parent;
+    private DashboardActivity mParent;
     private View view;
-    private ArrayList<NoticeBoardModel> noticeList;
 
-
-    /* @BindView(R.id.lv_notice)*/
+    @BindView(R.id.lv_notice)
     ListView lv_notice;
 
+    private NoticeBoardListModel mNoticeBoardListModel;
     private NoticeBoardAdapter mNoticeBoardAdapter;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        parent = (DashboardActivity) getActivity();
+        mParent = (DashboardActivity) getActivity();
     }
 
     @Override
@@ -44,80 +50,60 @@ public class NoticeBoardFragment extends Fragment {
         if (view != null)
             return view;
         view = inflater.inflate(R.layout.fragment_notice_board, container, false);
-        // ButterKnife.bind(parent, view);
-        inITUI();
+        ButterKnife.bind(this, view);
+        initUi();
         return view;
     }
 
-    private void inITUI() {
-        lv_notice = (ListView) view.findViewById(R.id.lv_notice);
+    private void initUi() {
         getNotifications();
-        lv_notice.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                NoticeBoardModel noticeBoardModel = (NoticeBoardModel) adapterView
-                        .getAdapter().getItem(position);
-
-                Bundle bundle = new Bundle();
-                String imagePath = noticeBoardModel.getIcon();
-                if (!Utility.isValueNullOrEmpty(imagePath)) {
-                    bundle.putString(Constants.IMAGE_URL, imagePath);
-
-                }
-                bundle.putString(Constants.TEXT_DESC, noticeBoardModel.getDesc());
-                Utility.navigateDashBoardFragment(new NoticeBoardDetailFragment(), NoticeBoardDetailFragment.TAG, bundle, parent);
-
-            }
-        });
-
-        mNoticeBoardAdapter = new NoticeBoardAdapter(parent, noticeList);
-        lv_notice.setAdapter(mNoticeBoardAdapter);
-
-
     }
 
-
+    /**
+     * Get Notice board data
+     */
     private void getNotifications() {
-        noticeList = new ArrayList<>();
+        String communityID = Utility.getSharedPrefStringData(mParent, Constants.COMMUNITY_ID);
 
-        NoticeBoardModel noticeBoardModel = new NoticeBoardModel();
-        noticeBoardModel.setDate("26th July");
-        noticeBoardModel.setDesc("Kalamindar Sale is Running Go to  near by stores");
-        noticeBoardModel.setFavorite(true);
-        noticeBoardModel.setIcon("https://lh3.googleusercontent.com/-s-AFpvgSeew/URquc6dF-JI/AAAAAAAAAbs/Mt3xNGRUd68/s1024/Backlit%252520Cloud.jpg");
+        LinkedHashMap linkedHashMap = new LinkedHashMap();
+        linkedHashMap.put("communityid", communityID);
 
-        NoticeBoardModel noticeBoardModel1 = new NoticeBoardModel();
-        noticeBoardModel1.setDate("26th July");
-        noticeBoardModel1.setDesc("Kalamindar Sale is Running Go to  near by stores");
-        noticeBoardModel1.setFavorite(false);
-        noticeBoardModel1.setIcon("https://lh3.googleusercontent.com/-s-AFpvgSeew/URquc6dF-JI/AAAAAAAAAbs/Mt3xNGRUd68/s1024/Backlit%252520Cloud.jpg");
-
-        NoticeBoardModel noticeBoardModel2 = new NoticeBoardModel();
-        noticeBoardModel2.setDate("26th July");
-        noticeBoardModel2.setDesc("Kalamindar Sale is Running Go to  near by stores");
-        noticeBoardModel2.setFavorite(true);
-        noticeBoardModel2.setIcon("https://lh6.googleusercontent.com/-UBmLbPELvoQ/URqucCdv0kI/AAAAAAAAAbs/IdNhr2VQoQs/s1024/Apre%2525CC%252580s%252520la%252520Pluie.jpg");
-
-        NoticeBoardModel noticeBoardModel3 = new NoticeBoardModel();
-        noticeBoardModel3.setDate("26th July");
-        noticeBoardModel3.setDesc("Kalamindar Sale is Running Go to  near by stores");
-        noticeBoardModel3.setFavorite(false);
-        noticeBoardModel3.setIcon("https://lh4.googleusercontent.com/--dq8niRp7W4/URquVgmXvgI/AAAAAAAAAbs/-gnuLQfNnBA/s1024/A%252520Song%252520of%252520Ice%252520and%252520Fire.jpg");
-
-        NoticeBoardModel noticeBoardModel4 = new NoticeBoardModel();
-        noticeBoardModel4.setDate("26th July");
-        noticeBoardModel4.setDesc("Kalamindar Sale is Running Go to  near by stores");
-        noticeBoardModel4.setFavorite(false);
-        noticeBoardModel4.setIcon("https://lh6.googleusercontent.com/-55osAWw3x0Q/URquUtcFr5I/AAAAAAAAAbs/rWlj1RUKrYI/s1024/A%252520Photographer.jpg");
-
-
-        noticeList.add(noticeBoardModel);
-        noticeList.add(noticeBoardModel1);
-        noticeList.add(noticeBoardModel2);
-        noticeList.add(noticeBoardModel3);
-        noticeList.add(noticeBoardModel4);
-
+        NoticeBoardParser noticeBoardParser = new NoticeBoardParser();
+        ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                APIConstants.GET_NOTICES, linkedHashMap,
+                APIConstants.REQUEST_TYPE.POST, this, noticeBoardParser);
+        Utility.execute(serverJSONAsyncTask);
     }
 
 
+    @Override
+    public void onComplete(Model model) {
+        if (model != null) {
+            if (model instanceof NoticeBoardListModel) {
+                mNoticeBoardListModel = (NoticeBoardListModel) model;
+                if (!mNoticeBoardListModel.isError()) {
+                    setDataToLayout();
+                }
+            }
+        }
+    }
+
+    /**
+     * This method is used to set Notice board data
+     */
+    private void setDataToLayout() {
+        if (mNoticeBoardListModel != null) {
+            mNoticeBoardAdapter = new NoticeBoardAdapter(mParent, mNoticeBoardListModel.getNoticeBoardModels());
+            lv_notice.setAdapter(mNoticeBoardAdapter);
+        }
+    }
+
+    @OnItemClick(R.id.lv_notice)
+    void onItemClick(int position) {
+        NoticeBoardModel noticeBoardModel = mNoticeBoardListModel.getNoticeBoardModels().get(position);
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.TEXT_DESC, noticeBoardModel.getNoticedesc());
+        Utility.navigateDashBoardFragment(new NoticeBoardDetailFragment(), NoticeBoardDetailFragment.TAG, bundle, mParent);
+    }
 }

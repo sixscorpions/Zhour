@@ -24,6 +24,7 @@ public class APIConstants {
     public static String GET_INVITES = BASE_URL + "getInvites";
     public static String GET_MAID_INFO = BASE_URL + "getMaidInfo";
     public static String GET_VEHICLE_INFO = BASE_URL + "getVehicleInfo";
+    public static String GET_NOTICES = BASE_URL + "getNotices";
     public static String LOGOUT = BASE_URL + "logoutUser";
 
 

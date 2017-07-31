@@ -4,43 +4,51 @@ package com.zhour.models;
  * Created by madhu on 29-Jul-17.
  */
 
-public class NoticeBoardModel extends Model {
+public class NoticeBoardModel {
 
-    private String icon;
-    private String desc;
-    private String date;
+    private String noticeid;
+    private String noticetitle;
+    private String noticedesc;
+    private String sentby;
+    private String sentdate;
 
-    private boolean isFavorite;
-
-    public String getIcon() {
-        return icon;
+    public String getNoticeid() {
+        return noticeid;
     }
 
-    public void setIcon(String icon) {
-        this.icon = icon;
+    public void setNoticeid(String noticeid) {
+        this.noticeid = noticeid;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getNoticetitle() {
+        return noticetitle;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setNoticetitle(String noticetitle) {
+        this.noticetitle = noticetitle;
     }
 
-    public String getDate() {
-        return date;
+    public String getNoticedesc() {
+        return noticedesc;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setNoticedesc(String noticedesc) {
+        this.noticedesc = noticedesc;
     }
 
-    public boolean isFavorite() {
-        return isFavorite;
+    public String getSentby() {
+        return sentby;
     }
 
-    public void setFavorite(boolean favorite) {
-        isFavorite = favorite;
+    public void setSentby(String sentby) {
+        this.sentby = sentby;
+    }
+
+    public String getSentdate() {
+        return sentdate;
+    }
+
+    public void setSentdate(String sentdate) {
+        this.sentdate = sentdate;
     }
 }

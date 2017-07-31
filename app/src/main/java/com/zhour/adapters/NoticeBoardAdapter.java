@@ -33,7 +33,6 @@ public class NoticeBoardAdapter extends BaseAdapter {
 
     }
 
-
     @Override
     public int getCount() {
         return noticeList.size();
@@ -71,14 +70,10 @@ public class NoticeBoardAdapter extends BaseAdapter {
 
         NoticeBoardModel noticeBoardModel = noticeList.get(position);
 
-        UImageLoader.URLpicLoading(holder.iv_notice, noticeBoardModel.getIcon(), null, R.drawable.ic_home_sample);
+        //UImageLoader.URLpicLoading(holder.iv_notice, noticeBoardModel.getIcon(), null, R.drawable.ic_home_sample);
 
-        holder.tv_header.setText(noticeBoardModel.getDesc());
-        holder.tv_date.setText(noticeBoardModel.getDate());
-        if (noticeBoardModel.isFavorite())
-            holder.iv_favorite.setImageDrawable(Utility.getDrawable(parent, R.drawable.ic_favorite));
-        else
-            holder.iv_favorite.setImageDrawable(Utility.getDrawable(parent, R.drawable.ic_un_favorite));
+        holder.tv_header.setText(noticeBoardModel.getNoticetitle());
+        holder.tv_date.setText("" + noticeBoardModel.getSentdate());
 
         return convertView;
     }
