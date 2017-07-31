@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zhour.R;
@@ -37,6 +38,13 @@ public class MaidStatusFragment extends Fragment implements IAsyncCaller {
 
     @BindView(R.id.tv_phone)
     TextView tv_phone;
+    @BindView(R.id.tv_time)
+    TextView tv_time;
+    @BindView(R.id.tv_date)
+    TextView tv_date;
+
+    @BindView(R.id.btn_switch_in)
+    ImageView btn_switch_in;
 
     private MaidModel mMaidModel;
 
@@ -99,6 +107,13 @@ public class MaidStatusFragment extends Fragment implements IAsyncCaller {
         if (mMaidModel != null) {
             tv_maid_name.setText(mMaidModel.getStaffname());
             tv_phone.setText(mMaidModel.getContact1());
+            if (mMaidModel.getOuttime() == null) {
+                btn_switch_in.setImageDrawable(Utility.getDrawable(mParent, R.drawable.ic_in_off));
+            } else {
+                btn_switch_in.setImageDrawable(Utility.getDrawable(mParent, R.drawable.ic_in_off));
+            }
+            tv_time.setText(Utility.displayTimeFormat(mMaidModel.getIntime()));
+            tv_date.setText(Utility.displayDateFormat(mMaidModel.getIntime()));
         }
     }
 }

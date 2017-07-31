@@ -249,9 +249,9 @@ public class DashboardActivity extends BaseActivity implements IAsyncCaller {
         if (model != null) {
             if (model instanceof LogoutModel) {
                 logoutModel = (LogoutModel) model;
-                if (!logoutModel.isError()) {
-                   logout();
-                }
+                /*if (!logoutModel.isError()) {*/
+                logout();
+                // }
             }
         }
     }

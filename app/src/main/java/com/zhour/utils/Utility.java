@@ -59,6 +59,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -520,6 +523,37 @@ public class Utility {
         canvas.drawBitmap(bitmap, rect, rect, paint);
 
         return output;
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    public static String displayTimeFormat(String sDate) {
+        SimpleDateFormat inputFormat = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss a");
+        SimpleDateFormat outputFormat = new SimpleDateFormat("hh:mm a");
+        Date date;
+        String outputDateStr = "";
+        try {
+            date = inputFormat.parse(sDate);
+            outputDateStr = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return outputDateStr;
+    }
+
+
+    @SuppressLint("SimpleDateFormat")
+    public static String displayDateFormat(String sDate) {
+        SimpleDateFormat inputFormat = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss a");
+        SimpleDateFormat outputFormat = new SimpleDateFormat("dd-MMM-yyyy");
+        Date date;
+        String outputDateStr = "";
+        try {
+            date = inputFormat.parse(sDate);
+            outputDateStr = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return outputDateStr;
     }
 
 }

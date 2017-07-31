@@ -280,14 +280,6 @@
                             android:text="10:05"
                             android:textColor="@color/colorPrimary"
                             android:textSize="@dimen/_20sp" />
-
-                        <TextView
-                            android:id="@+id/tv_am"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/_5dp"
-                            android:text="AM"
-                            android:textColor="@color/colorPrimary" />
                     </LinearLayout>
 
                     <TextView

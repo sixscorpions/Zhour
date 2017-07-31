@@ -40,6 +40,7 @@ public class ServerIntractorAsync extends BaseAsynkTask {
                 Utility.showLog("API CALL :", "REST URL PARAMS : " + mParams);
                 Utility.showLog("API CALL :", "REST URL  : " + mUrl);
                 mResponse = Utility.httpJsonRequest(mUrl, mParams, mContext);
+                Utility.showLog("API CALL :", "RESPONSE : " + mResponse);
                 return parseResposnse(mResponse);
             default:
                 return -1;
