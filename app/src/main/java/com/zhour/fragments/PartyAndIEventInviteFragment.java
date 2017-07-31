@@ -47,9 +47,11 @@ import com.zhour.models.InvitesModel;
 import com.zhour.models.LookUpEventsTypeModel;
 import com.zhour.models.Model;
 import com.zhour.models.PartyInviteModel;
+import com.zhour.models.PartyInviteSuccessModel;
 import com.zhour.models.SpinnerModel;
 import com.zhour.parser.LookUpEventTypeParser;
 import com.zhour.parser.PartyInviteParser;
+import com.zhour.parser.PartyInviteSuccessParser;
 import com.zhour.utils.APIConstants;
 import com.zhour.utils.Constants;
 import com.zhour.utils.Utility;
@@ -74,7 +76,7 @@ import butterknife.OnClick;
 public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCaller {
     public static final String TAG = PartyAndIEventInviteFragment.class.getSimpleName();
     private View view;
-    private DashboardActivity parent;
+    private DashboardActivity mParent;
 
     @BindView(R.id.list_view)
     ListView list_view;
@@ -151,8 +153,8 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        parent = (DashboardActivity) getActivity();
-        Utility.setTranslateStatusBar(parent);
+        mParent = (DashboardActivity) getActivity();
+        Utility.setTranslateStatusBar(mParent);
 
 
     }
@@ -179,7 +181,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
             linkedHashMap.put("entityname", "Event%20Types");
             LookUpEventTypeParser lookUpEventTypeParser = new LookUpEventTypeParser();
             ServerJSONAsyncTask serverJSONAsyncTask = new ServerJSONAsyncTask(
-                    parent, Utility.getResourcesString(parent, R.string.please_wait), true,
+                    mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
                     APIConstants.GET_LOOKUP_DATA_BY_ENTITY_NAME, linkedHashMap,
                     APIConstants.REQUEST_TYPE.POST, this, lookUpEventTypeParser);
             Utility.execute(serverJSONAsyncTask);
@@ -190,16 +192,16 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     }
 
     private void askPermission() {
-        if (ContextCompat.checkSelfPermission(parent,
+        if (ContextCompat.checkSelfPermission(mParent,
                 Manifest.permission.READ_CONTACTS)
                 != PackageManager.PERMISSION_GRANTED) {
 
-            if (ActivityCompat.shouldShowRequestPermissionRationale(parent,
+            if (ActivityCompat.shouldShowRequestPermissionRationale(mParent,
                     Manifest.permission.READ_CONTACTS)) {
 
             } else {
 
-                ActivityCompat.requestPermissions(parent,
+                ActivityCompat.requestPermissions(mParent,
                         new String[]{Manifest.permission.READ_CONTACTS},
                         Constants.MY_PERMISSIONS_REQUEST_READ_CONTACTS);
             }
@@ -208,13 +210,13 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
 
     @OnClick(R.id.iv_date)
     public void eventsAndParty() {
-        iv_date.setImageDrawable(Utility.getDrawable(parent, R.drawable.ic_time_fill));
+        iv_date.setImageDrawable(Utility.getDrawable(mParent, R.drawable.ic_time_fill));
 
-        tv_event_invite.setBackground(Utility.getDrawable(parent, R.drawable.rectangel_edit_right));
-        tv_event_invite.setTextColor(Utility.getColor(parent, R.color.colorPrimary));
+        tv_event_invite.setBackground(Utility.getDrawable(mParent, R.drawable.rectangel_edit_right));
+        tv_event_invite.setTextColor(Utility.getColor(mParent, R.color.colorPrimary));
 
-        tv_party_invite.setBackground(Utility.getDrawable(parent, R.drawable.rectangel_edit_left));
-        tv_party_invite.setTextColor(Utility.getColor(parent, R.color.colorPrimary));
+        tv_party_invite.setBackground(Utility.getDrawable(mParent, R.drawable.rectangel_edit_left));
+        tv_party_invite.setTextColor(Utility.getColor(mParent, R.color.colorPrimary));
 
 
         rl_parent.setVisibility(View.GONE);
@@ -230,7 +232,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     @OnClick(R.id.iv_phone_book)
     public void phoneBook() {
 
-        final Dialog dialog = new Dialog(parent);
+        final Dialog dialog = new Dialog(mParent);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_contacts);
         dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT,
@@ -270,9 +272,9 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
                 dialog.dismiss();
             }
         });
-        tv_et_search_image.setTypeface(Utility.getMaterialIconsRegular(parent));
+        tv_et_search_image.setTypeface(Utility.getMaterialIconsRegular(mParent));
 
-        mCursor = parent.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null, null,
+        mCursor = mParent.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null, null,
                 ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " ASC");
         Set<Contact> contacts = getContacts();
 
@@ -292,7 +294,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
             }
         });
 
-        mAdapter = new ContactsAdapter(parent, newList, TAG);
+        mAdapter = new ContactsAdapter(mParent, newList, TAG);
         ll_contacts.setAdapter(mAdapter);
 
         et_search.addTextChangedListener(new TextWatcher() {
@@ -318,7 +320,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
 
     private boolean checkContactsReadPermission() {
         String permission = "android.permission.READ_CONTACTS";
-        int res = parent.checkCallingOrSelfPermission(permission);
+        int res = mParent.checkCallingOrSelfPermission(permission);
         return (res == PackageManager.PERMISSION_GRANTED);
     }
 
@@ -347,9 +349,9 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
 
     @OnClick(R.id.et_date)
     public void getEventDate() {
-        Utility.hideSoftKeyboard(parent, et_party_date);
+        Utility.hideSoftKeyboard(mParent, et_party_date);
         Calendar c = Calendar.getInstance();
-        DatePickerDialog dpd = new DatePickerDialog(parent, new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog dpd = new DatePickerDialog(mParent, new DatePickerDialog.OnDateSetListener() {
 
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear,
@@ -368,40 +370,40 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     @OnClick(R.id.tv_event_invite)
     public void eventInvite() {
         isEventInvite = true;
-        Utility.hideSoftKeyboard(parent, tv_event_invite);
+        Utility.hideSoftKeyboard(mParent, tv_event_invite);
         scroll_view.setVisibility(View.VISIBLE);
         btn_submit.setVisibility(View.VISIBLE);
         view_et_date.setVisibility(View.VISIBLE);
-        iv_date.setImageDrawable(Utility.getDrawable(parent, R.drawable.ic_date));
+        iv_date.setImageDrawable(Utility.getDrawable(mParent, R.drawable.ic_date));
         rl_parent.setVisibility(View.VISIBLE);
         ll_list_parent.setVisibility(View.GONE);
         et_date.setVisibility(View.VISIBLE);
         ll_party_invite.setVisibility(View.GONE);
-        tv_event_invite.setBackground(Utility.getDrawable(parent, R.drawable.rectangel_edit_fill_right));
-        tv_event_invite.setTextColor(Utility.getColor(parent, R.color.colorWhite));
+        tv_event_invite.setBackground(Utility.getDrawable(mParent, R.drawable.rectangel_edit_fill_right));
+        tv_event_invite.setTextColor(Utility.getColor(mParent, R.color.colorWhite));
 
-        tv_party_invite.setBackground(Utility.getDrawable(parent, R.drawable.rectangel_edit_left));
-        tv_party_invite.setTextColor(Utility.getColor(parent, R.color.colorPrimary));
+        tv_party_invite.setBackground(Utility.getDrawable(mParent, R.drawable.rectangel_edit_left));
+        tv_party_invite.setTextColor(Utility.getColor(mParent, R.color.colorPrimary));
 
     }
 
     @OnClick(R.id.tv_party_invite)
     public void partyInvite() {
         isPartyInvite = true;
-        Utility.hideSoftKeyboard(parent, tv_party_invite);
+        Utility.hideSoftKeyboard(mParent, tv_party_invite);
         scroll_view.setVisibility(View.VISIBLE);
         btn_submit.setVisibility(View.VISIBLE);
         view_et_date.setVisibility(View.GONE);
-        iv_date.setImageDrawable(Utility.getDrawable(parent, R.drawable.ic_date));
+        iv_date.setImageDrawable(Utility.getDrawable(mParent, R.drawable.ic_date));
         rl_parent.setVisibility(View.VISIBLE);
         ll_list_parent.setVisibility(View.GONE);
         et_date.setVisibility(View.GONE);
         ll_party_invite.setVisibility(View.VISIBLE);
-        tv_party_invite.setBackground(Utility.getDrawable(parent, R.drawable.rectangel_edit_fill_left));
-        tv_party_invite.setTextColor(Utility.getColor(parent, R.color.colorWhite));
+        tv_party_invite.setBackground(Utility.getDrawable(mParent, R.drawable.rectangel_edit_fill_left));
+        tv_party_invite.setTextColor(Utility.getColor(mParent, R.color.colorWhite));
 
-        tv_event_invite.setBackground(Utility.getDrawable(parent, R.drawable.rectangel_edit_right));
-        tv_event_invite.setTextColor(Utility.getColor(parent, R.color.colorPrimary));
+        tv_event_invite.setBackground(Utility.getDrawable(mParent, R.drawable.rectangel_edit_right));
+        tv_event_invite.setTextColor(Utility.getColor(mParent, R.color.colorPrimary));
     }
 
     @OnClick(R.id.btn_submit)
@@ -419,17 +421,16 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
 
     private void getInviteService() {
 
-        String communityID = Utility.getSharedPrefStringData(parent, Constants.COMMUNITY_ID);
-        String residentID = Utility.getSharedPrefStringData(parent, Constants.RESIDENT_ID);
+        String communityID = Utility.getSharedPrefStringData(mParent, Constants.COMMUNITY_ID);
+        String residentID = Utility.getSharedPrefStringData(mParent, Constants.RESIDENT_ID);
 
         LinkedHashMap linkedHashMap = new LinkedHashMap();
         linkedHashMap.put("communityid", communityID);
         linkedHashMap.put("residentid", residentID);
 
-
         PartyInviteParser partyInviteParser = new PartyInviteParser();
         ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
-                parent, Utility.getResourcesString(parent, R.string.please_wait), true,
+                mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
                 APIConstants.GET_INVITES, linkedHashMap,
                 APIConstants.REQUEST_TYPE.POST, this, partyInviteParser);
         Utility.execute(serverJSONAsyncTask);
@@ -448,8 +449,8 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
             linkedHashMap.put("eventtime", et_party_time.getText().toString());
             linkedHashMap.put("invitenote", et_invite_note.getText().toString());
             linkedHashMap.put("venue", et_venue.getText().toString());
-            linkedHashMap.put("communityid", Utility.getSharedPrefStringData(parent, Constants.COMMUNITY_ID));
-            linkedHashMap.put("residentid", Utility.getSharedPrefStringData(parent, Constants.RESIDENT_ID));
+            linkedHashMap.put("communityid", Utility.getSharedPrefStringData(mParent, Constants.COMMUNITY_ID));
+            linkedHashMap.put("residentid", Utility.getSharedPrefStringData(mParent, Constants.RESIDENT_ID));
 
             JSONArray jsonArray = new JSONArray();
             JSONObject jsonObject = new JSONObject();
@@ -466,11 +467,11 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
             jsonArray.put(jsonObject);
             linkedHashMap.put("contacts", jsonArray.toString());
 
-            LookUpEventTypeParser lookUpEventTypeParser = new LookUpEventTypeParser();
+            PartyInviteSuccessParser partyInviteSuccessParser = new PartyInviteSuccessParser();
             ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
-                    parent, Utility.getResourcesString(parent, R.string.please_wait), true,
+                    mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
                     APIConstants.SAVE_INVITE, linkedHashMap,
-                    APIConstants.REQUEST_TYPE.POST, this, lookUpEventTypeParser);
+                    APIConstants.REQUEST_TYPE.POST, this, partyInviteSuccessParser);
             Utility.execute(serverJSONAsyncTask);
         } catch (Exception e) {
             e.printStackTrace();
@@ -493,19 +494,19 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     private boolean isValidFields() {
         boolean isValidated = false;
         if (Utility.isValueNullOrEmpty(et_invite_types.getText().toString().trim())) {
-            Utility.setSnackBar(parent, et_invite_types, "Please select invite type");
+            Utility.setSnackBar(mParent, et_invite_types, "Please select invite type");
             et_invite_types.requestFocus();
         } else if (Utility.isValueNullOrEmpty(et_party_date.getText().toString().trim())) {
-            Utility.setSnackBar(parent, et_party_date, "Please select date");
+            Utility.setSnackBar(mParent, et_party_date, "Please select date");
             et_party_date.requestFocus();
         } else if (Utility.isValueNullOrEmpty(et_party_time.getText().toString().trim())) {
-            Utility.setSnackBar(parent, et_party_time, "Please select time");
+            Utility.setSnackBar(mParent, et_party_time, "Please select time");
             et_party_date.requestFocus();
         } else if (Utility.isValueNullOrEmpty(et_venue.getText().toString().trim())) {
-            Utility.setSnackBar(parent, et_venue, "Please enter venue");
+            Utility.setSnackBar(mParent, et_venue, "Please enter venue");
             et_party_date.requestFocus();
         } else if (Utility.isValueNullOrEmpty(et_invite_note.getText().toString().trim())) {
-            Utility.setSnackBar(parent, et_invite_note, "Please enter venue");
+            Utility.setSnackBar(mParent, et_invite_note, "Please enter venue");
             et_party_date.requestFocus();
         } else {
             isValidated = true;
@@ -515,10 +516,10 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
 
     @OnClick(R.id.et_party_date)
     public void getDate() {
-        Utility.hideSoftKeyboard(parent, et_party_date);
+        Utility.hideSoftKeyboard(mParent, et_party_date);
 
         Calendar c = Calendar.getInstance();
-        DatePickerDialog dpd = new DatePickerDialog(parent, new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog dpd = new DatePickerDialog(mParent, new DatePickerDialog.OnDateSetListener() {
 
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear,
@@ -536,9 +537,9 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
 
     @OnClick(R.id.et_party_time)
     public void getTime() {
-        Utility.hideSoftKeyboard(parent, et_party_time);
+        Utility.hideSoftKeyboard(mParent, et_party_time);
         Calendar c = Calendar.getInstance();
-        TimePickerDialog timePickerDialog = new TimePickerDialog(parent, new TimePickerDialog.OnTimeSetListener() {
+        TimePickerDialog timePickerDialog = new TimePickerDialog(mParent, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                 et_party_time.setText(selectedHour + ":" + selectedMinute);
@@ -560,16 +561,36 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
                 partyInviteModel = (PartyInviteModel) model;
                 if (!partyInviteModel.isError()) {
                     inviteEventList = new ArrayList<>();
-                    getListData(partyInviteModel.getInvitesList());
+                    setListData(partyInviteModel.getInvitesList());
 
                 }
-
+            } else if (model instanceof PartyInviteSuccessModel) {
+                PartyInviteSuccessModel partyInviteSuccessModel = (PartyInviteSuccessModel) model;
+                if (!partyInviteSuccessModel.isError()) {
+                    Utility.showToastMessage(mParent, Utility.getResourcesString(mParent, R.string.invitation_sent_successfully));
+                    clearDataAndShowToast();
+                }
             }
         }
     }
-    /*GET INVITES DATA*/
 
-    private void getListData(ArrayList<InvitesModel> invitesList) {
+    /**
+     * This method is used to clear the data
+     */
+    private void clearDataAndShowToast() {
+        et_invite_types.setText("");
+        et_party_date.setText("");
+        et_party_time.setText("");
+        et_venue.setText("");
+        et_invite_note.setText("");
+        et_phone.setText("");
+        contactsListModel = null;
+    }
+
+    /**
+     * SET INVITES DATA
+     */
+    private void setListData(ArrayList<InvitesModel> invitesList) {
 
         if (invitesList.size() > 0 && invitesList != null) {
             for (int i = 0; i < invitesList.size(); i++) {
@@ -578,7 +599,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
 
             }
 
-            partyInviteAdapter = new PartyInviteAdapter(inviteEventList, parent);
+            partyInviteAdapter = new PartyInviteAdapter(inviteEventList, mParent);
             list_view.setAdapter(partyInviteAdapter);
 
         }
@@ -592,7 +613,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
         if (lookUpEventsTypeModel != null &&
                 lookUpEventsTypeModel.getLookUpModels() != null &&
                 lookUpEventsTypeModel.getLookUpModels().size() > 0)
-            showSpinnerDialog(getActivity(), Utility.getResourcesString(parent, R.string.invite_type),
+            showSpinnerDialog(getActivity(), Utility.getResourcesString(mParent, R.string.invite_type),
                     et_invite_types, lookUpEventsTypeModel.getLookupNames(), 1);
     }
 
