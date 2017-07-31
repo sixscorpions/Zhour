@@ -9,8 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:alpha="1"
-        android:background="@drawable/ic_invite_event"
-        >
+        android:background="@drawable/ic_invite_event">
 
         <LinearLayout
             android:id="@+id/ll_parent"
@@ -25,7 +24,7 @@
                 android:layout_width="@dimen/_0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/_10dp"
+                android:layout_marginStart="@dimen/_10dp"
                 android:layout_weight="0.9"
                 android:background="@drawable/ic_butn_maid"
                 android:gravity="center"
@@ -35,7 +34,7 @@
                 android:textSize="@dimen/_18sp" />
 
             <ImageView
-                android:id="@+id/iv_maid_calander"
+                android:id="@+id/iv_maid_calender"
                 android:layout_width="@dimen/_0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -94,17 +93,17 @@
                 android:layout_width="@dimen/_0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/_5dp"
-                android:layout_marginLeft="@dimen/_5dp"
+                android:layout_marginStart="@dimen/_5dp"
                 android:layout_weight="0.8"
                 android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/et_user_name"
+                <TextView
+                    android:id="@+id/tv_maid_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/transparent"
                     android:gravity="bottom"
-                    android:hint="Vanaja Durgal"
+                    android:hint="@string/maid_name"
                     android:minHeight="@dimen/_40dp"
                     android:textSize="@dimen/_18sp" />
 
@@ -163,15 +162,14 @@
                 android:layout_weight="0.8"
                 android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/et_phone"
+                <TextView
+                    android:id="@+id/tv_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/transparent"
                     android:drawableEnd="@drawable/ic_phone"
                     android:gravity="bottom"
-                    android:hint=" 9912345688"
-                    android:inputType="phone"
+                    android:hint="@string/phone"
                     android:minHeight="@dimen/_40dp"
                     android:textSize="@dimen/_15sp" />
 
@@ -212,8 +210,6 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginStart="@dimen/_10dp"
                         android:src="@drawable/ic_in_off" />
-
-
                 </LinearLayout>
 
                 <LinearLayout
@@ -239,11 +235,7 @@
                         android:layout_height="wrap_content"
                         android:text="status"
                         android:textSize="@dimen/_15sp" />
-
-
                 </LinearLayout>
-
-
             </LinearLayout>
 
             <LinearLayout
@@ -265,8 +257,6 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginLeft="@dimen/_10dp"
                         android:src="@drawable/ic_clock_maid" />
-
-
                 </LinearLayout>
 
                 <LinearLayout
@@ -298,10 +288,7 @@
                             android:layout_marginLeft="@dimen/_5dp"
                             android:text="AM"
                             android:textColor="@color/colorPrimary" />
-
-
                     </LinearLayout>
-
 
                     <TextView
                         android:id="@+id/tv_date"
@@ -309,17 +296,9 @@
                         android:layout_height="wrap_content"
                         android:text="23-July-2017"
                         android:textSize="@dimen/_12sp" />
-
-
                 </LinearLayout>
-
-
             </LinearLayout>
-
-
         </LinearLayout>
-
-
     </RelativeLayout>
 
 </RelativeLayout>

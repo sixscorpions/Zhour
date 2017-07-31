@@ -81,5 +81,7 @@ Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots 
     <string name="txt_get_details">Get Details</string>
     <string name="txt_call_now">Call Now</string>
     <string name="invitation_sent_successfully">Invitation Sent Successfully</string>
+    <string name="maid_name">Maid Name</string>
+    <string name="phone">Phone</string>
 
 </resources>

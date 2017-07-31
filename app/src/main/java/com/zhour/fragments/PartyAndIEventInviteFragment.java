@@ -426,8 +426,8 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
             }
         }
     }
-    /*INVITE LIST SERVICE CALL*/
 
+    /*GET INVITE LIST SERVICE CALL*/
     private void getInviteService() {
 
         String communityID = Utility.getSharedPrefStringData(mParent, Constants.COMMUNITY_ID);
