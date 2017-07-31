@@ -112,13 +112,30 @@
                     android:src="@drawable/ic_birth_date" />
 
                 <EditText
-                    android:id="@+id/et_date"
+                    android:id="@+id/et_event_invite_types"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/_40dp"
                     android:layout_below="@+id/iv_occasions"
                     android:layout_marginEnd="@dimen/_25dp"
                     android:layout_marginStart="@dimen/_25dp"
-                    android:layout_marginTop="@dimen/_15dp"
+                    android:layout_marginTop="@dimen/_25dp"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:drawableEnd="@drawable/ic_calender"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:hint="@string/invite_type"
+                    android:lines="1"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/_15sp"
+                    android:visibility="visible" />
+
+                <EditText
+                    android:id="@+id/et_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/et_event_invite_types"
+                    android:layout_marginEnd="@dimen/_25dp"
+                    android:layout_marginStart="@dimen/_25dp"
                     android:backgroundTint="@color/transparent"
                     android:drawableEnd="@drawable/ic_calender"
                     android:focusable="false"
