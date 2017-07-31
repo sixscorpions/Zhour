@@ -118,14 +118,12 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     @BindView(R.id.iv_occasions)
     ImageView iv_occations;
 
-    @BindView(R.id.view_et_date)
-    View view_et_date;
-
-
     @BindView(R.id.et_party_date)
     EditText et_party_date;
     @BindView(R.id.et_event_invite_types)
     EditText et_event_invite_types;
+    @BindView(R.id.et_event_venue)
+    EditText et_event_venue;
 
     @BindView(R.id.et_invite_types)
     EditText et_invite_types;
@@ -376,8 +374,8 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
         Utility.hideSoftKeyboard(mParent, tv_event_invite);
         scroll_view.setVisibility(View.VISIBLE);
         btn_submit.setVisibility(View.VISIBLE);
-        view_et_date.setVisibility(View.VISIBLE);
         et_event_invite_types.setVisibility(View.VISIBLE);
+        et_event_venue.setVisibility(View.VISIBLE);
         iv_date.setImageDrawable(Utility.getDrawable(mParent, R.drawable.ic_date));
         rl_parent.setVisibility(View.VISIBLE);
         ll_list_parent.setVisibility(View.GONE);
@@ -398,12 +396,12 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
         Utility.hideSoftKeyboard(mParent, tv_party_invite);
         scroll_view.setVisibility(View.VISIBLE);
         btn_submit.setVisibility(View.VISIBLE);
-        view_et_date.setVisibility(View.GONE);
         iv_date.setImageDrawable(Utility.getDrawable(mParent, R.drawable.ic_date));
         rl_parent.setVisibility(View.VISIBLE);
         ll_list_parent.setVisibility(View.GONE);
         et_date.setVisibility(View.GONE);
         et_event_invite_types.setVisibility(View.GONE);
+        et_event_venue.setVisibility(View.GONE);
         ll_party_invite.setVisibility(View.VISIBLE);
         tv_party_invite.setBackground(Utility.getDrawable(mParent, R.drawable.rectangel_edit_fill_left));
         tv_party_invite.setTextColor(Utility.getColor(mParent, R.color.colorWhite));
@@ -497,7 +495,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
             linkedHashMap.put("eventdate", et_date.getText().toString());
             linkedHashMap.put("eventtime", "00:00");
             linkedHashMap.put("invitenote", et_invite_note.getText().toString());
-            linkedHashMap.put("venue", "");
+            linkedHashMap.put("venue", et_event_venue.getText().toString());
             linkedHashMap.put("communityid", Utility.getSharedPrefStringData(mParent, Constants.COMMUNITY_ID));
             linkedHashMap.put("residentid", Utility.getSharedPrefStringData(mParent, Constants.RESIDENT_ID));
 
@@ -543,7 +541,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
             Utility.setSnackBar(mParent, et_venue, "Please enter venue");
             et_party_date.requestFocus();
         } else if (Utility.isValueNullOrEmpty(et_invite_note.getText().toString().trim())) {
-            Utility.setSnackBar(mParent, et_invite_note, "Please enter venue");
+            Utility.setSnackBar(mParent, et_invite_note, "Please enter invite note");
             et_party_date.requestFocus();
         } else {
             isValidated = true;
@@ -560,7 +558,10 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
             Utility.setSnackBar(mParent, et_date, "Please select date");
             et_date.requestFocus();
         } else if (Utility.isValueNullOrEmpty(et_invite_note.getText().toString().trim())) {
-            Utility.setSnackBar(mParent, et_invite_note, "Please enter venue");
+            Utility.setSnackBar(mParent, et_invite_note, "Please enter invite note");
+            et_party_date.requestFocus();
+        } else if (Utility.isValueNullOrEmpty(et_event_venue.getText().toString().trim())) {
+            Utility.setSnackBar(mParent, et_event_venue, "Please enter venue");
             et_party_date.requestFocus();
         } else {
             isValidated = true;
@@ -653,6 +654,8 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     private void clearDataForEvent() {
         et_event_invite_types.setText("");
         et_date.setText("");
+        et_invite_note.setText("");
+        et_event_venue.setText("");
         contactsListModel = null;
     }
 

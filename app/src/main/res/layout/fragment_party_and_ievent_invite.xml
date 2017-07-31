@@ -130,36 +130,42 @@
                     android:visibility="visible" />
 
                 <EditText
-                    android:id="@+id/et_date"
+                    android:id="@+id/et_event_venue"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/_40dp"
                     android:layout_below="@+id/et_event_invite_types"
                     android:layout_marginEnd="@dimen/_25dp"
                     android:layout_marginStart="@dimen/_25dp"
-                    android:backgroundTint="@color/transparent"
-                    android:drawableEnd="@drawable/ic_calender"
-                    android:focusable="false"
-                    android:focusableInTouchMode="true"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:hint="@string/venue"
+                    android:inputType="textCapSentences"
                     android:lines="1"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/_15sp"
                     android:visibility="visible" />
 
-                <View
-                    android:id="@+id/view_et_date"
+                <EditText
+                    android:id="@+id/et_date"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_1dp"
-                    android:layout_below="@+id/et_date"
-                    android:layout_marginBottom="@dimen/_10dp"
+                    android:layout_height="@dimen/_40dp"
+                    android:layout_below="@+id/et_event_venue"
                     android:layout_marginEnd="@dimen/_25dp"
                     android:layout_marginStart="@dimen/_25dp"
-                    android:background="@color/colorPrimary" />
+                    android:backgroundTint="@color/colorPrimary"
+                    android:drawableEnd="@drawable/ic_calender"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:hint="@string/invite_type"
+                    android:lines="1"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/_15sp"
+                    android:visibility="visible" />
 
                 <LinearLayout
                     android:id="@+id/ll_party_invite"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/view_et_date"
+                    android:layout_below="@+id/et_date"
                     android:layout_marginEnd="@dimen/_25dp"
                     android:layout_marginStart="@dimen/_25dp"
                     android:layout_marginTop="@dimen/_10dp"
@@ -284,16 +290,16 @@
                 <EditText
                     android:id="@+id/et_invite_note"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_70dp"
+                    android:layout_height="wrap_content"
                     android:layout_below="@+id/ll_party_invite"
                     android:layout_marginBottom="@dimen/_15dp"
                     android:layout_marginEnd="@dimen/_30dp"
                     android:layout_marginStart="@dimen/_30dp"
                     android:layout_marginTop="@dimen/_15dp"
-                    android:background="@drawable/dotted_rectangel_boarder"
+                    android:background="@drawable/dotted_rectangle_boarder"
                     android:gravity="start|top"
                     android:hint="@string/invite_note"
-                    android:lines="4"
+                    android:minHeight="@dimen/_70dp"
                     android:padding="@dimen/_10dp"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/_15sp" />
