@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/txt_cd"
-                android:src="@drawable/ic_aliencar_top" />
+                android:src="@drawable/ic_alien_car_top" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -52,16 +52,55 @@
                 android:src="@drawable/ic_alien_car" />
 
             <LinearLayout
-                android:layout_marginTop="@dimen/_10dp"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_50dp">
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10dp"
+                android:layout_marginTop="@dimen/_40dp"
+                android:orientation="horizontal">
 
+                <LinearLayout
+                    android:layout_width="@dimen/_50dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
+                    <ImageView
+                        android:layout_width="@dimen/_50dp"
+                        android:layout_height="@dimen/_40dp"
+                        android:src="@drawable/abc_big" />
+
+                    <View
+                        android:layout_width="@dimen/_47dp"
+                        android:layout_height="@dimen/_1dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/_7dp"
+                        android:background="@color/colorPrimary" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="@dimen/_0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_30dp"
+                    android:layout_marginStart="@dimen/_30dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/et_vehicle_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_40dp"
+                        android:background="@android:color/transparent"
+                        android:hint="@string/enter_vehicle_number"
+                        android:textColor="@color/black" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/_7dp"
+                        android:background="@color/colorPrimary" />
+                </LinearLayout>
             </LinearLayout>
-
-
         </LinearLayout>
-
 
         <Button
             android:id="@+id/iv_get_details"
@@ -71,7 +110,7 @@
             android:layout_marginBottom="@dimen/_20dp"
             android:layout_marginLeft="@dimen/_10dp"
             android:layout_marginRight="@dimen/_10dp"
-            android:background="@drawable/ic_butn_maid"
+            android:background="@drawable/ic_button_maid"
             android:gravity="center"
             android:text="@string/txt_get_details"
             android:textAllCaps="false"

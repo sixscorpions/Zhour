@@ -60,7 +60,6 @@
                         android:layout_weight="0.7"
                         android:ellipsize="end"
                         android:lines="1"
-                        android:text="Mr.Chakravarthi"
                         android:textColor="@color/colorWhite"
                         android:textSize="@dimen/_20sp" />
                 </LinearLayout>
@@ -93,10 +92,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_10dp"
-                            android:text="Block-A,Flat-301"
                             android:textColor="@color/colorWhite"
                             android:textSize="@dimen/_15sp" />
-
 
                     </LinearLayout>
 
@@ -120,7 +117,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_10dp"
-                            android:text="+91 9177177728"
                             android:textColor="@color/colorWhite"
                             android:textSize="@dimen/_15sp" />
 
