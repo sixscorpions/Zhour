@@ -138,7 +138,6 @@ public class DashboardActivity extends BaseActivity implements IAsyncCaller {
         iv_logout.setImageDrawable(Utility.getDrawable(this, R.drawable.ic_logout));
         tv_logout.setTextColor(Utility.getColor(this, R.color.colorWhite));
 
-
         drawer_layout.closeDrawer(GravityCompat.START);
         Bundle bundle = new Bundle();
         Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, bundle, this);
