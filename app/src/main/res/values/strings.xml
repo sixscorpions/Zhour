@@ -22,7 +22,7 @@
     <string name="signup">SignUp</string>
     <string name="jaquline">Jaquline</string>
     <string name="event_invite">event invite</string>
-    <string name="submit">submit</string>
+    <string name="submit">Submit</string>
     <string name="invite_note">Invite Note</string>
     <string name="txt_invite">INVITE</string>
     <string name="txt_noticboard">NOTICE BOARD</string>
@@ -86,5 +86,9 @@ Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots 
     <string name="enter_vehicle_number">Enter Vehicle number</string>
     <string name="vehicle_not_found">Vehicle not found</string>
     <string name="ap29ag1234">AP29AG1234</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="phone_number">Phone number</string>
+    <string name="phone_digits">0123456789</string>
 
 </resources>

@@ -46,7 +46,6 @@
                     android:layout_height="@dimen/_40dp"
                     android:background="@color/colorPrimary" />
 
-
                 <TextView
                     android:id="@+id/tv_event_invite"
                     android:layout_width="@dimen/_0dp"
@@ -155,7 +154,7 @@
                     android:drawableEnd="@drawable/ic_calender"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
-                    android:hint="@string/invite_type"
+                    android:hint="@string/date"
                     android:lines="1"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/_15sp"
@@ -211,10 +210,11 @@
                                     android:id="@+id/et_phone"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
-                                    android:layout_weight="0.5"
+                                    android:layout_weight="1"
                                     android:background="@color/transparent"
+                                    android:digits="@string/phone_digits"
                                     android:focusable="true"
-                                    android:hint="@string/phone_numbers"
+                                    android:hint="@string/phone_number"
                                     android:inputType="phone"
                                     android:lines="1"
                                     android:maxLength="10"
@@ -222,42 +222,21 @@
                                     android:textSize="@dimen/_15sp" />
 
                                 <LinearLayout
-                                    android:layout_width="@dimen/_0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="0.5"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:gravity="bottom"
                                     android:orientation="horizontal"
                                     android:weightSum="3">
 
-
-                                    <FrameLayout
-                                        android:id="@+id/fl_contact_count"
-                                        android:layout_width="@dimen/_0dp"
-                                        android:layout_height="@dimen/_30dp"
+                                    <TextView
+                                        android:id="@+id/tv_count"
+                                        android:layout_width="@dimen/_29dp"
+                                        android:layout_height="@dimen/_29dp"
                                         android:layout_gravity="center"
-                                        android:layout_marginEnd="@dimen/_5dp"
-                                        android:layout_marginStart="@dimen/_30dp"
-                                        android:layout_weight="1">
-
-                                        <TextView
-                                            android:id="@+id/tv_circle"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_gravity="center"
-                                            android:gravity="center"
-                                            android:text="@string/circle_icon"
-                                            android:textColor="@color/colorPrimaryDark"
-                                            android:textSize="@dimen/_30sp" />
-
-                                        <TextView
-                                            android:id="@+id/tv_count"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_gravity="center"
-                                            android:gravity="center"
-                                            android:text=""
-                                            android:textColor="@color/colorPrimaryDark"
-                                            android:textSize="@dimen/_12sp" />
-                                    </FrameLayout>
+                                        android:background="@drawable/bg_blue_circle"
+                                        android:gravity="center"
+                                        android:textColor="@color/colorPrimaryDark"
+                                        android:textSize="@dimen/_12dp" />
 
                                     <TextView
                                         android:id="@+id/tv_add"
@@ -265,6 +244,7 @@
                                         android:layout_height="@dimen/_30dp"
                                         android:layout_gravity="center"
                                         android:layout_marginEnd="@dimen/_5dp"
+                                        android:layout_marginStart="@dimen/_5dp"
                                         android:layout_weight="1"
                                         android:gravity="center"
                                         android:text="@string/plus_icon"
@@ -291,18 +271,6 @@
                                 android:layout_marginStart="@dimen/_2dp"
                                 android:background="@color/colorPrimary" />
                         </LinearLayout>
-
-                        <TextView
-                            android:id="@+id/tv_no_of_contacts"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="@dimen/_10dp"
-                            android:gravity="center"
-                            android:visibility="gone"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="@dimen/_15sp" />
-
                     </LinearLayout>
 
                     <LinearLayout
@@ -321,6 +289,7 @@
                             android:drawableEnd="@drawable/ic_calender"
                             android:focusable="false"
                             android:focusableInTouchMode="true"
+                            android:hint="@string/date"
                             android:textColor="@color/text_color"
                             android:textSize="@dimen/_15sp" />
 
@@ -334,6 +303,7 @@
                             android:drawableEnd="@drawable/ic_clock"
                             android:focusable="false"
                             android:focusableInTouchMode="true"
+                            android:hint="@string/time"
                             android:textColor="@color/text_color"
                             android:textSize="@dimen/_15sp" />
 

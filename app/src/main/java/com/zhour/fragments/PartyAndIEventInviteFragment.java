@@ -108,9 +108,6 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     @BindView(R.id.et_phone)
     EditText et_phone;
 
-    @BindView(R.id.tv_circle)
-    TextView tv_circle;
-
     @BindView(R.id.tv_add)
     TextView tv_add;
 
@@ -126,7 +123,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     @BindView(R.id.ll_party_invite)
     LinearLayout ll_party_invite;
     @BindView(R.id.iv_occasions)
-    ImageView iv_occations;
+    ImageView iv_occasions;
 
     @BindView(R.id.et_party_date)
     EditText et_party_date;
@@ -145,12 +142,8 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     @BindView(R.id.scroll_view)
     ScrollView scroll_view;
 
-    @BindView(R.id.tv_no_of_contacts)
-    TextView tv_no_of_contacts;
-
-
     public static ArrayList<Contact> contactsListModel;
-    public static ArrayList<Contact> addContactList = new ArrayList<>();
+    public static ArrayList<Contact> addContactList;
 
     private ArrayList<Contact> newList;
     private ArrayList<InvitesModel> inviteEventList;
@@ -185,9 +178,9 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     }
 
     private void inItUI() {
-        tv_circle.setTypeface(Utility.setFontAwesomeWebfont(mParent));
         tv_add.setTypeface(Utility.setFontAwesomeWebfont(mParent));
         tv_phone_book.setTypeface(Utility.setFontAwesomeWebfont(mParent));
+        tv_count.setVisibility(View.GONE);
         askPermission();
         getInviteTypes();
     }
@@ -269,6 +262,13 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
                 if (newList.size() > 0) {
                     contactsListModel = new ArrayList<>();
 
+                    if (addContactList != null && addContactList.size() > 0) {
+                        for (int i = 0; i < addContactList.size(); i++) {
+                            Contact contact = addContactList.get(i);
+                            contactsListModel.add(contact);
+                        }
+                    }
+
                     for (int i = 0; i < newList.size(); i++) {
                         Contact contact = newList.get(i);
                         if (contact.ismContacts_Flow()) {
@@ -279,12 +279,13 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
                             mAdapter.updateAdapter(newList);
                         }
                     }
+
                     if (contactsListModel.size() > 0 && contactsListModel.size() != 0) {
+                        tv_count.setVisibility(View.VISIBLE);
                         tv_count.setText("" + contactsListModel.size());
                     } else {
+                        tv_count.setVisibility(View.GONE);
                         tv_count.setText("" + contactsListModel.size());
-
-
                     }
                 }
                 //Utility.showToastMessage(getActivity(), "SELECTED CONTACTS" + contactsListModel.size());
@@ -365,14 +366,14 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
         return result;
     }
 
+    /**
+     * This method is used to add contact manually
+     */
     @OnClick(R.id.tv_add)
     public void addContact() {
         if (isAddContactValidFields()) {
-
             updateData();
-
         }
-
     }
 
     private boolean isAddContactValidFields() {
@@ -686,7 +687,10 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
         et_venue.setText("");
         et_invite_note.setText("");
         et_phone.setText("");
+        tv_count.setText("");
+        tv_count.setVisibility(View.GONE);
         contactsListModel = null;
+        addContactList = null;
     }
 
     /**
@@ -698,6 +702,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
         et_invite_note.setText("");
         et_event_venue.setText("");
         contactsListModel = null;
+        addContactList = null;
     }
 
     /**
@@ -765,22 +770,24 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
         builderSingle.show();
     }
 
-    @SuppressLint("DefaultLocale")
+
+    /**
+     * This method is used to update the contacts
+     */
     private void updateData() {
+        if (contactsListModel == null) {
+            contactsListModel = new ArrayList<>();
+            addContactList = new ArrayList<>();
+        }
         if (contactsListModel != null) {
-            int size = contactsListModel.size() - 1;
-            Contact contact = contactsListModel.get(size);
+            Contact contact = new Contact("", et_phone.getText().toString(), "");
             contact.setPhoneNumber(et_phone.getText().toString());
             contactsListModel.add(contact);
-            Utility.showLog("Size Of Contacts ", "" + size);
-        } else {
-            Utility.showLog("Size Of Contacts ", "" + (contactsListModel != null ? contactsListModel.size() : 0));
+            addContactList.add(contact);
         }
         tv_count.setText(String.format("%d", contactsListModel.size()));
-        tv_no_of_contacts.setVisibility(View.VISIBLE);
-        tv_no_of_contacts.setText(String.format("%d", contactsListModel.size()));
+        tv_count.setVisibility(View.VISIBLE);
         et_phone.setText("");
-
     }
 
 
