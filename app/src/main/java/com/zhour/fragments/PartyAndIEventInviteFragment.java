@@ -1,6 +1,7 @@
 package com.zhour.fragments;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -92,8 +93,8 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     @BindView(R.id.iv_date)
     ImageView iv_date;
 
-    @BindView(R.id.iv_phone_book)
-    ImageView iv_phone_book;
+    @BindView(R.id.tv_phone_book)
+    TextView tv_phone_book;
 
     @BindView(R.id.btn_submit)
     Button btn_submit;
@@ -106,6 +107,15 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
 
     @BindView(R.id.et_phone)
     EditText et_phone;
+
+    @BindView(R.id.tv_circle)
+    TextView tv_circle;
+
+    @BindView(R.id.tv_add)
+    TextView tv_add;
+
+    @BindView(R.id.tv_count)
+    TextView tv_count;
 
 
     @BindView(R.id.ll_list_parent)
@@ -135,8 +145,12 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     @BindView(R.id.scroll_view)
     ScrollView scroll_view;
 
+    @BindView(R.id.tv_no_of_contacts)
+    TextView tv_no_of_contacts;
+
 
     public static ArrayList<Contact> contactsListModel;
+    public static ArrayList<Contact> addContactList = new ArrayList<>();
 
     private ArrayList<Contact> newList;
     private ArrayList<InvitesModel> inviteEventList;
@@ -171,6 +185,9 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     }
 
     private void inItUI() {
+        tv_circle.setTypeface(Utility.setFontAwesomeWebfont(mParent));
+        tv_add.setTypeface(Utility.setFontAwesomeWebfont(mParent));
+        tv_phone_book.setTypeface(Utility.setFontAwesomeWebfont(mParent));
         askPermission();
         getInviteTypes();
     }
@@ -229,7 +246,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     }
 
 
-    @OnClick(R.id.iv_phone_book)
+    @OnClick(R.id.tv_phone_book)
     public void phoneBook() {
 
         final Dialog dialog = new Dialog(mParent);
@@ -262,11 +279,13 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
                             mAdapter.updateAdapter(newList);
                         }
                     }
-                    if (contactsListModel.size() > 0) {
-                        et_phone.setText(contactsListModel.size() + "  Contacts Selected");
+                    if (contactsListModel.size() > 0 && contactsListModel.size() != 0) {
+                        tv_count.setText("" + contactsListModel.size());
+                    } else {
+                        tv_count.setText("" + contactsListModel.size());
+
+
                     }
-
-
                 }
                 //Utility.showToastMessage(getActivity(), "SELECTED CONTACTS" + contactsListModel.size());
                 dialog.dismiss();
@@ -344,6 +363,28 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
             }
         }
         return result;
+    }
+
+    @OnClick(R.id.tv_add)
+    public void addContact() {
+        if (isAddContactValidFields()) {
+
+            updateData();
+
+        }
+
+    }
+
+    private boolean isAddContactValidFields() {
+        boolean isValid = true;
+        if (Utility.isValueNullOrEmpty(et_phone.getText().toString())) {
+            Utility.setSnackBar(mParent, et_phone, "Please enter mobile number");
+            isValid = false;
+        } else if (et_phone.getText().toString().length() < 10) {
+            Utility.setSnackBar(mParent, et_phone, "Please enter valid mobile number");
+            isValid = false;
+        }
+        return isValid;
     }
 
 
@@ -723,4 +764,24 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
                 });
         builderSingle.show();
     }
+
+    @SuppressLint("DefaultLocale")
+    private void updateData() {
+        if (contactsListModel != null) {
+            int size = contactsListModel.size() - 1;
+            Contact contact = contactsListModel.get(size);
+            contact.setPhoneNumber(et_phone.getText().toString());
+            contactsListModel.add(contact);
+            Utility.showLog("Size Of Contacts ", "" + size);
+        } else {
+            Utility.showLog("Size Of Contacts ", "" + (contactsListModel != null ? contactsListModel.size() : 0));
+        }
+        tv_count.setText(String.format("%d", contactsListModel.size()));
+        tv_no_of_contacts.setVisibility(View.VISIBLE);
+        tv_no_of_contacts.setText(String.format("%d", contactsListModel.size()));
+        et_phone.setText("");
+
+    }
+
+
 }
