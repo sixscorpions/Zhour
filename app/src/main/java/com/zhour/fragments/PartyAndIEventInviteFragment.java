@@ -1,7 +1,6 @@
 package com.zhour.fragments;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -183,6 +182,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
         tv_count.setVisibility(View.GONE);
         askPermission();
         getInviteTypes();
+        tv_party_invite.performClick();
     }
 
     private void getInviteTypes() {
@@ -233,8 +233,6 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
         ll_list_parent.setVisibility(View.VISIBLE);
         btn_submit.setVisibility(View.GONE);
         scroll_view.setVisibility(View.GONE);
-
-
         getInviteService();
     }
 
@@ -253,7 +251,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
 
         EditText et_search = (EditText) dialog.findViewById(R.id.et_search);
         TextView tv_et_search_image = (TextView) dialog.findViewById(R.id.tv_et_search_image);
-        ListView ll_contacts = (ListView) dialog.findViewById(R.id.ll_contacts);
+        ListView lv_contacts = (ListView) dialog.findViewById(R.id.lv_contacts);
         TextView tv_pick = (TextView) dialog.findViewById(R.id.tv_pick);
 
         tv_pick.setOnClickListener(new View.OnClickListener() {
@@ -292,6 +290,8 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
                 dialog.dismiss();
             }
         });
+
+
         tv_et_search_image.setTypeface(Utility.getMaterialIconsRegular(mParent));
 
         mCursor = mParent.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null, null,
@@ -315,7 +315,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
         });
 
         mAdapter = new ContactsAdapter(mParent, newList, TAG);
-        ll_contacts.setAdapter(mAdapter);
+        lv_contacts.setAdapter(mAdapter);
 
         et_search.addTextChangedListener(new TextWatcher() {
             @Override
@@ -639,7 +639,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
         TimePickerDialog timePickerDialog = new TimePickerDialog(mParent, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                et_party_time.setText(selectedHour + ":" + selectedMinute);
+                et_party_time.setText(String.format("%02d:%02d", selectedHour, selectedMinute));
             }
         }, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), true);
         timePickerDialog.show();
@@ -785,9 +785,38 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
             contactsListModel.add(contact);
             addContactList.add(contact);
         }
-        tv_count.setText(String.format("%d", contactsListModel.size()));
         tv_count.setVisibility(View.VISIBLE);
+        tv_count.setText(String.format("%d", contactsListModel.size()));
         et_phone.setText("");
+    }
+
+    @OnClick(R.id.tv_count)
+    void showMoreDialog() {
+
+        int[] images = {
+                R.drawable.ic_home,
+                R.drawable.ic_logout_yello,
+                R.drawable.ic_aboutus_yello,
+
+
+        };
+
+        /*Dialog mDialog;
+        mDialog = new Dialog(mParent);
+        mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        mDialog.setContentView(R.layout.dialog_contacts);
+        //dialogShare.getWindow().setGravity(Gravity.BOTTOM);
+        mDialog.setCanceledOnTouchOutside(true);
+        //dialogShare.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        mDialog.getWindow().setBackgroundDrawable(new
+                ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+        ListView listView = (ListView) mDialog.findViewById(R.id.lv_contacts);
+        PrivateSelectedContactsAdapter privateSelectedContactsAdapter = new PrivateSelectedContactsAdapter(mParent, numbersSelected, TAG);
+        listView.setAdapter(privateSelectedContactsAdapter);
+
+        mDialog.show();*/
+
     }
 
 

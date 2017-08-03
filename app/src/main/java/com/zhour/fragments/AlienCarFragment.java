@@ -25,10 +25,8 @@ import com.zhour.activities.DashboardActivity;
 import com.zhour.aynctask.IAsyncCaller;
 import com.zhour.aynctaskold.ServerIntractorAsync;
 import com.zhour.models.AlienCarModel;
-import com.zhour.models.MaidModel;
 import com.zhour.models.Model;
 import com.zhour.parser.AlienCarParser;
-import com.zhour.parser.MaidParser;
 import com.zhour.utils.APIConstants;
 import com.zhour.utils.Constants;
 import com.zhour.utils.Utility;
@@ -170,11 +168,23 @@ public class AlienCarFragment extends Fragment implements IAsyncCaller {
 
         /*PROFILE USER AND IMAGE */
 
+
+
           /*TITLE*/
         ImageView iv_profile = (ImageView) mDialogView.findViewById(R.id.iv_profile);
         TextView tv_user_name = (TextView) mDialogView.findViewById(R.id.tv_user_name);
         tv_user_name.setTypeface(Utility.setRobotoRegular(mParent));
         tv_user_name.setText(mAlienCarModel.getResidentname());
+
+
+        TextView tv_type = (TextView) mDialogView.findViewById(R.id.tv_type);
+        tv_type.setTypeface(Utility.setRobotoRegular(mParent));
+
+        TextView tv_type_of_vehicle = (TextView) mDialogView.findViewById(R.id.tv_type_of_vehicle);
+        tv_type_of_vehicle.setTypeface(Utility.setRobotoRegular(mParent));
+
+        if (!Utility.isValueNullOrEmpty(mAlienCarModel.getVehtype()))
+            tv_type.setText(mAlienCarModel.getVehtype());
 
 
         /*CLOSE BUTTON*/
@@ -191,7 +201,7 @@ public class AlienCarFragment extends Fragment implements IAsyncCaller {
         ImageView iv_plot = (ImageView) mDialogView.findViewById(R.id.iv_plot);
         TextView tv_plot_address = (TextView) mDialogView.findViewById(R.id.tv_plot_address);
         tv_plot_address.setTypeface(Utility.setRobotoRegular(mParent));
-        tv_plot_address.setText("Plot No: " + mAlienCarModel.getFlatnumber());
+        tv_plot_address.setText("Flat No: " + mAlienCarModel.getFlatnumber());
 
         /*MOBILE ICON*/
         ImageView iv_mobile = (ImageView) mDialogView.findViewById(R.id.iv_mobile);

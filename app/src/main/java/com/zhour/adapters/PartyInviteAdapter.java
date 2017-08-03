@@ -80,19 +80,11 @@ public class PartyInviteAdapter extends BaseAdapter {
 
 
         String inviteType = invitesModel.getInvitetype() + " Invitation";
+        /*SET EVENT TIME */
 
-        String time = invitesModel.getEventtime();
-        String timeSym = "";
-        if (time.endsWith(" PM"))
-            timeSym = " PM";
-        else
-            timeSym = " AM";
-
-
-        if (time.endsWith(":00 PM") || time.endsWith(":00 AM")) {
-            time = time.substring(0, time.length() - 6);
+        if (!Utility.isValueNullOrEmpty(invitesModel.getEventtime())) {
+            holder.tv_time.setText(Utility.getTime(invitesModel.getEventtime()));
         }
-        holder.tv_time.setText(time + "" + timeSym);
 
 
         holder.tv_inviteType.setText(inviteType);

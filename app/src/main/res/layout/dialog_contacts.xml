@@ -13,12 +13,12 @@
         android:minHeight="@dimen/_40dp"
         android:text="@string/select_contact"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/_17sp" />
+        android:textSize="@dimen/_20sp" />
 
     <include layout="@layout/layout_include_header_search" />
 
     <ListView
-        android:id="@+id/ll_contacts"
+        android:id="@+id/lv_contacts"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1" />

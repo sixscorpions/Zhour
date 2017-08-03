@@ -76,6 +76,41 @@ public class Utility {
 
     private static final int CONNECTION_TIMEOUT = 25000;
 
+
+    public static String getTime(String time) {
+        String timeSym = "";
+        if (time.endsWith(" PM"))
+            timeSym = " PM";
+        else
+            timeSym = " AM";
+
+
+        if (time.endsWith(":00 PM") || time.endsWith(":00 AM")) {
+            time = time.substring(0, time.length() - 6);
+        }
+        return time + "" + timeSym;
+    }
+
+
+    public static String getTimeFormat(int selectedHour, int selectedMinute) {
+        String AM_PM = " AM";
+        String mm_precede = "";
+        if (selectedHour >= 12) {
+            AM_PM = " PM";
+            if (selectedHour >= 13 && selectedHour < 24) {
+                selectedHour -= 12;
+            } else {
+                selectedHour = 12;
+            }
+        } else if (selectedHour == 0) {
+            selectedHour = 12;
+        }
+        if (selectedMinute < 10) {
+            mm_precede = "0";
+        }
+        return String.valueOf(selectedHour + ":" + mm_precede + selectedMinute + AM_PM);
+    }
+
     /*
      *
 	 *

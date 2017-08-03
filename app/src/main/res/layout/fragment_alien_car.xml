@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="Align Car"
+                android:text="Alien Car"
                 android:textAllCaps="false"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/_15sp" />
@@ -87,6 +87,7 @@
                     <EditText
                         android:id="@+id/et_vehicle_number"
                         android:layout_width="match_parent"
+                        android:text="AP29AG1234"
                         android:layout_height="@dimen/_40dp"
                         android:background="@android:color/transparent"
                         android:hint="@string/enter_vehicle_number"
