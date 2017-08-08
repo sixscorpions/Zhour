@@ -91,5 +91,7 @@ Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots 
     <string name="phone_number">Phone number</string>
     <string name="phone_digits">0123456789</string>
     <string name="vehicle_type">Vehicle Type</string>
+    <string name="complaints">Complaints</string>
+    <string name="complaints_types">Complaints Types</string>
 
 </resources>
