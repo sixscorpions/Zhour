@@ -27,6 +27,7 @@
     <color name="dialog_divider_line">#c1bfbf</color>
     <color name="grey_color">#F4F3F3</color>
     <color name="grey_back">#DBDFE2</color>
+    <color name="calender_color">#0E3E52</color>
 
 
 </resources>

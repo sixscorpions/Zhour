@@ -8,6 +8,7 @@ public class ComplaintModel extends Model {
     private boolean IsError;
     private String Message;
     private String Error;
+    private String Output;
 
     public boolean isError() {
         return IsError;
@@ -33,5 +34,13 @@ public class ComplaintModel extends Model {
 
     public void setError(String error) {
         Error = error;
+    }
+
+    public String getOutput() {
+        return Output;
+    }
+
+    public void setOutput(String output) {
+        Output = output;
     }
 }
