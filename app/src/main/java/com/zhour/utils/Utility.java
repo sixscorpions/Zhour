@@ -591,4 +591,20 @@ public class Utility {
         return outputDateStr;
     }
 
+    @SuppressLint("SimpleDateFormat")
+    public static String displayDateComplaintsFormat(String sDate) {
+        String sDateChanged = sDate.substring(0, 9);
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat outputFormat = new SimpleDateFormat("dd-MM-yyyy");
+        Date date;
+        String outputDateStr = "";
+        try {
+            date = inputFormat.parse(sDateChanged);
+            outputDateStr = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return outputDateStr;
+    }
+
 }

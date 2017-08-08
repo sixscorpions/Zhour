@@ -9,29 +9,52 @@
         android:alpha="1"
         android:background="@drawable/ic_invite_event">
 
-        <FrameLayout
+        <LinearLayout
             android:id="@+id/fl_complaints"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10dp">
-
-            <ImageView
-                android:id="@+id/btn_complaint"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/txt_cd"
-                android:src="@drawable/ic_alien_car_top" />
+            android:layout_margin="@dimen/_10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/tv_complaint_heading"
+                android:layout_width="@dimen/_0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@drawable/ic_alien_car_top"
                 android:gravity="center"
                 android:text="@string/complaints"
                 android:textAllCaps="false"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/_15sp" />
-        </FrameLayout>
+
+            <ImageView
+                android:id="@+id/iv_list"
+                android:layout_width="@dimen/_40dp"
+                android:layout_height="@dimen/_40dp"
+                android:layout_gravity="center"
+                android:padding="@dimen/_5dp"
+                android:src="@drawable/ic_date" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_list_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fl_complaints"
+            android:layout_marginTop="@dimen/_10dp"
+            android:visibility="gone">
+
+            <ListView
+                android:id="@+id/list_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/_5dp"
+                android:divider="@null"
+                android:dividerHeight="@dimen/_4dp" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/ll_complaints"

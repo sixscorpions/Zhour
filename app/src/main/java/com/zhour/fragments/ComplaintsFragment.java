@@ -10,24 +10,35 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.zhour.R;
 import com.zhour.activities.DashboardActivity;
+import com.zhour.adapters.ComplaintAdapter;
+import com.zhour.adapters.PartyInviteAdapter;
 import com.zhour.adapters.SpinnerAdapter;
 import com.zhour.aynctask.IAsyncCaller;
 import com.zhour.aynctask.ServerJSONAsyncTask;
 import com.zhour.aynctaskold.ServerIntractorAsync;
+import com.zhour.models.ComplaintListModel;
 import com.zhour.models.ComplaintModel;
+import com.zhour.models.ComplaintResponseModel;
 import com.zhour.models.EventInviteSuccessModel;
+import com.zhour.models.InvitesModel;
 import com.zhour.models.LookUpEventsTypeModel;
 import com.zhour.models.Model;
+import com.zhour.models.PartyInviteModel;
 import com.zhour.models.SpinnerModel;
+import com.zhour.parser.ComplaintListParser;
 import com.zhour.parser.ComplaintParser;
 import com.zhour.parser.EventInviteSuccessParser;
 import com.zhour.parser.LookUpEventTypeParser;
+import com.zhour.parser.PartyInviteParser;
 import com.zhour.utils.APIConstants;
 import com.zhour.utils.Constants;
 import com.zhour.utils.Utility;
@@ -51,8 +62,26 @@ public class ComplaintsFragment extends Fragment implements IAsyncCaller {
     EditText et_complaints_types;
     @BindView(R.id.et_complaint_description)
     EditText et_complaint_description;
+    @BindView(R.id.tv_complaint_heading)
+    TextView tv_complaint_heading;
+
+
+    @BindView(R.id.ll_complaints)
+    LinearLayout ll_complaints;
+    @BindView(R.id.ll_list_parent)
+    LinearLayout ll_list_parent;
+    @BindView(R.id.list_view)
+    ListView list_view;
+
+    @BindView(R.id.iv_submit)
+    Button iv_submit;
+
+
+    private ComplaintAdapter complaintAdapter;
 
     private LookUpEventsTypeModel lookUpEventsTypeModel;
+    private ComplaintResponseModel mComplaintResponseModel;
+    private ArrayList<ComplaintListModel> complaintListModels;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -73,6 +102,42 @@ public class ComplaintsFragment extends Fragment implements IAsyncCaller {
 
     private void initUi() {
         getInviteTypes();
+        ll_list_parent.setVisibility(View.GONE);
+    }
+
+    @OnClick(R.id.iv_list)
+    public void getComplaints() {
+        iv_submit.setVisibility(View.GONE);
+        ll_complaints.setVisibility(View.GONE);
+        ll_list_parent.setVisibility(View.VISIBLE);
+        getComplaintFromService();
+    }
+
+    @OnClick(R.id.tv_complaint_heading)
+    public void showAddView() {
+        iv_submit.setVisibility(View.VISIBLE);
+        ll_complaints.setVisibility(View.VISIBLE);
+        ll_list_parent.setVisibility(View.GONE);
+    }
+
+    /**
+     * This method is used to get data from the service
+     */
+    private void getComplaintFromService() {
+        String communityID = Utility.getSharedPrefStringData(mParent, Constants.COMMUNITY_ID);
+        String residentID = Utility.getSharedPrefStringData(mParent, Constants.RESIDENT_ID);
+
+        LinkedHashMap linkedHashMap = new LinkedHashMap();
+        linkedHashMap.put("complaintid", "0");
+        linkedHashMap.put("communityid", communityID);
+        linkedHashMap.put("residentid", residentID);
+
+        ComplaintListParser complaintListParser = new ComplaintListParser();
+        ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                APIConstants.GET_COMPLINTS, linkedHashMap,
+                APIConstants.REQUEST_TYPE.POST, this, complaintListParser);
+        Utility.execute(serverJSONAsyncTask);
     }
 
     private void getInviteTypes() {
@@ -196,7 +261,6 @@ public class ComplaintsFragment extends Fragment implements IAsyncCaller {
             if (model instanceof LookUpEventsTypeModel) {
                 lookUpEventsTypeModel = (LookUpEventsTypeModel) model;
                 if (!lookUpEventsTypeModel.isError()) {
-
                 }
             } else if (model instanceof ComplaintModel) {
                 ComplaintModel complaintModel = (ComplaintModel) model;
@@ -204,8 +268,20 @@ public class ComplaintsFragment extends Fragment implements IAsyncCaller {
                     Utility.showToastMessage(mParent, Utility.getResourcesString(mParent, R.string.complaint_raised_successfully));
                     clearDataForComplaint();
                 }
+            } else if (model instanceof ComplaintResponseModel) {
+                mComplaintResponseModel = (ComplaintResponseModel) model;
+                if (!mComplaintResponseModel.isError()) {
+                    complaintListModels = new ArrayList<>();
+                    complaintListModels = mComplaintResponseModel.getComplaintListModels();
+                    setListData(complaintListModels);
+                }
             }
         }
+    }
+
+    private void setListData(ArrayList<ComplaintListModel> complaintListModels) {
+        complaintAdapter = new ComplaintAdapter(complaintListModels, mParent);
+        list_view.setAdapter(complaintAdapter);
     }
 
     /**
