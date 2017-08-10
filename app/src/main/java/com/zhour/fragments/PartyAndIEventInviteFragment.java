@@ -38,6 +38,7 @@ import com.zhour.R;
 import com.zhour.activities.DashboardActivity;
 import com.zhour.adapters.ContactsAdapter;
 import com.zhour.adapters.PartyInviteAdapter;
+import com.zhour.adapters.SelectedContactsAdapter;
 import com.zhour.adapters.SpinnerAdapter;
 import com.zhour.aynctask.IAsyncCaller;
 import com.zhour.aynctask.ServerJSONAsyncTask;
@@ -153,6 +154,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     private PartyInviteModel partyInviteModel;
     private ContactsAdapter mAdapter;
     private PartyInviteAdapter partyInviteAdapter;
+    private SelectedContactsAdapter selectedContactsAdapetr;
 
 
     private boolean isPartyInvite = false;
@@ -364,6 +366,33 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
             }
         }
         return result;
+    }
+
+
+    @OnClick(R.id.tv_count)
+    public void getContactsListDialog() {
+
+        Dialog mDialog;
+        mDialog = new Dialog(mParent);
+        mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        mDialog.setContentView(R.layout.dialog_contacts_list);
+        //dialogShare.getWindow().setGravity(Gravity.BOTTOM);
+        mDialog.setCanceledOnTouchOutside(true);
+        //dialogShare.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        mDialog.getWindow().setBackgroundDrawable(new
+                ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+        ListView listView = (ListView) mDialog.findViewById(R.id.lv_contacts);
+
+
+        if (contactsListModel != null && contactsListModel.size() > 0) {
+            selectedContactsAdapetr = new SelectedContactsAdapter(mParent, contactsListModel);
+        }
+        listView.setAdapter(selectedContactsAdapetr);
+
+        mDialog.show();
+
+
     }
 
     /**

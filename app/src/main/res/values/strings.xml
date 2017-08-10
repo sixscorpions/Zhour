@@ -96,5 +96,6 @@ Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots 
     <string name="complaint_description">Complaint Description</string>
     <string name="complaint_raised_successfully">Complaint Raised Successfully</string>
     <string name="done">Done</string>
+    <string name="txt_contacts">Contacts</string>
 
 </resources>
