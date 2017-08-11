@@ -7,12 +7,30 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.zhour.R;
 import com.zhour.activities.DashboardActivity;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 
 public class EmergencyFragment extends Fragment {
+
+    @BindView(R.id.iv_emergency)
+    ImageView iv_emergency;
+
+    @BindView(R.id.iv_ambulence)
+    ImageView iv_ambulence;
+
+    @BindView(R.id.tv_fire)
+    TextView tv_fire;
+
+    @BindView(R.id.tv_ambulence)
+    TextView tv_ambulence;
+
 
     public static final String TAG = EmergencyFragment.class.getSimpleName();
     private DashboardActivity parent;
@@ -30,11 +48,14 @@ public class EmergencyFragment extends Fragment {
         if (view != null)
             return view;
         view = inflater.inflate(R.layout.fragment_emergency, container, false);
+        ButterKnife.bind(this, view);
         inITUI();
         return view;
     }
 
     private void inITUI() {
+
+
     }
 
 }

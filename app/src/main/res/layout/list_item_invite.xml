@@ -59,15 +59,17 @@
 
                 <LinearLayout
                     android:id="@+id/ll_calander"
-                    android:layout_width="match_parent"
+                    android:layout_width="@dimen/_0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/_10dp"
-                    android:layout_weight="0.5">
+                    android:layout_weight="0.4">
 
                     <ImageView
                         android:id="@+id/iv_calander"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/_3dp"
                         android:src="@drawable/ic_calender_white" />
 
                     <TextView
@@ -75,7 +77,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/_10dp"
+                        android:layout_marginStart="@dimen/_5dp"
                         android:gravity="center"
                         android:text="@string/may_23"
                         android:textColor="@android:color/white"
@@ -84,30 +86,46 @@
 
                 <LinearLayout
                     android:id="@+id/ll_time"
-                    android:layout_width="match_parent"
+                    android:layout_width="@dimen/_0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:layout_marginEnd="@dimen/_10dp"
-                    android:layout_weight="0.5"
-                    android:gravity="end">
+                    android:layout_weight="0.6"
+                    android:gravity="end"
+                    android:weightSum="1">
 
                     <ImageView
                         android:id="@+id/iv_clock"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/_0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_margin="@dimen/_3dp"
+                        android:layout_marginLeft="@dimen/_5dp"
+                        android:layout_weight="0.3"
                         android:src="@drawable/ic_clock_white" />
 
                     <TextView
                         android:id="@+id/tv_time"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/_0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/_10dp"
+                        android:layout_marginStart="@dimen/_5dp"
+                        android:layout_weight="0.4"
                         android:gravity="center"
                         android:text="@string/_7_00_pm"
                         android:textColor="@android:color/white"
                         android:textSize="@dimen/_13sp" />
+
+                    <TextView
+                        android:id="@+id/tv_edit"
+                        android:layout_width="@dimen/_0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.3"
+                        android:gravity="center"
+                        android:text="@string/edit_icon"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/_15sp" />
                 </LinearLayout>
 
             </LinearLayout>

@@ -160,11 +160,24 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     private boolean isPartyInvite = false;
     private boolean isEventInvite = true;
 
+    private String date;
+    private String time;
+    private String eventNote;
+    private String eventType;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mParent = (DashboardActivity) getActivity();
         Utility.setTranslateStatusBar(mParent);
+
+        Bundle bundle = getArguments();
+        date = bundle.getString(Constants.DATE);
+        time = bundle.getString(Constants.TIME);
+        eventNote = bundle.getString(Constants.INVITE_NOTE);
+        eventType = bundle.getString(Constants.INVITE_TYPE);
+
+
     }
 
     @Override
@@ -179,12 +192,26 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     }
 
     private void inItUI() {
+
+
+
         tv_add.setTypeface(Utility.setFontAwesomeWebfont(mParent));
         tv_phone_book.setTypeface(Utility.setFontAwesomeWebfont(mParent));
         tv_count.setVisibility(View.GONE);
         askPermission();
         getInviteTypes();
         tv_party_invite.performClick();
+        if (date != null && time != null && eventType != null && eventNote != null) {
+            et_event_invite_types.setText(eventType);
+            et_party_date.setText(date);
+            et_party_time.setText(time);
+            et_invite_note.setText(eventNote);
+
+
+
+        }
+
+
     }
 
     private void getInviteTypes() {

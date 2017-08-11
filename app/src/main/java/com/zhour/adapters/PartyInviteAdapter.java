@@ -1,6 +1,7 @@
 package com.zhour.adapters;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +11,9 @@ import android.widget.TextView;
 
 import com.zhour.R;
 import com.zhour.activities.DashboardActivity;
+import com.zhour.fragments.PartyAndIEventInviteFragment;
 import com.zhour.models.InvitesModel;
+import com.zhour.utils.Constants;
 import com.zhour.utils.Utility;
 
 import java.util.ArrayList;
@@ -23,6 +26,7 @@ public class PartyInviteAdapter extends BaseAdapter {
     private ArrayList<InvitesModel> list;
     private DashboardActivity parent;
     private LayoutInflater layoutInflater;
+    private InvitesModel invitesModel;
 
     public PartyInviteAdapter(ArrayList<InvitesModel> list, DashboardActivity parent) {
         this.list = list;
@@ -67,13 +71,31 @@ public class PartyInviteAdapter extends BaseAdapter {
             holder.tv_date.setTypeface(Utility.setRobotoRegular(parent));
             holder.tv_time = (TextView) convertView.findViewById(R.id.tv_time);
             holder.tv_time.setTypeface(Utility.setRobotoRegular(parent));
+
+            holder.iv_clock = (ImageView) convertView.findViewById(R.id.iv_clock);
+            holder.iv_calander = (ImageView) convertView.findViewById(R.id.iv_calander);
+
+
+            holder.tv_edit = (TextView) convertView.findViewById(R.id.tv_edit);
+            holder.tv_edit.setTypeface(Utility.getFontAwesomeWebFont(parent));
+            holder.tv_edit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString(Constants.DATE, invitesModel.getEventdate());
+                    bundle.putString(Constants.TIME, invitesModel.getEventtime());
+                    bundle.putString(Constants.INVITE_NOTE, invitesModel.getInvitenote());
+                    bundle.putString(Constants.INVITE_TYPE, invitesModel.getInvitetype());
+                    Utility.navigateDashBoardFragment(new PartyAndIEventInviteFragment(), PartyAndIEventInviteFragment.TAG, bundle, parent);
+                }
+            });
             convertView.setTag(holder);
 
         } else {
             holder = (ViewHolder) convertView.getTag();
 
         }
-        InvitesModel invitesModel = list.get(position);
+        invitesModel = list.get(position);
 
         holder.tv_invitenote.setText(invitesModel.getInvitenote());
         holder.tv_date.setText(invitesModel.getEventdate());
@@ -100,6 +122,7 @@ public class PartyInviteAdapter extends BaseAdapter {
         private TextView tv_date;
         private TextView tv_time;
         private TextView tv_inviteType;
+        private TextView tv_edit;
 
     }
 }

@@ -58,31 +58,31 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-    public void onBackPressed() {
-        try {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            if (fragmentManager.getBackStackEntryCount() > 0) {
-                FragmentManager.BackStackEntry backStackEntry = fragmentManager
-                        .getBackStackEntryAt(fragmentManager
-                                .getBackStackEntryCount() - 1);
-                Utility.showLog("BackStackEntry Name", backStackEntry.getName());
-                if (backStackEntry.getName().equalsIgnoreCase(HomeFragment.TAG)) {
-                    mClosePressCount++;
-                    if (mClosePressCount > 1) {
-                        finishAffinity();
+        public void onBackPressed() {
+            try {
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                if (fragmentManager.getBackStackEntryCount() > 0) {
+                    FragmentManager.BackStackEntry backStackEntry = fragmentManager
+                            .getBackStackEntryAt(fragmentManager
+                                    .getBackStackEntryCount() - 1);
+                    Utility.showLog("BackStackEntry Name", backStackEntry.getName());
+                    if (backStackEntry.getName().equalsIgnoreCase(HomeFragment.TAG)) {
+                        mClosePressCount++;
+                        if (mClosePressCount > 1) {
+                            finishAffinity();
+                        } else {
+                            Utility.showToastMessage(getApplicationContext(), getResources().getString(R.string.press_again_to_exit));
+                        }
                     } else {
-                        Utility.showToastMessage(getApplicationContext(), getResources().getString(R.string.press_again_to_exit));
+                        super.onBackPressed();
                     }
                 } else {
                     super.onBackPressed();
                 }
-            } else {
-                super.onBackPressed();
+            } catch (Exception e) {
+                e.printStackTrace();
+                getFragmentManager().popBackStack();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            getFragmentManager().popBackStack();
         }
-    }
 }
 
