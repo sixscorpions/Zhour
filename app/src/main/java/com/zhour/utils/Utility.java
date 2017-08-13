@@ -44,6 +44,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zhour.R;
+import com.zhour.activities.BaseActivity;
+import com.zhour.activities.SignInActivity;
 import com.zhour.designes.SnackBar;
 
 import org.apache.http.HttpResponse;
@@ -75,6 +77,7 @@ public class Utility {
     private static final int NO_GPS_ACCESS = 2;
 
     private static final int CONNECTION_TIMEOUT = 25000;
+
 
 
     public static String getTime(String time) {
@@ -387,7 +390,7 @@ public class Utility {
         return Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Regular.ttf");
     }
 
-    public static void showOKOnlyDialog(Context context, String msg,
+    public static void showOKOnlyDialog(final Context context, String msg,
                                         String title) {
         SpannableString s = new SpannableString(msg);
         Linkify.addLinks(s, Linkify.ALL);
@@ -400,12 +403,22 @@ public class Utility {
                             @Override
                             public void onClick(DialogInterface dialog,
                                                 int whichButton) {
+                                logout(context);
                             }
                         }).show();
 
         ((TextView) d.findViewById(android.R.id.message))
                 .setMovementMethod(LinkMovementMethod.getInstance());
     }
+    /*UNAUTHORIZED ACCESS TO SIGN IN  NAVIGATION*/
+    private static void logout(Context mContext) {
+        Intent intent = new Intent(mContext, SignInActivity.class);
+        Utility.setSharedPrefStringData(mContext, Constants.TOKEN, "");
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        mContext.startActivity(intent);
+
+    }
+
 
     public static boolean isNetworkAvailable(Context context) {
         try {
@@ -605,6 +618,34 @@ public class Utility {
             e.printStackTrace();
         }
         return outputDateStr;
+    }
+    public  static String displayTimeFormat(int hourOfDay,int minute){
+       int hour = hourOfDay;
+       int minutes = minute;
+        String timeSet = "";
+        if (hour > 12) {
+            hour -= 12;
+            timeSet = "PM";
+        } else if (hour == 0) {
+            hour += 12;
+            timeSet = "AM";
+        } else if (hour == 12) {
+            timeSet = "PM";
+        } else {
+            timeSet = "AM";
+        }
+
+        String min = "";
+        if (minutes < 10)
+            min = "0" + minutes;
+        else
+            min = String.valueOf(minutes);
+
+        // Append in a StringBuilder
+        String aTime = new StringBuilder().append(hour).append(':')
+                .append(min).append(" ").append(timeSet).toString();
+
+        return aTime;
     }
 
 }

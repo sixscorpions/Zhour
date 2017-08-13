@@ -99,5 +99,9 @@ Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots 
     <string name="txt_contacts">Contacts</string>
     <string name="fire_emergency">fire emergency</string>
     <string name="medical_emergency">MEDICAL EMERGENCY</string>
+    <string name="in">In</string>
+    <string name="out">out</string>
+    <string name="status">status</string>
+    <string name="no_events_found">No events Found</string>
 
 </resources>

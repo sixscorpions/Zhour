@@ -2,15 +2,20 @@ package com.zhour.fragments;
 
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +25,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.vision.text.TextRecognizer;
 import com.zhour.R;
 import com.zhour.activities.DashboardActivity;
 import com.zhour.aynctask.IAsyncCaller;
@@ -31,6 +37,7 @@ import com.zhour.utils.APIConstants;
 import com.zhour.utils.Constants;
 import com.zhour.utils.Utility;
 
+import java.io.File;
 import java.util.LinkedHashMap;
 
 import butterknife.BindView;
@@ -46,14 +53,33 @@ public class AlienCarFragment extends Fragment implements IAsyncCaller {
     @BindView(R.id.et_vehicle_number)
     EditText et_vehicle_number;
 
+    @BindView(R.id.tv_sacanner)
+    TextView tv_sacanner;
+    private Context mContext;
+
     private View mDialogView;
     private AlienCarModel mAlienCarModel;
     private android.support.v7.app.AlertDialog alertDialog;
+    private Uri imageUri;
+
+
+    private static final String SAVED_INSTANCE_URI = "uri";
+    private static final String SAVED_INSTANCE_RESULT = "result";
+    private TextRecognizer detector;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mParent = (DashboardActivity) getActivity();
+
+
+        if (savedInstanceState != null) {
+            imageUri = Uri.parse(savedInstanceState.getString(SAVED_INSTANCE_URI));
+            et_vehicle_number.setText(savedInstanceState.getString(SAVED_INSTANCE_RESULT));
+        }
+        detector = new TextRecognizer.Builder(mParent).build();
+
+
     }
 
     @Override
@@ -70,6 +96,8 @@ public class AlienCarFragment extends Fragment implements IAsyncCaller {
     private void initUi() {
         /*PERMISSION FOR CALL*/
         askPermission();
+      //  askPermissionForScanner();
+        tv_sacanner.setTypeface(Utility.getFontAwesomeWebFont(mParent));
     }
 
     private void askPermission() {
@@ -89,13 +117,55 @@ public class AlienCarFragment extends Fragment implements IAsyncCaller {
         }
     }
 
+    private void askPermissionForScanner() {
+        if (ContextCompat.checkSelfPermission(mParent,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(mParent,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+
+            } else {
+
+                ActivityCompat.requestPermissions(mParent,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        Constants.MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+            }
+        }
+    }
+
     /**
      * This method is used to get the vehicle info
      */
     @OnClick(R.id.iv_get_details)
     void getVehicleInfo() {
-        if (isValidFields()) {
+
+        if (isValidFields() && isValidDigitFields()) {
             callServiceToGetVehicleInfo();
+        }
+
+    }
+
+    /*CAR NUMBER SCANNER*/
+    @OnClick(R.id.tv_sacanner)
+    void getNumberScanner() {
+    /*    takePicture();*/
+        ActivityCompat.requestPermissions(mParent, new
+                String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, Constants.MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case Constants.MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    takePicture();
+                } else {
+                    Utility.setSnackBar(mParent, et_vehicle_number, "Permission Denied!");
+                }
         }
     }
 
@@ -129,6 +199,18 @@ public class AlienCarFragment extends Fragment implements IAsyncCaller {
         return isValidated;
     }
 
+    private boolean isValidDigitFields() {
+        boolean isValid = true;
+        if (Utility.isValueNullOrEmpty(et_vehicle_number.getText().toString())) {
+            Utility.setSnackBar(mParent, et_vehicle_number, "Please write code");
+            isValid = false;
+        } else if (et_vehicle_number.getText().toString().length() != 4) {
+            Utility.setSnackBar(mParent, et_vehicle_number, "Code must be 4 digit");
+            isValid = false;
+        }
+        return isValid;
+    }
+
     @Override
     public void onComplete(Model model) {
         if (model != null) {
@@ -136,7 +218,7 @@ public class AlienCarFragment extends Fragment implements IAsyncCaller {
                 mAlienCarModel = (AlienCarModel) model;
                 if (!mAlienCarModel.getIsError()) {
                     if (mAlienCarModel.getResidentname() == null) {
-                        Utility.showToastMessage(mParent, Utility.getResourcesString(mParent, R.string.vehicle_not_found));
+                        Utility.setSnackBar(mParent, view, Utility.getResourcesString(mParent, R.string.vehicle_not_found));
                     } else {
                         setDataToLayout();
                     }
@@ -221,5 +303,24 @@ public class AlienCarFragment extends Fragment implements IAsyncCaller {
 
         alertDialog.show();
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        if (imageUri != null) {
+            outState.putString(SAVED_INSTANCE_URI, imageUri.toString());
+            outState.putString(SAVED_INSTANCE_RESULT, et_vehicle_number.getText().toString());
+        }
+        super.onSaveInstanceState(outState);
+    }
+
+    private void takePicture() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        File photo = new File(Environment.getExternalStorageDirectory(), "picture.jpg");
+        imageUri = FileProvider.getUriForFile(mParent,
+                mParent.getApplicationContext().getPackageName() + ".provider", photo);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+        startActivityForResult(intent, Constants.PHOTO_REQUEST);
+    }
+
 
 }

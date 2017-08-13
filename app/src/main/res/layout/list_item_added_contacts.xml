@@ -22,6 +22,7 @@
         android:layout_marginStart="@dimen/_10dp"
         android:gravity="center"
         android:text="@string/remove_image"
+        android:visibility="invisible"
         android:textColor="@color/colorPrimary"
         android:textSize="@dimen/_25sp" />
 

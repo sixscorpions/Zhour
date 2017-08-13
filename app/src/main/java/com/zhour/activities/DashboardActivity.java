@@ -1,16 +1,27 @@
 package com.zhour.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.util.SparseArray;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.vision.Frame;
+import com.google.android.gms.vision.text.Text;
+import com.google.android.gms.vision.text.TextBlock;
+import com.google.android.gms.vision.text.TextRecognizer;
 import com.zhour.R;
 import com.zhour.aynctask.IAsyncCaller;
 import com.zhour.aynctaskold.ServerIntractorAsync;
@@ -24,6 +35,7 @@ import com.zhour.utils.APIConstants;
 import com.zhour.utils.Constants;
 import com.zhour.utils.Utility;
 
+import java.io.FileNotFoundException;
 import java.util.LinkedHashMap;
 
 import butterknife.BindView;
@@ -80,6 +92,10 @@ public class DashboardActivity extends BaseActivity implements IAsyncCaller {
     private NavigationView navigationView;
     private View headerview;
     private LogoutModel logoutModel;
+    private TextRecognizer detector;
+    Uri imageUri;
+
+    public String vehicleNumberText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -262,4 +278,90 @@ public class DashboardActivity extends BaseActivity implements IAsyncCaller {
         startActivity(intent);
         finish();
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == Constants.PHOTO_REQUEST && resultCode == RESULT_OK) {
+            launchMediaScanIntent();
+            try {
+                Bitmap bitmap = decodeBitmapUri(this, imageUri);
+                if (detector.isOperational() && bitmap != null) {
+                    Frame frame = new Frame.Builder().setBitmap(bitmap).build();
+                    SparseArray<TextBlock> textBlocks = detector.detect(frame);
+                    String blocks = "";
+                    String lines = "";
+                    String words = "";
+                    for (int index = 0; index < textBlocks.size(); index++) {
+                        //extract scanned text blocks here
+                        TextBlock tBlock = textBlocks.valueAt(index);
+                        blocks = blocks + tBlock.getValue() + "\n" + "\n";
+                        for (Text line : tBlock.getComponents()) {
+                            //extract scanned text lines here
+                            lines = lines + line.getValue() + "\n";
+                            for (Text element : line.getComponents()) {
+                                //extract scanned text words here
+                                words = words + element.getValue() + ", ";
+                            }
+                        }
+                    }
+                    if (textBlocks.size() == 0) {
+                        vehicleNumberText = "Scan Failed: Found nothing to scan";
+
+                    } else {
+                        /*tvScanText.setText(tvScanText.getText() + blocks + "\n");*/
+
+                        vehicleNumberText = blocks + "\n";
+                       /* vehicleNumberText = "---------" + "\n";
+                        vehicleNumberText = "Lines: " + "\n";
+                        vehicleNumberText = lines + "\n";
+                        vehicleNumberText = "---------" + "\n";
+                        vehicleNumberText = "Words: " + "\n";
+                        vehicleNumberText = words + "\n";
+                        vehicleNumberText = "---------" + "\n";*/
+
+                    }
+                } else {
+                    vehicleNumberText = "Could not set up the detector!";
+                }
+            } catch (Exception e) {
+                Toast.makeText(this, "Failed to load Image", Toast.LENGTH_SHORT)
+                        .show();
+                Log.e("Tag", e.toString());
+            }
+        }
+    }
+      /*DECODE BIMAP URI*/
+
+    private Bitmap decodeBitmapUri(Context ctx, Uri uri) throws FileNotFoundException {
+        int targetW = 600;
+        int targetH = 600;
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        bmOptions.inJustDecodeBounds = true;
+        BitmapFactory.decodeStream(ctx.getContentResolver().openInputStream(uri), null, bmOptions);
+        int photoW = bmOptions.outWidth;
+        int photoH = bmOptions.outHeight;
+
+        int scaleFactor = Math.min(photoW / targetW, photoH / targetH);
+        bmOptions.inJustDecodeBounds = false;
+        bmOptions.inSampleSize = scaleFactor;
+
+        return BitmapFactory.decodeStream(ctx.getContentResolver()
+                .openInputStream(uri), null, bmOptions);
+    }
+
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        if (imageUri != null) {
+            outState.putString(Constants.SAVED_INSTANCE_URI, imageUri.toString());
+            outState.putString(Constants.SAVED_INSTANCE_RESULT,vehicleNumberText);
+        }
+        super.onSaveInstanceState(outState);
+    }
+
+    private void launchMediaScanIntent() {
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        mediaScanIntent.setData(imageUri);
+        this.sendBroadcast(mediaScanIntent);
+    }
+
 }

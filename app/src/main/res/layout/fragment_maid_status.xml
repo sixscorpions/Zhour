@@ -201,23 +201,9 @@
                 <LinearLayout
                     android:layout_width="@dimen/_0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.3">
-
-                    <ImageView
-                        android:id="@+id/btn_switch_in"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginStart="@dimen/_10dp"
-                        android:src="@drawable/ic_in_off" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="@dimen/_0dp"
-                    android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginStart="@dimen/_10dp"
-                    android:layout_weight="0.7"
+                    android:layout_weight="0.6"
                     android:gravity="center"
                     android:orientation="vertical">
 
@@ -233,9 +219,41 @@
                         android:id="@+id/tv_status"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="status"
+                        android:layout_marginTop="@dimen/_5dp"
+                        android:text="@string/status"
                         android:textSize="@dimen/_15sp" />
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="@dimen/_0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.4"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/btn_switch_in"
+                        android:layout_width="@dimen/_25dp"
+                        android:layout_marginTop="@dimen/_3dp"
+                        android:contentDescription="@string/empty"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:src="@drawable/check_in" />
+
+                    <TextView
+                        android:id="@+id/tv_in_out"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/_5dp"
+                        android:gravity="center"
+                        android:textAllCaps="true"
+                        android:text="@string/in"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="@dimen/_15sp" />
+                </LinearLayout>
+
+
             </LinearLayout>
 
             <LinearLayout
@@ -246,21 +264,7 @@
                 android:weightSum="1">
 
                 <LinearLayout
-                    android:layout_width="@dimen/_0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.3">
-
-                    <ImageView
-                        android:id="@+id/btn_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginLeft="@dimen/_10dp"
-                        android:src="@drawable/ic_clock_maid" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="@dimen/_0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginStart="@dimen/_10dp"
@@ -286,6 +290,7 @@
                         android:id="@+id/tv_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5dp"
                         android:text="23-July-2017"
                         android:textSize="@dimen/_12sp" />
                 </LinearLayout>

@@ -24,6 +24,8 @@ public class Constants {
     public static final String RESIDENT_ID = "RESIDENT_ID";
     public static final String TOKEN = "TOKEN";
 
+
+    /*PARTY INVITE EDIT KEYS */
     public static final String DATE = "DATE";
     public static final String TIME = "TIME";
     public static final String INVITE_NOTE = "INVITE_NOTE";
@@ -33,16 +35,16 @@ public class Constants {
     public static final String VIEW_NOTICE = "VIEW_NOTICE";
 
 
-
-
     public static final String COMMUNITY_LIST = "COMMUNITY_LIST";
     public static final String IMAGE_URL = "IMAGE_URL";
     public static final String TEXT_DESC = "TEXT_DESC";
 
 
-
-
-
     public static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 200;
     public static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 201;
+    public static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 203;
+    public static final int PHOTO_REQUEST = 10;
+
+    public static final String SAVED_INSTANCE_URI = "uri";
+    public static final String SAVED_INSTANCE_RESULT = "result";
 }

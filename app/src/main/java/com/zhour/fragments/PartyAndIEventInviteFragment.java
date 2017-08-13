@@ -139,6 +139,9 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     @BindView(R.id.et_invite_note)
     EditText et_invite_note;
 
+    @BindView(R.id.tv_no_data)
+    TextView tv_no_data;
+
     @BindView(R.id.scroll_view)
     ScrollView scroll_view;
 
@@ -165,6 +168,9 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     private String eventNote;
     private String eventType;
 
+    private int hour, minutes;
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -172,6 +178,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
         Utility.setTranslateStatusBar(mParent);
 
         Bundle bundle = getArguments();
+
         date = bundle.getString(Constants.DATE);
         time = bundle.getString(Constants.TIME);
         eventNote = bundle.getString(Constants.INVITE_NOTE);
@@ -192,21 +199,18 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     }
 
     private void inItUI() {
-
-
-
+        getInviteTypes();
+        tv_party_invite.performClick();
         tv_add.setTypeface(Utility.setFontAwesomeWebfont(mParent));
         tv_phone_book.setTypeface(Utility.setFontAwesomeWebfont(mParent));
         tv_count.setVisibility(View.GONE);
         askPermission();
-        getInviteTypes();
-        tv_party_invite.performClick();
+
         if (date != null && time != null && eventType != null && eventNote != null) {
             et_event_invite_types.setText(eventType);
             et_party_date.setText(date);
             et_party_time.setText(time);
             et_invite_note.setText(eventNote);
-
 
 
         }
@@ -692,12 +696,14 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
 
     @OnClick(R.id.et_party_time)
     public void getTime() {
+
+
         Utility.hideSoftKeyboard(mParent, et_party_time);
         Calendar c = Calendar.getInstance();
         TimePickerDialog timePickerDialog = new TimePickerDialog(mParent, new TimePickerDialog.OnTimeSetListener() {
             @Override
-            public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                et_party_time.setText(String.format("%02d:%02d", selectedHour, selectedMinute));
+            public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
+                et_party_time.setText(Utility.getTimeFormat(hourOfDay, minute));
             }
         }, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), true);
         timePickerDialog.show();
@@ -716,7 +722,10 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
                 partyInviteModel = (PartyInviteModel) model;
                 if (!partyInviteModel.isError()) {
                     inviteEventList = new ArrayList<>();
-                    setListData(partyInviteModel.getInvitesList());
+                    if (partyInviteModel.getInvitesList() != null && partyInviteModel.getInvitesList().size() > 0)
+                        setListData(partyInviteModel.getInvitesList());
+                    else
+                        tv_no_data.setVisibility(View.VISIBLE); //NO LIST AVAILABLE
 
                 }
             } else if (model instanceof PartyInviteSuccessModel) {

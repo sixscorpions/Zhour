@@ -45,6 +45,13 @@ public class PaymentFragment extends Fragment {
         iv_sad = (ImageView) view.findViewById(R.id.iv_sad);
         tv_sad = (TextView) view.findViewById(R.id.tv_sad);
         tv_sad.setTypeface(Utility.setRobotoRegular(parent));
+        tv_sad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              /*  Utility.showOKOnlyDialog(parent, Utility.getResourcesString(parent, R.string.unauthorized_access),
+                        Utility.getResourcesString(parent, R.string.app_name));*/
+            }
+        });
     }
 
 }

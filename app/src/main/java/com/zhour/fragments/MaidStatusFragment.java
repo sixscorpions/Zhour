@@ -43,6 +43,9 @@ public class MaidStatusFragment extends Fragment implements IAsyncCaller {
     @BindView(R.id.tv_date)
     TextView tv_date;
 
+    @BindView(R.id.tv_in_out)
+    TextView tv_in_out;
+
     @BindView(R.id.btn_switch_in)
     ImageView btn_switch_in;
 
@@ -67,6 +70,10 @@ public class MaidStatusFragment extends Fragment implements IAsyncCaller {
     }
 
     private void inItUI() {
+
+        tv_in_out.setTypeface(Utility.setRobotoRegular(mParent));
+        tv_time.setTypeface(Utility.setRobotoRegular(mParent));
+        tv_maid_name.setTypeface(Utility.setRobotoRegular(mParent));
         getMaidInfo();
     }
 
@@ -108,9 +115,11 @@ public class MaidStatusFragment extends Fragment implements IAsyncCaller {
             tv_maid_name.setText(mMaidModel.getStaffname());
             tv_phone.setText(mMaidModel.getContact1());
             if (mMaidModel.getOuttime() == null) {
-                btn_switch_in.setImageDrawable(Utility.getDrawable(mParent, R.drawable.ic_in_off));
+                btn_switch_in.setImageDrawable(Utility.getDrawable(mParent, R.drawable.check_in));
+                tv_in_out.setText(Utility.getResourcesString(mParent,R.string.in));
             } else {
-                btn_switch_in.setImageDrawable(Utility.getDrawable(mParent, R.drawable.ic_in_off));
+                btn_switch_in.setImageDrawable(Utility.getDrawable(mParent, R.drawable.check_out));
+                tv_in_out.setText(Utility.getResourcesString(mParent,R.string.out));
             }
             tv_time.setText(Utility.displayTimeFormat(mMaidModel.getIntime()));
             tv_date.setText(Utility.displayDateFormat(mMaidModel.getIntime()));

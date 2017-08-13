@@ -70,7 +70,8 @@
                 android:id="@+id/tv_flat_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_2dp"
+                android:layout_marginBottom="@dimen/_5dp"
+                android:layout_marginTop="@dimen/_5dp"
                 android:text="@string/accept_small"
                 android:textSize="@dimen/_14sp"
                 android:textStyle="bold" />
@@ -101,7 +102,8 @@
                 android:id="@+id/tv_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_2dp"
+                android:layout_marginBottom="@dimen/_5dp"
+                android:layout_marginTop="@dimen/_5dp"
                 android:text="@string/date"
                 android:textSize="@dimen/_14sp"
                 android:textStyle="bold" />
@@ -134,7 +136,8 @@
                 android:id="@+id/tv_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_2dp"
+                android:layout_marginBottom="@dimen/_5dp"
+                android:layout_marginTop="@dimen/_5dp"
                 android:text="@string/done"
                 android:textSize="@dimen/_14sp"
                 android:textStyle="bold" />
