@@ -119,13 +119,9 @@ public class NoticeBoardFragment extends Fragment implements IAsyncCaller {
                         noticeBoardModel.setRead(true);
                         editor.putStringSet(noticeBoardModel.getNoticeid(),set);
                         editor.commit();
-
                     }
                 }
-
             }
-
-
 
             mNoticeBoardAdapter = new NoticeBoardAdapter(mParent, mNoticeBoardListModel.getNoticeBoardModels());
             lv_notice.setAdapter(mNoticeBoardAdapter);

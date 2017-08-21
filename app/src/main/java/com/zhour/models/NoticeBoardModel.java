@@ -11,6 +11,7 @@ public class NoticeBoardModel {
     private String noticedesc;
     private String sentby;
     private String sentdate;
+    private boolean Read;
 
     public String getNoticeid() {
         return noticeid;
@@ -50,5 +51,13 @@ public class NoticeBoardModel {
 
     public void setSentdate(String sentdate) {
         this.sentdate = sentdate;
+    }
+
+    public boolean isRead() {
+        return Read;
+    }
+
+    public void setRead(boolean read) {
+        Read = read;
     }
 }
