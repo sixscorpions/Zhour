@@ -19,27 +19,17 @@ import butterknife.ButterKnife;
 
 public class EmergencyFragment extends Fragment {
 
-    @BindView(R.id.iv_emergency)
-    ImageView iv_emergency;
-
-    @BindView(R.id.iv_ambulence)
-    ImageView iv_ambulence;
-
-    @BindView(R.id.tv_fire)
-    TextView tv_fire;
-
-    @BindView(R.id.tv_ambulence)
-    TextView tv_ambulence;
-
+    @BindView(R.id.img_emergency)
+    ImageView img_emergency;
 
     public static final String TAG = EmergencyFragment.class.getSimpleName();
-    private DashboardActivity parent;
+    private DashboardActivity mParent;
     private View view;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        parent = (DashboardActivity) getActivity();
+        mParent = (DashboardActivity) getActivity();
     }
 
     @Override
@@ -49,12 +39,11 @@ public class EmergencyFragment extends Fragment {
             return view;
         view = inflater.inflate(R.layout.fragment_emergency, container, false);
         ButterKnife.bind(this, view);
-        inITUI();
+        initUi();
         return view;
     }
 
-    private void inITUI() {
-
+    private void initUi() {
 
     }
 

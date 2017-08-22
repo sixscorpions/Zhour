@@ -1,85 +1,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="1"
-    tools:context="com.zhour.fragments.EmergencyFragment">
+    android:weightSum="1">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_0dp"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_weight="0.5"
+        android:background="@drawable/shape_emergency"
+        android:gravity="center"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/ll_fire"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/_10dp"
-            android:background="@drawable/rectangel_corners"
-            android:orientation="vertical"
-            android:padding="@dimen/_10dp">
+        <ImageView
+            android:id="@+id/img_emergency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/sos_button" />
 
-            <ImageView
-                android:id="@+id/iv_emergency"
-                android:layout_width="@dimen/_180dp"
-                android:layout_height="@dimen/_150dp"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/_15dp"
-                android:src="@drawable/ic_fire" />
-
-            <TextView
-                android:id="@+id/tv_fire"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/fire_emergency"
-                android:textAllCaps="true"
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/_20sp" />
-        </LinearLayout>
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_0dp"
-        android:layout_weight="0.5"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:id="@+id/ll_ambulence"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_marginBottom="@dimen/_10dp"
-            android:layout_marginEnd="@dimen/_10dp"
-            android:layout_marginStart="@dimen/_10dp"
-            android:background="@drawable/rectangel_corners"
-            android:orientation="vertical"
-            android:padding="@dimen/_10dp">
-
-            <ImageView
-                android:id="@+id/iv_ambulence"
-                android:layout_width="@dimen/_180dp"
-                android:layout_height="@dimen/_150dp"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/_15dp"
-                android:src="@drawable/ic_ambulence" />
-
-            <TextView
-                android:id="@+id/tv_ambulence"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/medical_emergency"
-                android:textAllCaps="true"
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/_20sp" />
-        </LinearLayout>
-    </LinearLayout>
-
-
 </LinearLayout>
