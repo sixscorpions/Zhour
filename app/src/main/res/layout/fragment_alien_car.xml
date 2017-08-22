@@ -100,7 +100,7 @@
                             android:hint="@string/enter_vehicle_number"
                             android:textColor="@color/black" />
                         <TextView
-                            android:id="@+id/tv_sacanner"
+                            android:id="@+id/tv_scanner"
                             android:text="@string/car_icon"
                             android:textSize="@dimen/_18sp"
                             android:layout_gravity="center"

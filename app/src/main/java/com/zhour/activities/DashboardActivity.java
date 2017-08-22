@@ -2,11 +2,16 @@ package com.zhour.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.content.FileProvider;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
@@ -26,6 +31,7 @@ import com.zhour.R;
 import com.zhour.aynctask.IAsyncCaller;
 import com.zhour.aynctaskold.ServerIntractorAsync;
 import com.zhour.fragments.AboutFragment;
+import com.zhour.fragments.AlienCarFragment;
 import com.zhour.fragments.HomeFragment;
 import com.zhour.fragments.PaymentFragment;
 import com.zhour.models.LogoutModel;
@@ -35,6 +41,7 @@ import com.zhour.utils.APIConstants;
 import com.zhour.utils.Constants;
 import com.zhour.utils.Utility;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.LinkedHashMap;
 
@@ -96,6 +103,7 @@ public class DashboardActivity extends BaseActivity implements IAsyncCaller {
     Uri imageUri;
 
     public String vehicleNumberText;
+    private static final int PHOTO_REQUEST = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -271,6 +279,30 @@ public class DashboardActivity extends BaseActivity implements IAsyncCaller {
         }
     }
 
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case Constants.MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    takePicture();
+                } else {
+                    Utility.showToastMessage(DashboardActivity.this, "Permission Denied!");
+                }
+        }
+    }
+
+    private void takePicture() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        File photo = new File(Environment.getExternalStorageDirectory(), "picture.jpg");
+        imageUri = FileProvider.getUriForFile(DashboardActivity.this,
+                DashboardActivity.this.getApplicationContext().getPackageName() + ".provider", photo);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+        startActivityForResult(intent, PHOTO_REQUEST);
+    }
+
+
     private void logout() {
         Intent intent = new Intent(this, SignInActivity.class);
         Utility.setSharedPrefStringData(this, Constants.TOKEN, "");
@@ -306,11 +338,11 @@ public class DashboardActivity extends BaseActivity implements IAsyncCaller {
                     }
                     if (textBlocks.size() == 0) {
                         vehicleNumberText = "Scan Failed: Found nothing to scan";
-
                     } else {
                         /*tvScanText.setText(tvScanText.getText() + blocks + "\n");*/
 
                         vehicleNumberText = blocks + "\n";
+                        AlienCarFragment.et_vehicle_number.setText(blocks);
                        /* vehicleNumberText = "---------" + "\n";
                         vehicleNumberText = "Lines: " + "\n";
                         vehicleNumberText = lines + "\n";

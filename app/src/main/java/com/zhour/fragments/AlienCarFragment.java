@@ -8,14 +8,10 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +33,6 @@ import com.zhour.utils.APIConstants;
 import com.zhour.utils.Constants;
 import com.zhour.utils.Utility;
 
-import java.io.File;
 import java.util.LinkedHashMap;
 
 import butterknife.BindView;
@@ -50,11 +45,10 @@ public class AlienCarFragment extends Fragment implements IAsyncCaller {
     private DashboardActivity mParent;
     private View view;
 
-    @BindView(R.id.et_vehicle_number)
-    EditText et_vehicle_number;
+    public static EditText et_vehicle_number;
 
-    @BindView(R.id.tv_sacanner)
-    TextView tv_sacanner;
+    @BindView(R.id.tv_scanner)
+    TextView tv_scanner;
     private Context mContext;
 
     private View mDialogView;
@@ -71,7 +65,6 @@ public class AlienCarFragment extends Fragment implements IAsyncCaller {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mParent = (DashboardActivity) getActivity();
-
 
         if (savedInstanceState != null) {
             imageUri = Uri.parse(savedInstanceState.getString(SAVED_INSTANCE_URI));
@@ -94,10 +87,11 @@ public class AlienCarFragment extends Fragment implements IAsyncCaller {
     }
 
     private void initUi() {
+        et_vehicle_number = (EditText) view.findViewById(R.id.et_vehicle_number);
         /*PERMISSION FOR CALL*/
         askPermission();
-      //  askPermissionForScanner();
-        tv_sacanner.setTypeface(Utility.getFontAwesomeWebFont(mParent));
+        //  askPermissionForScanner();
+        tv_scanner.setTypeface(Utility.getFontAwesomeWebFont(mParent));
     }
 
     private void askPermission() {
@@ -147,26 +141,12 @@ public class AlienCarFragment extends Fragment implements IAsyncCaller {
     }
 
     /*CAR NUMBER SCANNER*/
-    @OnClick(R.id.tv_sacanner)
+    @OnClick(R.id.tv_scanner)
     void getNumberScanner() {
     /*    takePicture();*/
         ActivityCompat.requestPermissions(mParent, new
-                String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, Constants.MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+                String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, Constants.MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
 
-
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case Constants.MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    takePicture();
-                } else {
-                    Utility.setSnackBar(mParent, et_vehicle_number, "Permission Denied!");
-                }
-        }
     }
 
     /**
@@ -311,15 +291,6 @@ public class AlienCarFragment extends Fragment implements IAsyncCaller {
             outState.putString(SAVED_INSTANCE_RESULT, et_vehicle_number.getText().toString());
         }
         super.onSaveInstanceState(outState);
-    }
-
-    private void takePicture() {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        File photo = new File(Environment.getExternalStorageDirectory(), "picture.jpg");
-        imageUri = FileProvider.getUriForFile(mParent,
-                mParent.getApplicationContext().getPackageName() + ".provider", photo);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-        startActivityForResult(intent, Constants.PHOTO_REQUEST);
     }
 
 
