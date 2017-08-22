@@ -25,7 +25,7 @@ import com.google.android.gms.vision.text.TextRecognizer;
 import com.zhour.R;
 import com.zhour.aynctask.IAsyncCaller;
 import com.zhour.aynctaskold.ServerIntractorAsync;
-import com.zhour.fragments.AboutUsFragment;
+import com.zhour.fragments.AboutFragment;
 import com.zhour.fragments.HomeFragment;
 import com.zhour.fragments.PaymentFragment;
 import com.zhour.models.LogoutModel;
@@ -177,7 +177,7 @@ public class DashboardActivity extends BaseActivity implements IAsyncCaller {
 
         drawer_layout.closeDrawer(GravityCompat.START);
         Bundle bundle = new Bundle();
-        Utility.navigateDashBoardFragment(new AboutUsFragment(), AboutUsFragment.TAG, bundle, this);
+        Utility.navigateDashBoardFragment(new AboutFragment(), AboutFragment.TAG, bundle, this);
 
     }
 
@@ -278,6 +278,7 @@ public class DashboardActivity extends BaseActivity implements IAsyncCaller {
         startActivity(intent);
         finish();
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == Constants.PHOTO_REQUEST && resultCode == RESULT_OK) {
@@ -353,7 +354,7 @@ public class DashboardActivity extends BaseActivity implements IAsyncCaller {
     public void onSaveInstanceState(Bundle outState) {
         if (imageUri != null) {
             outState.putString(Constants.SAVED_INSTANCE_URI, imageUri.toString());
-            outState.putString(Constants.SAVED_INSTANCE_RESULT,vehicleNumberText);
+            outState.putString(Constants.SAVED_INSTANCE_RESULT, vehicleNumberText);
         }
         super.onSaveInstanceState(outState);
     }

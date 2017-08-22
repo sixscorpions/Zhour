@@ -104,4 +104,10 @@ Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots 
     <string name="status">status</string>
     <string name="no_events_found">No events Found</string>
 
+    <string name="api">API</string>
+    <string name="version">Version</string>
+    <string name="message">Message</string>
+    <string name="company">Company</string>
+    <string name="contact">Contact</string>
+
 </resources>

@@ -1,20 +1,119 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.zhour.fragments.AboutUsFragment">
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_margin="@dimen/_10dp"
+    android:gravity="center">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="@dimen/_5dp"
-        android:orientation="vertical">
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
 
-        <WebView
-            android:id="@+id/web_view"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:text="@string/api"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_16sp" />
+
+        <TextView
+            android:id="@+id/tv_api"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="visible" />
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_column="2"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_16sp" />
 
-</LinearLayout>
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:text="@string/version"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_16sp" />
+
+        <TextView
+            android:id="@+id/tv_version"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_column="2"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_16sp" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:text="@string/message"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_16sp" />
+
+        <TextView
+            android:id="@+id/tv_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_column="2"
+
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_16sp" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:text="@string/company"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_16sp" />
+
+        <TextView
+            android:id="@+id/tv_company"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_column="2"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_16sp" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:text="@string/contact"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_16sp" />
+
+        <TextView
+            android:id="@+id/tv_contact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_column="2"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_16sp" />
+
+    </TableRow>
+
+
+</TableLayout>

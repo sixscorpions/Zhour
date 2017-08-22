@@ -60,7 +60,7 @@ public class AboutUsFragment extends Fragment {
 
     private void inITUI() {
 
-        webView  = (WebView) view.findViewById(R.id.web_view);
+       // webView  = (WebView) view.findViewById(R.id.web_view);
 
         CustomDialog.showProgressDialog(parent, false);
 
