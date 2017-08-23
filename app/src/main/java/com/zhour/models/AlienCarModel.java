@@ -5,9 +5,6 @@ package com.zhour.models;
  */
 
 public class AlienCarModel extends Model {
-    private boolean IsError;
-    private String Message;
-
     private String vehid;
     private String residentid;
     private String residentname;
@@ -18,22 +15,6 @@ public class AlienCarModel extends Model {
     private String contact2;
     private String flatnumber;
     private boolean isvisitorvehicle;
-
-    public boolean getIsError() {
-        return IsError;
-    }
-
-    public void setIsError(boolean IsError) {
-        this.IsError = IsError;
-    }
-
-    public String getMessage() {
-        return Message;
-    }
-
-    public void setMessage(String Message) {
-        this.Message = Message;
-    }
 
     public String getVehid() {
         return vehid;

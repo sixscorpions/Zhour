@@ -26,6 +26,7 @@ import com.zhour.R;
 import com.zhour.activities.DashboardActivity;
 import com.zhour.aynctask.IAsyncCaller;
 import com.zhour.aynctaskold.ServerIntractorAsync;
+import com.zhour.models.AlienCarListModel;
 import com.zhour.models.AlienCarModel;
 import com.zhour.models.Model;
 import com.zhour.parser.AlienCarParser;
@@ -52,7 +53,7 @@ public class AlienCarFragment extends Fragment implements IAsyncCaller {
     private Context mContext;
 
     private View mDialogView;
-    private AlienCarModel mAlienCarModel;
+    public static AlienCarListModel mAlienCarListModel;
     private android.support.v7.app.AlertDialog alertDialog;
     private Uri imageUri;
 
@@ -194,10 +195,11 @@ public class AlienCarFragment extends Fragment implements IAsyncCaller {
     @Override
     public void onComplete(Model model) {
         if (model != null) {
-            if (model instanceof AlienCarModel) {
-                mAlienCarModel = (AlienCarModel) model;
-                if (!mAlienCarModel.getIsError()) {
-                    if (mAlienCarModel.getResidentname() == null) {
+            if (model instanceof AlienCarListModel) {
+                mAlienCarListModel = (AlienCarListModel) model;
+                et_vehicle_number.setText("");
+                if (!mAlienCarListModel.getIsError()) {
+                    if (mAlienCarListModel.getAlienCarModels().size() == 0) {
                         Utility.setSnackBar(mParent, view, Utility.getResourcesString(mParent, R.string.vehicle_not_found));
                     } else {
                         setDataToLayout();
@@ -211,77 +213,83 @@ public class AlienCarFragment extends Fragment implements IAsyncCaller {
      * This method is used to set data to the layout
      */
     private void setDataToLayout() {
-        AlertDialog.Builder mAlertDialogBuilder = new AlertDialog.Builder(mParent);
-        LayoutInflater inflater = mParent.getLayoutInflater();
-        mDialogView = inflater.inflate(R.layout.dialog_car_parking_popup, null);
-        mAlertDialogBuilder.setView(mDialogView);
+        if (mAlienCarListModel.getAlienCarModels().size() == 1) {
+            final AlienCarModel mAlienCarModel = mAlienCarListModel.getAlienCarModels().get(0);
 
-        alertDialog = mAlertDialogBuilder.create();
-        try {
-            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        } catch (Exception e) {
-            e.printStackTrace();
+            AlertDialog.Builder mAlertDialogBuilder = new AlertDialog.Builder(mParent);
+            LayoutInflater inflater = mParent.getLayoutInflater();
+            mDialogView = inflater.inflate(R.layout.dialog_car_parking_popup, null);
+            mAlertDialogBuilder.setView(mDialogView);
 
-        }
+            alertDialog = mAlertDialogBuilder.create();
+            try {
+                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+            } catch (Exception e) {
+                e.printStackTrace();
+
+            }
 
 
-        alertDialog.setCanceledOnTouchOutside(false);
-        alertDialog.setCancelable(true);
+            alertDialog.setCanceledOnTouchOutside(false);
+            alertDialog.setCancelable(true);
 
         /*PROFILE USER AND IMAGE */
 
 
 
           /*TITLE*/
-        ImageView iv_profile = (ImageView) mDialogView.findViewById(R.id.iv_profile);
-        TextView tv_user_name = (TextView) mDialogView.findViewById(R.id.tv_user_name);
-        tv_user_name.setTypeface(Utility.setRobotoRegular(mParent));
-        tv_user_name.setText(mAlienCarModel.getResidentname());
+            ImageView iv_profile = (ImageView) mDialogView.findViewById(R.id.iv_profile);
+            TextView tv_user_name = (TextView) mDialogView.findViewById(R.id.tv_user_name);
+            tv_user_name.setTypeface(Utility.setRobotoRegular(mParent));
+            tv_user_name.setText(mAlienCarModel.getResidentname());
 
 
-        TextView tv_type = (TextView) mDialogView.findViewById(R.id.tv_type);
-        tv_type.setTypeface(Utility.setRobotoRegular(mParent));
+            TextView tv_type = (TextView) mDialogView.findViewById(R.id.tv_type);
+            tv_type.setTypeface(Utility.setRobotoRegular(mParent));
 
-        TextView tv_type_of_vehicle = (TextView) mDialogView.findViewById(R.id.tv_type_of_vehicle);
-        tv_type_of_vehicle.setTypeface(Utility.setRobotoRegular(mParent));
+            TextView tv_type_of_vehicle = (TextView) mDialogView.findViewById(R.id.tv_type_of_vehicle);
+            tv_type_of_vehicle.setTypeface(Utility.setRobotoRegular(mParent));
 
-        if (!Utility.isValueNullOrEmpty(mAlienCarModel.getVehtype()))
-            tv_type.setText(mAlienCarModel.getVehtype());
+            if (!Utility.isValueNullOrEmpty(mAlienCarModel.getVehtype()))
+                tv_type.setText(mAlienCarModel.getVehtype());
 
 
         /*CLOSE BUTTON*/
-        ImageView iv_cross = (ImageView) mDialogView.findViewById(R.id.iv_cross);
-        iv_cross.setVisibility(View.VISIBLE);
-        iv_cross.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertDialog.dismiss();
-            }
-        });
+            ImageView iv_cross = (ImageView) mDialogView.findViewById(R.id.iv_cross);
+            iv_cross.setVisibility(View.VISIBLE);
+            iv_cross.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+                }
+            });
 
         /*PLOT ICON*/
-        ImageView iv_plot = (ImageView) mDialogView.findViewById(R.id.iv_plot);
-        TextView tv_plot_address = (TextView) mDialogView.findViewById(R.id.tv_plot_address);
-        tv_plot_address.setTypeface(Utility.setRobotoRegular(mParent));
-        tv_plot_address.setText("Flat No: " + mAlienCarModel.getFlatnumber());
+            ImageView iv_plot = (ImageView) mDialogView.findViewById(R.id.iv_plot);
+            TextView tv_plot_address = (TextView) mDialogView.findViewById(R.id.tv_plot_address);
+            tv_plot_address.setTypeface(Utility.setRobotoRegular(mParent));
+            tv_plot_address.setText("Flat No: " + mAlienCarModel.getFlatnumber());
 
         /*MOBILE ICON*/
-        ImageView iv_mobile = (ImageView) mDialogView.findViewById(R.id.iv_mobile);
-        TextView tv_mobile = (TextView) mDialogView.findViewById(R.id.tv_mobile);
-        tv_mobile.setTypeface(Utility.setRobotoRegular(mParent));
-        tv_mobile.setText(mAlienCarModel.getContact1());
+            ImageView iv_mobile = (ImageView) mDialogView.findViewById(R.id.iv_mobile);
+            TextView tv_mobile = (TextView) mDialogView.findViewById(R.id.tv_mobile);
+            tv_mobile.setTypeface(Utility.setRobotoRegular(mParent));
+            tv_mobile.setText(mAlienCarModel.getContact1());
 
 
-        Button btn_call = (Button) mDialogView.findViewById(R.id.btn_call);
-        btn_call.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + mAlienCarModel.getContact1()));
-                startActivity(intent);
-            }
-        });
+            Button btn_call = (Button) mDialogView.findViewById(R.id.btn_call);
+            btn_call.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + mAlienCarModel.getContact1()));
+                    startActivity(intent);
+                }
+            });
 
-        alertDialog.show();
+            alertDialog.show();
+        } else {
+            Utility.navigateDashBoardFragment(new AlienCarListFragment(), AlienCarListFragment.TAG, null, mParent);
+        }
     }
 
     @Override
