@@ -47,4 +47,8 @@ public class Constants {
 
     public static final String SAVED_INSTANCE_URI = "uri";
     public static final String SAVED_INSTANCE_RESULT = "result";
+
+
+    public static final String NOTIFICATION_ID = "NOTIFICATION_ID";
+    public static final String NOTIFICATION_READ_IDS = "NOTIFICATION_READ_IDS";
 }

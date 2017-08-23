@@ -31,6 +31,7 @@
     <color name="calender_color">#0E3E52</color>
     <color name="complaints_top_color">#F4F3F3</color>
     <color name="complaints_bottom_color">#EDEDED</color>
+    <color name="white">#FFFFFF</color>
 
 
 </resources>
