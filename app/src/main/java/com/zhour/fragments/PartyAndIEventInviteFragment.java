@@ -581,6 +581,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
 
 
             linkedHashMap.put("invitetypeid", getInviteTypeId(et_invite_types.getText().toString()));
+            Utility.setSharedPrefStringData(mParent, Constants.PARTY_INVITE_TYPE, et_invite_types.getText().toString());
             linkedHashMap.put("eventdate", et_party_date.getText().toString());
             linkedHashMap.put("eventtime", et_party_time.getText().toString());
             linkedHashMap.put("invitenote", et_invite_note.getText().toString());
@@ -621,6 +622,9 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
         try {
             LinkedHashMap linkedHashMap = new LinkedHashMap();
             linkedHashMap.put("invitetypeid", getInviteTypeId(et_event_invite_types.getText().toString()));
+
+            Utility.setSharedPrefStringData(mParent, Constants.EVENT_INVITE_TYPE, et_event_invite_types.getText().toString());
+
             linkedHashMap.put("eventdate", et_date.getText().toString());
             linkedHashMap.put("eventtime", "00:00");
             linkedHashMap.put("invitenote", et_invite_note.getText().toString());
@@ -851,10 +855,9 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
                         if (id == 1) {
                             String text = mData.getTitle();
                             if (isPartyInvite) {
-                                Utility.setSharedPrefStringData(mParent, Constants.PARTY_INVITE_TYPE, text);
+
                                 et_invite_types.setText(text);
                             } else if (isEventInvite) {
-                                Utility.setSharedPrefStringData(mParent, Constants.EVENT_INVITE_TYPE, text);
                                 et_event_invite_types.setText(text);
                             }
                         }
