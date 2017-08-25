@@ -179,10 +179,12 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
 
         Bundle bundle = getArguments();
 
-        date = bundle.getString(Constants.DATE);
-        time = bundle.getString(Constants.TIME);
-        eventNote = bundle.getString(Constants.INVITE_NOTE);
-        eventType = bundle.getString(Constants.INVITE_TYPE);
+        if (bundle != null) {
+            date = bundle.getString(Constants.DATE);
+            time = bundle.getString(Constants.TIME);
+            eventNote = bundle.getString(Constants.INVITE_NOTE);
+            eventType = bundle.getString(Constants.INVITE_TYPE);
+        }
 
 
     }
@@ -207,10 +209,16 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
         askPermission();
 
         if (date != null && time != null && eventType != null && eventNote != null) {
-            et_event_invite_types.setText(eventType);
-            et_party_date.setText(date);
-            et_party_time.setText(time);
-            et_invite_note.setText(eventNote);
+
+            if (isEventInvite && !isPartyInvite) {
+                et_event_invite_types.setText(eventType);
+                et_party_date.setText(date);
+                et_party_time.setText(time);
+                et_invite_note.setText(eventNote);
+            } else {
+                et_invite_types.setText(eventType);
+
+            }
 
 
         }
@@ -266,7 +274,10 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
         ll_list_parent.setVisibility(View.VISIBLE);
         btn_submit.setVisibility(View.GONE);
         scroll_view.setVisibility(View.GONE);
+
+        /*GET INVITES */
         getInviteService();
+
     }
 
 
@@ -471,6 +482,11 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
 
     @OnClick(R.id.tv_event_invite)
     public void eventInvite() {
+        eventInviteHideLogic();
+
+    }
+
+    private void eventInviteHideLogic() {
         isEventInvite = true;
         isPartyInvite = false;
         Utility.hideSoftKeyboard(mParent, tv_event_invite);
@@ -485,7 +501,6 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
         ll_party_invite.setVisibility(View.GONE);
         tv_event_invite.setBackground(Utility.getDrawable(mParent, R.drawable.rectangel_edit_fill_right));
         tv_event_invite.setTextColor(Utility.getColor(mParent, R.color.colorWhite));
-
         tv_party_invite.setBackground(Utility.getDrawable(mParent, R.drawable.rectangel_edit_left));
         tv_party_invite.setTextColor(Utility.getColor(mParent, R.color.colorPrimary));
         clearDataForEvent();
@@ -519,6 +534,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
         if (isPartyInvite) {
             if (isValidFields()) {
                 savePartyInvite();
+
             }
         } else if (isEventInvite) {
             if (isValidEventInviteFields()) {
@@ -539,6 +555,13 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
         linkedHashMap.put("communityid", communityID);
         linkedHashMap.put("residentid", residentID);
 
+        if (isEventInvite && !isPartyInvite) {
+            linkedHashMap.put("enttype", Utility.getSharedPrefStringData(mParent, Constants.EVENT_INVITE_TYPE));
+        } else {
+            linkedHashMap.put("enttype", Utility.getSharedPrefStringData(mParent, Constants.PARTY_INVITE_TYPE));
+        }
+
+
         PartyInviteParser partyInviteParser = new PartyInviteParser();
         ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
                 mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
@@ -555,6 +578,8 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     private void savePartyInvite() {
         try {
             LinkedHashMap linkedHashMap = new LinkedHashMap();
+
+
             linkedHashMap.put("invitetypeid", getInviteTypeId(et_invite_types.getText().toString()));
             linkedHashMap.put("eventdate", et_party_date.getText().toString());
             linkedHashMap.put("eventtime", et_party_time.getText().toString());
@@ -716,7 +741,6 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
             if (model instanceof LookUpEventsTypeModel) {
                 lookUpEventsTypeModel = (LookUpEventsTypeModel) model;
                 if (!lookUpEventsTypeModel.isError()) {
-
                 }
             } else if (model instanceof PartyInviteModel) {
                 partyInviteModel = (PartyInviteModel) model;
@@ -827,8 +851,10 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
                         if (id == 1) {
                             String text = mData.getTitle();
                             if (isPartyInvite) {
+                                Utility.setSharedPrefStringData(mParent, Constants.PARTY_INVITE_TYPE, text);
                                 et_invite_types.setText(text);
                             } else if (isEventInvite) {
+                                Utility.setSharedPrefStringData(mParent, Constants.EVENT_INVITE_TYPE, text);
                                 et_event_invite_types.setText(text);
                             }
                         }

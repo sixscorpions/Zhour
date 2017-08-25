@@ -25,6 +25,13 @@ public class Constants {
     public static final String TOKEN = "TOKEN";
 
 
+
+    public static final String PARTY_INVITE_TYPE = "PARTY_INVITE_TYPE";
+    public static final String EVENT_INVITE_TYPE = "EVENT_INVITE_TYPE";
+
+
+
+
     /*PARTY INVITE EDIT KEYS */
     public static final String DATE = "DATE";
     public static final String TIME = "TIME";
