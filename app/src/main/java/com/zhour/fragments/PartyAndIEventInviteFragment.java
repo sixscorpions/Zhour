@@ -114,6 +114,8 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     @BindView(R.id.tv_count)
     TextView tv_count;
 
+    // private boolean isEventClicked = false;
+
 
     @BindView(R.id.ll_list_parent)
     LinearLayout ll_list_parent;
@@ -142,6 +144,9 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     @BindView(R.id.tv_no_data)
     TextView tv_no_data;
 
+    @BindView(R.id.et_event_note)
+    EditText et_event_note;
+
     @BindView(R.id.scroll_view)
     ScrollView scroll_view;
 
@@ -167,6 +172,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     private String time;
     private String eventNote;
     private String eventType;
+    private String venue;
 
     private int hour, minutes;
 
@@ -184,6 +190,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
             time = bundle.getString(Constants.TIME);
             eventNote = bundle.getString(Constants.INVITE_NOTE);
             eventType = bundle.getString(Constants.INVITE_TYPE);
+            venue = bundle.getString(Constants.VENUE);
         }
 
 
@@ -201,28 +208,22 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     }
 
     private void inItUI() {
+
         getInviteTypes();
-        tv_party_invite.performClick();
+       /* tv_party_invite.performClick();*/
+
+        Utility.showLog("inITUi", "inITUi" + mParent.isEventClicked);
+
+        if (mParent.isEventClicked)
+            tv_event_invite.performClick();
+        else
+            tv_party_invite.performClick();
+
+
         tv_add.setTypeface(Utility.setFontAwesomeWebfont(mParent));
         tv_phone_book.setTypeface(Utility.setFontAwesomeWebfont(mParent));
         tv_count.setVisibility(View.GONE);
         askPermission();
-
-        if (date != null && time != null && eventType != null && eventNote != null) {
-
-            if (isEventInvite && !isPartyInvite) {
-                et_event_invite_types.setText(eventType);
-                et_party_date.setText(date);
-                et_party_time.setText(time);
-                et_invite_note.setText(eventNote);
-            } else {
-                et_invite_types.setText(eventType);
-
-            }
-
-
-        }
-
 
     }
 
@@ -482,11 +483,14 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
 
     @OnClick(R.id.tv_event_invite)
     public void eventInvite() {
+        mParent.isEventClicked = true;
+        Utility.showLog("isEventClicked", "isEventClicked" + mParent.isEventClicked);
         eventInviteHideLogic();
 
     }
 
     private void eventInviteHideLogic() {
+
         isEventInvite = true;
         isPartyInvite = false;
         Utility.hideSoftKeyboard(mParent, tv_event_invite);
@@ -508,8 +512,13 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
 
     @OnClick(R.id.tv_party_invite)
     public void partyInvite() {
+        mParent.isEventClicked = false;
         isPartyInvite = true;
         isEventInvite = false;
+
+
+
+
         Utility.hideSoftKeyboard(mParent, tv_party_invite);
         scroll_view.setVisibility(View.VISIBLE);
         btn_submit.setVisibility(View.VISIBLE);
@@ -519,6 +528,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
         et_date.setVisibility(View.GONE);
         et_event_invite_types.setVisibility(View.GONE);
         et_event_venue.setVisibility(View.GONE);
+        et_venue.setVisibility(View.VISIBLE);
         ll_party_invite.setVisibility(View.VISIBLE);
         tv_party_invite.setBackground(Utility.getDrawable(mParent, R.drawable.rectangel_edit_fill_left));
         tv_party_invite.setTextColor(Utility.getColor(mParent, R.color.colorWhite));
@@ -556,9 +566,9 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
         linkedHashMap.put("residentid", residentID);
 
         if (isEventInvite && !isPartyInvite) {
-            linkedHashMap.put("enttype", Utility.getSharedPrefStringData(mParent, Constants.EVENT_INVITE_TYPE));
+            linkedHashMap.put("enttype", "event types");
         } else {
-            linkedHashMap.put("enttype", Utility.getSharedPrefStringData(mParent, Constants.PARTY_INVITE_TYPE));
+            linkedHashMap.put("enttype", "invite types");
         }
 
 
@@ -786,6 +796,17 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
         tv_count.setVisibility(View.GONE);
         contactsListModel = null;
         addContactList = null;
+
+        if (!Utility.isValueNullOrEmpty(eventType))
+            et_invite_types.setText(eventType);
+        if (!Utility.isValueNullOrEmpty(date))
+            et_party_date.setText(date);
+
+        if (!Utility.isValueNullOrEmpty(venue))
+            et_venue.setText(venue);
+
+        if (!Utility.isValueNullOrEmpty(time))
+            et_party_time.setText(time);
     }
 
     /**
@@ -798,6 +819,16 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
         et_event_venue.setText("");
         contactsListModel = null;
         addContactList = null;
+
+        if (!Utility.isValueNullOrEmpty(eventType))
+            et_event_invite_types.setText(eventType);
+        if (!Utility.isValueNullOrEmpty(date))
+            et_date.setText(date);
+        if (!Utility.isValueNullOrEmpty(eventNote))
+            et_invite_note.setText(eventNote);
+        if(!Utility.isValueNullOrEmpty(venue))
+            et_event_venue.setText(venue);
+
     }
 
     /**

@@ -348,6 +348,24 @@
                     android:hint="@string/invite_note"
                     android:minHeight="@dimen/_70dp"
                     android:padding="@dimen/_10dp"
+                    android:visibility="visible"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/_15sp" />
+                <EditText
+                    android:id="@+id/et_event_note"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ll_party_invite"
+                    android:layout_marginBottom="@dimen/_15dp"
+                    android:layout_marginEnd="@dimen/_30dp"
+                    android:layout_marginStart="@dimen/_30dp"
+                    android:layout_marginTop="@dimen/_15dp"
+                    android:background="@drawable/dotted_rectangle_boarder"
+                    android:gravity="start|top"
+                    android:hint="@string/invite_note"
+                    android:minHeight="@dimen/_70dp"
+                    android:padding="@dimen/_10dp"
+                    android:visibility="gone"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/_15sp" />
             </RelativeLayout>

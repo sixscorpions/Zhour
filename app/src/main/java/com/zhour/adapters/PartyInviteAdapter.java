@@ -86,6 +86,7 @@ public class PartyInviteAdapter extends BaseAdapter {
                     bundle.putString(Constants.TIME, invitesModel.getEventtime());
                     bundle.putString(Constants.INVITE_NOTE, invitesModel.getInvitenote());
                     bundle.putString(Constants.INVITE_TYPE, invitesModel.getInvitetype());
+                    bundle.putString(Constants.VENUE,invitesModel.getVenue());
                     Utility.navigateDashBoardFragment(new PartyAndIEventInviteFragment(), PartyAndIEventInviteFragment.TAG, bundle, parent);
                 }
             });

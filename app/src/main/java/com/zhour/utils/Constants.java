@@ -37,6 +37,7 @@ public class Constants {
     public static final String TIME = "TIME";
     public static final String INVITE_NOTE = "INVITE_NOTE";
     public static final String INVITE_TYPE = "INVITE_TYPE";
+    public static final String VENUE = "VENUE";
 
 
     public static final String VIEW_NOTICE = "VIEW_NOTICE";
