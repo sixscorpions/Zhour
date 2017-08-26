@@ -21,11 +21,12 @@
 
             <Button
                 android:id="@+id/btn_submit"
-                android:layout_width="@dimen/_0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/_10dp"
                 android:layout_marginStart="@dimen/_10dp"
-                android:layout_weight="0.9"
+                android:layout_weight="1"
                 android:background="@drawable/ic_button_maid"
                 android:gravity="center"
                 android:text="@string/maid_status"
@@ -41,7 +42,8 @@
                 android:layout_margin="@dimen/_5dp"
                 android:layout_marginLeft="@dimen/_3dp"
                 android:layout_weight="0.1"
-                android:src="@drawable/ic_maid_time" />
+                android:src="@drawable/ic_maid_time"
+                android:visibility="gone" />
         </LinearLayout>
 
         <ImageView
@@ -162,16 +164,31 @@
                 android:layout_weight="0.8"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tv_phone"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/transparent"
-                    android:drawableEnd="@drawable/ic_phone"
-                    android:gravity="bottom"
-                    android:hint="@string/phone"
-                    android:minHeight="@dimen/_40dp"
-                    android:textSize="@dimen/_15sp" />
+                    android:weightSum="1">
+
+                    <TextView
+                        android:id="@+id/tv_phone"
+                        android:layout_width="@dimen/_0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.8"
+                        android:background="@color/transparent"
+                        android:gravity="bottom"
+                        android:hint="@string/phone"
+                        android:minHeight="@dimen/_40dp"
+                        android:textSize="@dimen/_15sp" />
+
+                    <ImageView
+                        android:id="@+id/iv_call"
+                        android:layout_width="@dimen/_0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.2"
+                        android:layout_gravity="center"
+                        android:minHeight="@dimen/_25dp"
+                        android:src="@drawable/ic_phone" />
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -233,10 +250,10 @@
                     <ImageView
                         android:id="@+id/btn_switch_in"
                         android:layout_width="@dimen/_25dp"
-                        android:layout_marginTop="@dimen/_3dp"
-                        android:contentDescription="@string/empty"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/_3dp"
+                        android:contentDescription="@string/empty"
                         android:gravity="center"
                         android:src="@drawable/check_in" />
 
@@ -247,8 +264,8 @@
                         android:layout_gravity="center"
                         android:layout_marginTop="@dimen/_5dp"
                         android:gravity="center"
-                        android:textAllCaps="true"
                         android:text="@string/in"
+                        android:textAllCaps="true"
                         android:textColor="@color/colorAccent"
                         android:textSize="@dimen/_15sp" />
                 </LinearLayout>

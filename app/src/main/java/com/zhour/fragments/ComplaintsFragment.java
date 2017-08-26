@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -20,7 +21,6 @@ import android.widget.TextView;
 import com.zhour.R;
 import com.zhour.activities.DashboardActivity;
 import com.zhour.adapters.ComplaintAdapter;
-import com.zhour.adapters.PartyInviteAdapter;
 import com.zhour.adapters.SpinnerAdapter;
 import com.zhour.aynctask.IAsyncCaller;
 import com.zhour.aynctask.ServerJSONAsyncTask;
@@ -28,22 +28,15 @@ import com.zhour.aynctaskold.ServerIntractorAsync;
 import com.zhour.models.ComplaintListModel;
 import com.zhour.models.ComplaintModel;
 import com.zhour.models.ComplaintResponseModel;
-import com.zhour.models.EventInviteSuccessModel;
-import com.zhour.models.InvitesModel;
 import com.zhour.models.LookUpEventsTypeModel;
 import com.zhour.models.Model;
-import com.zhour.models.PartyInviteModel;
 import com.zhour.models.SpinnerModel;
 import com.zhour.parser.ComplaintListParser;
 import com.zhour.parser.ComplaintParser;
-import com.zhour.parser.EventInviteSuccessParser;
 import com.zhour.parser.LookUpEventTypeParser;
-import com.zhour.parser.PartyInviteParser;
 import com.zhour.utils.APIConstants;
 import com.zhour.utils.Constants;
 import com.zhour.utils.Utility;
-
-import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -76,12 +69,20 @@ public class ComplaintsFragment extends Fragment implements IAsyncCaller {
     @BindView(R.id.iv_submit)
     Button iv_submit;
 
+    @BindView(R.id.iv_complaint)
+    ImageView iv_complaint;
+
+    private int position;
+
 
     private ComplaintAdapter complaintAdapter;
 
     private LookUpEventsTypeModel lookUpEventsTypeModel;
     private ComplaintResponseModel mComplaintResponseModel;
     private ArrayList<ComplaintListModel> complaintListModels;
+
+
+    private int[] images;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -101,6 +102,9 @@ public class ComplaintsFragment extends Fragment implements IAsyncCaller {
     }
 
     private void initUi() {
+        /*STATIC IMAGES ARRAY*/
+        images = new int[]{R.drawable.ic_apartment, R.drawable.ic_apartment, R.drawable.ic_pump, R.drawable.ic_electric};
+
         getInviteTypes();
         ll_list_parent.setVisibility(View.GONE);
     }
@@ -220,12 +224,12 @@ public class ComplaintsFragment extends Fragment implements IAsyncCaller {
         if (lookUpEventsTypeModel != null &&
                 lookUpEventsTypeModel.getLookUpModels() != null &&
                 lookUpEventsTypeModel.getLookUpModels().size() > 0)
-            showSpinnerDialog(getActivity(), Utility.getResourcesString(mParent, R.string.invite_type),
+            showSpinnerDialog(getActivity(), Utility.getResourcesString(mParent, R.string.complaints_types),
                     lookUpEventsTypeModel.getLookupNames(), 1);
     }
 
     public void showSpinnerDialog(final Context context, final String title,
-                                  ArrayList<SpinnerModel> itemsList, final int id) {
+                                  final ArrayList<SpinnerModel> itemsList, final int id) {
 
         AlertDialog.Builder builderSingle = new AlertDialog.Builder(context);
 
@@ -233,6 +237,8 @@ public class ComplaintsFragment extends Fragment implements IAsyncCaller {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.layout_alert_dialog_title, null);
         TextView tv_title = (TextView) view.findViewById(R.id.tv_alert_dialog_title);
+
+
         RelativeLayout dialog_back_ground = (RelativeLayout) view.findViewById(R.id.dialog_back_ground);
         dialog_back_ground.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
         tv_title.setText(title);
@@ -247,8 +253,11 @@ public class ComplaintsFragment extends Fragment implements IAsyncCaller {
                     public void onClick(DialogInterface dialog, int which) {
                         SpinnerModel mData = (SpinnerModel) adapter.getItem(which);
                         if (id == 1) {
+                            position = which;
+                            Utility.showLog("Position", "Position >>>>>" + position);
                             String text = mData.getTitle();
                             et_complaints_types.setText(text);
+                            iv_complaint.setImageResource(images[position]);
                         }
                     }
                 });

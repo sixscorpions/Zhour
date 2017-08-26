@@ -1,9 +1,15 @@
 package com.zhour.fragments;
 
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +31,7 @@ import java.util.LinkedHashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 public class MaidStatusFragment extends Fragment implements IAsyncCaller {
@@ -49,6 +56,9 @@ public class MaidStatusFragment extends Fragment implements IAsyncCaller {
     @BindView(R.id.btn_switch_in)
     ImageView btn_switch_in;
 
+    @BindView(R.id.iv_call)
+    ImageView iv_call;
+
     private MaidModel mMaidModel;
 
 
@@ -70,6 +80,9 @@ public class MaidStatusFragment extends Fragment implements IAsyncCaller {
     }
 
     private void inItUI() {
+        /*GET PHONE PERMISSION*/
+        askPermission();
+
 
         tv_in_out.setTypeface(Utility.setRobotoRegular(mParent));
         tv_time.setTypeface(Utility.setRobotoRegular(mParent));
@@ -107,6 +120,35 @@ public class MaidStatusFragment extends Fragment implements IAsyncCaller {
         }
     }
 
+    private void askPermission() {
+        if (ContextCompat.checkSelfPermission(mParent,
+                Manifest.permission.CALL_PHONE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(mParent,
+                    Manifest.permission.CALL_PHONE)) {
+
+                iv_call.setEnabled(true);
+
+            } else {
+                iv_call.setEnabled(false);
+
+                ActivityCompat.requestPermissions(mParent,
+                        new String[]{Manifest.permission.CALL_PHONE},
+                        Constants.MY_PERMISSIONS_REQUEST_CALL_PHONE);
+            }
+        }
+    }
+    /*CALLING NUMBER*/
+
+    @OnClick(R.id.iv_call)
+    void callToMaid() {
+
+        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + tv_phone.getText().toString()));
+        startActivity(intent);
+
+    }
+
     /**
      * This method is used to set data after api get
      */
@@ -116,10 +158,10 @@ public class MaidStatusFragment extends Fragment implements IAsyncCaller {
             tv_phone.setText(mMaidModel.getContact1());
             if (mMaidModel.getOuttime() == null) {
                 btn_switch_in.setImageDrawable(Utility.getDrawable(mParent, R.drawable.check_in));
-                tv_in_out.setText(Utility.getResourcesString(mParent,R.string.in));
+                tv_in_out.setText(Utility.getResourcesString(mParent, R.string.in));
             } else {
                 btn_switch_in.setImageDrawable(Utility.getDrawable(mParent, R.drawable.check_out));
-                tv_in_out.setText(Utility.getResourcesString(mParent,R.string.out));
+                tv_in_out.setText(Utility.getResourcesString(mParent, R.string.out));
             }
             tv_time.setText(Utility.displayTimeFormat(mMaidModel.getIntime()));
             tv_date.setText(Utility.displayDateFormat(mMaidModel.getIntime()));

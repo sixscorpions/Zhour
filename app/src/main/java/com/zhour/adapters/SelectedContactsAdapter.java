@@ -66,7 +66,12 @@ public class SelectedContactsAdapter extends BaseAdapter {
         }
         Contact contact = newList.get(position);
         if (!Utility.isValueNullOrEmpty(contact.getPhoneNumber())) {
-            viewHolder.tv_contact.setText(contact.getPhoneNumber());
+
+            if (!Utility.isValueNullOrEmpty(contact.getDisplayName()))
+                viewHolder.tv_contact.setText(contact.getDisplayName());
+            else
+                viewHolder.tv_contact.setText(contact.getPhoneNumber());
+
         }
         return convertView;
 
