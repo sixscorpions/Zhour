@@ -71,6 +71,15 @@ public class ComplaintAdapter extends BaseAdapter {
 
         }
         ComplaintListModel complaintListModel = complaintListModels.get(position);
+        if (complaintListModel.getComplainttype().equalsIgnoreCase("83"))
+            holder.img_type.setImageDrawable(Utility.getDrawable(mParent, R.drawable.ic_electric));
+        if (complaintListModel.getComplainttype().equalsIgnoreCase("82"))
+            holder.img_type.setImageDrawable(Utility.getDrawable(mParent, R.drawable.ic_pump));
+        if (complaintListModel.getComplainttype().equalsIgnoreCase("81"))
+            holder.img_type.setImageDrawable(Utility.getDrawable(mParent, R.drawable.ic_apartment));
+        if (complaintListModel.getComplainttype().equalsIgnoreCase("80"))
+            holder.img_type.setImageDrawable(Utility.getDrawable(mParent, R.drawable.ic_apartment));
+
 
         holder.tv_complaint_des.setText(complaintListModel.getComplaintdesc());
         holder.tv_date.setText(Utility.displayDateComplaintsFormat(complaintListModel.getUpdateddate()));

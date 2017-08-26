@@ -72,6 +72,9 @@ public class ComplaintsFragment extends Fragment implements IAsyncCaller {
     @BindView(R.id.iv_complaint)
     ImageView iv_complaint;
 
+    @BindView(R.id.iv_list)
+    ImageView iv_list;
+
     private int position;
 
 
@@ -111,6 +114,7 @@ public class ComplaintsFragment extends Fragment implements IAsyncCaller {
 
     @OnClick(R.id.iv_list)
     public void getComplaints() {
+        iv_list.setImageDrawable(Utility.getDrawable(mParent, R.drawable.ic_time_fill));
         iv_submit.setVisibility(View.GONE);
         ll_complaints.setVisibility(View.GONE);
         ll_list_parent.setVisibility(View.VISIBLE);
@@ -119,6 +123,7 @@ public class ComplaintsFragment extends Fragment implements IAsyncCaller {
 
     @OnClick(R.id.tv_complaint_heading)
     public void showAddView() {
+        iv_list.setImageDrawable(Utility.getDrawable(mParent, R.drawable.ic_date));
         iv_submit.setVisibility(View.VISIBLE);
         ll_complaints.setVisibility(View.VISIBLE);
         ll_list_parent.setVisibility(View.GONE);
