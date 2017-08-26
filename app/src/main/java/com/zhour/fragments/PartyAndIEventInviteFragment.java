@@ -901,8 +901,11 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     private void updateData() {
         if (contactsListModel == null) {
             contactsListModel = new ArrayList<>();
+        }
+        if (addContactList == null) {
             addContactList = new ArrayList<>();
         }
+
         if (contactsListModel != null) {
             Contact contact = new Contact("", et_phone.getText().toString(), "");
             contact.setPhoneNumber(et_phone.getText().toString());
