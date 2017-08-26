@@ -32,7 +32,6 @@ public class PartyInviteAdapter extends BaseAdapter {
         this.list = list;
         this.parent = parent;
         layoutInflater = (LayoutInflater) parent.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
     }
 
 
@@ -86,7 +85,7 @@ public class PartyInviteAdapter extends BaseAdapter {
                     bundle.putString(Constants.TIME, invitesModel.getEventtime());
                     bundle.putString(Constants.INVITE_NOTE, invitesModel.getInvitenote());
                     bundle.putString(Constants.INVITE_TYPE, invitesModel.getInvitetype());
-                    bundle.putString(Constants.VENUE,invitesModel.getVenue());
+                    bundle.putString(Constants.VENUE, invitesModel.getVenue());
                     Utility.navigateDashBoardFragment(new PartyAndIEventInviteFragment(), PartyAndIEventInviteFragment.TAG, bundle, parent);
                 }
             });
@@ -98,7 +97,7 @@ public class PartyInviteAdapter extends BaseAdapter {
         }
         invitesModel = list.get(position);
 
-        holder.tv_invitenote.setText(invitesModel.getInvitenote());
+        holder.tv_invitenote.setText(Utility.capitalizeFirstLetter(invitesModel.getInvitenote()));
         holder.tv_date.setText(invitesModel.getEventdate());
 
 

@@ -209,7 +209,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
 
     private void inItUI() {
 
-        getInviteTypes();
+        getInviteTypes("Invite%20Types");
        /* tv_party_invite.performClick();*/
 
         Utility.showLog("inITUi", "inITUi" + mParent.isEventClicked);
@@ -227,10 +227,11 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
 
     }
 
-    private void getInviteTypes() {
+    private void getInviteTypes(String invite_types) {
         try {
             LinkedHashMap linkedHashMap = new LinkedHashMap();
-            linkedHashMap.put("entityname", "Event%20Types");
+            //linkedHashMap.put("entityname", "Event%20Types");
+            linkedHashMap.put("entityname", invite_types);
             LookUpEventTypeParser lookUpEventTypeParser = new LookUpEventTypeParser();
             ServerJSONAsyncTask serverJSONAsyncTask = new ServerJSONAsyncTask(
                     mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
@@ -264,12 +265,11 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     public void eventsAndParty() {
         iv_date.setImageDrawable(Utility.getDrawable(mParent, R.drawable.ic_time_fill));
 
-        tv_event_invite.setBackground(Utility.getDrawable(mParent, R.drawable.rectangel_edit_right));
+       /* tv_event_invite.setBackground(Utility.getDrawable(mParent, R.drawable.rectangel_edit_right));
         tv_event_invite.setTextColor(Utility.getColor(mParent, R.color.colorPrimary));
 
         tv_party_invite.setBackground(Utility.getDrawable(mParent, R.drawable.rectangel_edit_left));
-        tv_party_invite.setTextColor(Utility.getColor(mParent, R.color.colorPrimary));
-
+        tv_party_invite.setTextColor(Utility.getColor(mParent, R.color.colorPrimary));*/
 
         rl_parent.setVisibility(View.GONE);
         ll_list_parent.setVisibility(View.VISIBLE);
@@ -486,7 +486,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
         mParent.isEventClicked = true;
         Utility.showLog("isEventClicked", "isEventClicked" + mParent.isEventClicked);
         eventInviteHideLogic();
-
+        getInviteTypes("Event%20Types");
     }
 
     private void eventInviteHideLogic() {
@@ -516,9 +516,6 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
         isPartyInvite = true;
         isEventInvite = false;
 
-
-
-
         Utility.hideSoftKeyboard(mParent, tv_party_invite);
         scroll_view.setVisibility(View.VISIBLE);
         btn_submit.setVisibility(View.VISIBLE);
@@ -537,6 +534,8 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
         tv_event_invite.setTextColor(Utility.getColor(mParent, R.color.colorPrimary));
 
         clearDataAndShowToast();
+
+        getInviteTypes("Invite%20Types");
     }
 
     @OnClick(R.id.btn_submit)
@@ -735,8 +734,6 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
 
     @OnClick(R.id.et_party_time)
     public void getTime() {
-
-
         Utility.hideSoftKeyboard(mParent, et_party_time);
         Calendar c = Calendar.getInstance();
         TimePickerDialog timePickerDialog = new TimePickerDialog(mParent, new TimePickerDialog.OnTimeSetListener() {
@@ -826,7 +823,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
             et_date.setText(date);
         if (!Utility.isValueNullOrEmpty(eventNote))
             et_invite_note.setText(eventNote);
-        if(!Utility.isValueNullOrEmpty(venue))
+        if (!Utility.isValueNullOrEmpty(venue))
             et_event_venue.setText(venue);
 
     }
