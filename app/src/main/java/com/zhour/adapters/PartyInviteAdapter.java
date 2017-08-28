@@ -27,11 +27,13 @@ public class PartyInviteAdapter extends BaseAdapter {
     private DashboardActivity parent;
     private LayoutInflater layoutInflater;
     private InvitesModel invitesModel;
+    private boolean is_Party_Invite;
 
-    public PartyInviteAdapter(ArrayList<InvitesModel> list, DashboardActivity parent) {
+    public PartyInviteAdapter(ArrayList<InvitesModel> list, DashboardActivity parent, boolean is_Party_Invite) {
         this.list = list;
         this.parent = parent;
         layoutInflater = (LayoutInflater) parent.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.is_Party_Invite = is_Party_Invite;
     }
 
 
@@ -86,6 +88,7 @@ public class PartyInviteAdapter extends BaseAdapter {
                     bundle.putString(Constants.INVITE_NOTE, invitesModel.getInvitenote());
                     bundle.putString(Constants.INVITE_TYPE, invitesModel.getInvitetype());
                     bundle.putString(Constants.VENUE, invitesModel.getVenue());
+                    bundle.putBoolean(Constants.IS_PARTY_INVITE, is_Party_Invite);
                     Utility.navigateDashBoardFragment(new PartyAndIEventInviteFragment(), PartyAndIEventInviteFragment.TAG, bundle, parent);
                 }
             });

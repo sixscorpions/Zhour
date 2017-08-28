@@ -102,8 +102,6 @@ public class DashboardActivity extends BaseActivity implements IAsyncCaller {
     private TextRecognizer detector;
     Uri imageUri;
 
-    public static boolean isEventClicked = false;
-
     public String vehicleNumberText;
     private static final int PHOTO_REQUEST = 10;
 

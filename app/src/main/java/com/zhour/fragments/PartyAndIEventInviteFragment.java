@@ -191,6 +191,8 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
             eventNote = bundle.getString(Constants.INVITE_NOTE);
             eventType = bundle.getString(Constants.INVITE_TYPE);
             venue = bundle.getString(Constants.VENUE);
+            isPartyInvite = bundle.getBoolean(Constants.IS_PARTY_INVITE);
+            isEventInvite = !isPartyInvite;
         }
 
 
@@ -212,13 +214,13 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
         getInviteTypes("Invite%20Types");
        /* tv_party_invite.performClick();*/
 
-        Utility.showLog("inITUi", "inITUi" + mParent.isEventClicked);
-
-        if (mParent.isEventClicked)
-            tv_event_invite.performClick();
-        else
+        if (isPartyInvite) {
             tv_party_invite.performClick();
-
+            showDataForParty();
+        } else {
+            tv_event_invite.performClick();
+            showDataForEvent();
+        }
 
         tv_add.setTypeface(Utility.setFontAwesomeWebfont(mParent));
         tv_phone_book.setTypeface(Utility.setFontAwesomeWebfont(mParent));
@@ -483,8 +485,6 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
 
     @OnClick(R.id.tv_event_invite)
     public void eventInvite() {
-        mParent.isEventClicked = true;
-        Utility.showLog("isEventClicked", "isEventClicked" + mParent.isEventClicked);
         eventInviteHideLogic();
         getInviteTypes("Event%20Types");
     }
@@ -512,7 +512,6 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
 
     @OnClick(R.id.tv_party_invite)
     public void partyInvite() {
-        mParent.isEventClicked = false;
         isPartyInvite = true;
         isEventInvite = false;
 
@@ -793,9 +792,15 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
         tv_count.setVisibility(View.GONE);
         contactsListModel = null;
         addContactList = null;
+    }
 
+    /**
+     * This method is used to show the data for party
+     */
+    private void showDataForParty() {
         if (!Utility.isValueNullOrEmpty(eventType))
             et_invite_types.setText(eventType);
+
         if (!Utility.isValueNullOrEmpty(date))
             et_party_date.setText(date);
 
@@ -804,6 +809,23 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
 
         if (!Utility.isValueNullOrEmpty(time))
             et_party_time.setText(time);
+
+        if (!Utility.isValueNullOrEmpty(eventNote))
+            et_invite_note.setText(eventNote);
+    }
+
+    /**
+     * This method is used to show the data for event
+     */
+    private void showDataForEvent() {
+        if (!Utility.isValueNullOrEmpty(eventType))
+            et_event_invite_types.setText(eventType);
+        if (!Utility.isValueNullOrEmpty(date))
+            et_date.setText(date);
+        if (!Utility.isValueNullOrEmpty(eventNote))
+            et_invite_note.setText(eventNote);
+        if (!Utility.isValueNullOrEmpty(venue))
+            et_event_venue.setText(venue);
     }
 
     /**
@@ -816,15 +838,6 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
         et_event_venue.setText("");
         contactsListModel = null;
         addContactList = null;
-
-        if (!Utility.isValueNullOrEmpty(eventType))
-            et_event_invite_types.setText(eventType);
-        if (!Utility.isValueNullOrEmpty(date))
-            et_date.setText(date);
-        if (!Utility.isValueNullOrEmpty(eventNote))
-            et_invite_note.setText(eventNote);
-        if (!Utility.isValueNullOrEmpty(venue))
-            et_event_venue.setText(venue);
 
     }
 
@@ -840,7 +853,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
 
             }
 
-            partyInviteAdapter = new PartyInviteAdapter(inviteEventList, mParent);
+            partyInviteAdapter = new PartyInviteAdapter(inviteEventList, mParent, isPartyInvite);
             list_view.setAdapter(partyInviteAdapter);
 
         }
