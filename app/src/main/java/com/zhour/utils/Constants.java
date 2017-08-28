@@ -33,6 +33,7 @@ public class Constants {
 
 
     /*PARTY INVITE EDIT KEYS */
+    public static final String INVITE_ID = "INVITE_ID";
     public static final String DATE = "DATE";
     public static final String TIME = "TIME";
     public static final String INVITE_NOTE = "INVITE_NOTE";

@@ -75,14 +75,21 @@ public class PartyInviteAdapter extends BaseAdapter {
 
             holder.iv_clock = (ImageView) convertView.findViewById(R.id.iv_clock);
             holder.iv_calander = (ImageView) convertView.findViewById(R.id.iv_calander);
-
-
             holder.tv_edit = (TextView) convertView.findViewById(R.id.tv_edit);
+
+            if (is_Party_Invite) {
+                holder.tv_edit.setVisibility(View.VISIBLE);
+            } else {
+                holder.tv_edit.setVisibility(View.GONE);
+            }
+
+
             holder.tv_edit.setTypeface(Utility.getFontAwesomeWebFont(parent));
             holder.tv_edit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Bundle bundle = new Bundle();
+                    bundle.putString(Constants.INVITE_ID, invitesModel.getInviteid());
                     bundle.putString(Constants.DATE, invitesModel.getEventdate());
                     bundle.putString(Constants.TIME, invitesModel.getEventtime());
                     bundle.putString(Constants.INVITE_NOTE, invitesModel.getInvitenote());

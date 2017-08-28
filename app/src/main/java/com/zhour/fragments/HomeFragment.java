@@ -19,6 +19,7 @@ import com.zhour.R;
 import com.zhour.activities.DashboardActivity;
 import com.zhour.adapters.SliderPagerAdapter;
 import com.zhour.models.ImageModel;
+import com.zhour.utils.Constants;
 import com.zhour.utils.Utility;
 
 import java.util.ArrayList;
@@ -182,6 +183,7 @@ public class HomeFragment extends Fragment {
     @OnClick(R.id.ll_invite)
     public void inviteFragment() {
         Bundle bundle = new Bundle();
+        bundle.putBoolean(Constants.IS_PARTY_INVITE, true);
         Utility.navigateDashBoardFragment(new PartyAndIEventInviteFragment(), PartyAndIEventInviteFragment.TAG, bundle, getActivity());
 
     }

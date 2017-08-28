@@ -168,14 +168,14 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     private boolean isPartyInvite = false;
     private boolean isEventInvite = true;
 
+    private String invite_id;
     private String date;
     private String time;
     private String eventNote;
     private String eventType;
     private String venue;
 
-    private int hour, minutes;
-
+    private boolean isCallUpdate = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -184,8 +184,8 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
         Utility.setTranslateStatusBar(mParent);
 
         Bundle bundle = getArguments();
-
         if (bundle != null) {
+            invite_id = bundle.getString(Constants.INVITE_ID);
             date = bundle.getString(Constants.DATE);
             time = bundle.getString(Constants.TIME);
             eventNote = bundle.getString(Constants.INVITE_NOTE);
@@ -194,8 +194,6 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
             isPartyInvite = bundle.getBoolean(Constants.IS_PARTY_INVITE);
             isEventInvite = !isPartyInvite;
         }
-
-
     }
 
     @Override
@@ -493,6 +491,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
 
         isEventInvite = true;
         isPartyInvite = false;
+        isCallUpdate = false;
         Utility.hideSoftKeyboard(mParent, tv_event_invite);
         scroll_view.setVisibility(View.VISIBLE);
         btn_submit.setVisibility(View.VISIBLE);
@@ -514,6 +513,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     public void partyInvite() {
         isPartyInvite = true;
         isEventInvite = false;
+        isCallUpdate = false;
 
         Utility.hideSoftKeyboard(mParent, tv_party_invite);
         scroll_view.setVisibility(View.VISIBLE);
@@ -541,12 +541,20 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     public void submit() {
         if (isPartyInvite) {
             if (isValidFields()) {
-                savePartyInvite();
+                if (isCallUpdate) {
+                    updatePartyInvite();
+                } else {
+                    savePartyInvite();
+                }
 
             }
         } else if (isEventInvite) {
             if (isValidEventInviteFields()) {
-                saveEventInvite();
+                if (isCallUpdate) {
+
+                } else {
+                    saveEventInvite();
+                }
             }
         }
     }
@@ -616,6 +624,42 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
             ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
                     mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
                     APIConstants.SAVE_INVITE, linkedHashMap,
+                    APIConstants.REQUEST_TYPE.POST, this, partyInviteSuccessParser);
+            Utility.execute(serverJSONAsyncTask);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * This method is used to update Party Invite
+     */
+    private void updatePartyInvite() {
+        try {
+            LinkedHashMap linkedHashMap = new LinkedHashMap();
+
+
+            linkedHashMap.put("inviteid", invite_id);
+
+            JSONArray jsonArray = new JSONArray();
+            JSONObject jsonObject = new JSONObject();
+            if (contactsListModel != null && contactsListModel.size() > 0) {
+                for (int i = 0; i < contactsListModel.size(); i++) {
+                    Contact c = contactsListModel.get(i);
+                    String num = c.getPhoneNumber().trim();
+                    String phNo = num.replaceAll("[()\\s-]+", "");
+                    jsonObject.put(c.displayName, phNo);
+
+                }
+            }
+
+            jsonArray.put(jsonObject);
+            linkedHashMap.put("contacts", jsonArray.toString());
+
+            PartyInviteSuccessParser partyInviteSuccessParser = new PartyInviteSuccessParser();
+            ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                    mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                    APIConstants.UPDATE_INVITEES, linkedHashMap,
                     APIConstants.REQUEST_TYPE.POST, this, partyInviteSuccessParser);
             Utility.execute(serverJSONAsyncTask);
         } catch (Exception e) {
@@ -789,6 +833,15 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
         et_invite_note.setText("");
         et_phone.setText("");
         tv_count.setText("");
+
+        et_invite_types.setEnabled(true);
+        et_party_date.setEnabled(true);
+        et_party_time.setEnabled(true);
+        et_venue.setEnabled(true);
+        et_invite_note.setEnabled(true);
+        et_phone.setEnabled(true);
+        tv_count.setEnabled(true);
+
         tv_count.setVisibility(View.GONE);
         contactsListModel = null;
         addContactList = null;
@@ -798,20 +851,31 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
      * This method is used to show the data for party
      */
     private void showDataForParty() {
-        if (!Utility.isValueNullOrEmpty(eventType))
+        if (!Utility.isValueNullOrEmpty(eventType)) {
             et_invite_types.setText(eventType);
+            et_invite_types.setEnabled(false);
+        }
 
-        if (!Utility.isValueNullOrEmpty(date))
+        if (!Utility.isValueNullOrEmpty(date)) {
             et_party_date.setText(date);
+            et_party_date.setEnabled(false);
+        }
 
-        if (!Utility.isValueNullOrEmpty(venue))
+        if (!Utility.isValueNullOrEmpty(venue)) {
             et_venue.setText(venue);
+            et_venue.setEnabled(false);
+        }
 
-        if (!Utility.isValueNullOrEmpty(time))
+        if (!Utility.isValueNullOrEmpty(time)) {
             et_party_time.setText(time);
+            et_party_time.setEnabled(false);
+        }
 
-        if (!Utility.isValueNullOrEmpty(eventNote))
+        if (!Utility.isValueNullOrEmpty(eventNote)) {
             et_invite_note.setText(eventNote);
+            et_invite_note.setEnabled(false);
+        }
+        isCallUpdate = true;
     }
 
     /**
@@ -826,6 +890,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
             et_invite_note.setText(eventNote);
         if (!Utility.isValueNullOrEmpty(venue))
             et_event_venue.setText(venue);
+        isCallUpdate = true;
     }
 
     /**
@@ -838,7 +903,6 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
         et_event_venue.setText("");
         contactsListModel = null;
         addContactList = null;
-
     }
 
     /**

@@ -28,6 +28,6 @@ public class APIConstants {
     public static String LOGOUT = BASE_URL + "logoutUser";
     public static String GET_COMPLINTS = BASE_URL + "getComplaints";
     public static String CREATE_OR_UPDATE_COMPLAINT = BASE_URL + "createOrUpdateComplaint";
-
+    public static String UPDATE_INVITEES = BASE_URL + "updateInvitees";
 
 }
