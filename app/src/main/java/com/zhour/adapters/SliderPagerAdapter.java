@@ -21,11 +21,12 @@ import java.util.ArrayList;
 public class SliderPagerAdapter extends PagerAdapter {
     private LayoutInflater layoutInflater;
     Activity activity;
-    ArrayList<ImageModel> image_arraylist;
+    // ArrayList<ImageModel> image_arraylist;
+    int[] slideImages;
 
-    public SliderPagerAdapter(Activity activity, ArrayList<ImageModel> image_arraylist) {
+    public SliderPagerAdapter(Activity activity,  int[] slideImages) {
         this.activity = activity;
-        this.image_arraylist = image_arraylist;
+        this.slideImages = slideImages;
     }
 
     @Override
@@ -34,14 +35,16 @@ public class SliderPagerAdapter extends PagerAdapter {
 
         View view = layoutInflater.inflate(R.layout.item_pager, container, false);
 
-        ImageModel imageModel = image_arraylist.get(position);
+        //ImageModel imageModel = image_arraylist.get(position);
         ImageView iv_pager = (ImageView) view.findViewById(R.id.iv_pager);
 
+        iv_pager.setImageResource(slideImages[position]);
+
         // UImageLoader.URLpicLoading(iv_pager,imageModel.getUrl(),null,R.drawable.ic_about);
-        Picasso.with(activity.getApplicationContext())
+       /* Picasso.with(activity.getApplicationContext())
                 .load(imageModel.getUrl())     // optional
                 .resize(200, 420)
-                .into(iv_pager);
+                .into(iv_pager);*/
         container.addView(view);
 
         return view;
@@ -49,7 +52,7 @@ public class SliderPagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return image_arraylist.size();
+        return slideImages.length;
     }
 
 

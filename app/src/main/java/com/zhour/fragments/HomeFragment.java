@@ -90,6 +90,7 @@ public class HomeFragment extends Fragment {
     ArrayList<ImageModel> slider_image_list;
     private TextView[] dots;
     int page_position = 0;
+    private int[] slideImages;
 
 
     @Override
@@ -116,6 +117,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void inItUI() {
+        slideImages = new int[]{R.drawable.ic_vinyaka, R.drawable.ic_yoga, R.drawable.ic_independenceday};
 
         vp_slider = (ViewPager) view.findViewById(R.id.view_pager);
         ll_dots = (LinearLayout) view.findViewById(R.id.ll_dots);
@@ -123,20 +125,20 @@ public class HomeFragment extends Fragment {
         slider_image_list = new ArrayList<>();
 
         ImageModel imageModel = new ImageModel();
-        imageModel.setUrl(R.drawable.zhour_add_one);
+        imageModel.setUrl(R.drawable.ic_vinyaka);
         ImageModel imageModel1 = new ImageModel();
-        imageModel1.setUrl(R.drawable.zhour_add_two);
+        imageModel1.setUrl(R.drawable.ic_yoga);
         ImageModel imageModel2 = new ImageModel();
-        imageModel2.setUrl(R.drawable.zhour_add_three);
-        ImageModel imageModel3 = new ImageModel();
-        imageModel3.setUrl(R.drawable.zhour_add_four);
+        imageModel2.setUrl(R.drawable.ic_independenceday);
+       /* ImageModel imageModel3 = new ImageModel();
+        imageModel3.setUrl(R.drawable.zhour_add_four);*/
         slider_image_list.add(imageModel);
         slider_image_list.add(imageModel1);
         slider_image_list.add(imageModel2);
-        slider_image_list.add(imageModel3);
+       // slider_image_list.add(imageModel3);
 
 
-        sliderPagerAdapter = new SliderPagerAdapter(parent, slider_image_list);
+        sliderPagerAdapter = new SliderPagerAdapter(parent, slideImages);
         vp_slider.setAdapter(sliderPagerAdapter);
 
         vp_slider.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -161,7 +163,7 @@ public class HomeFragment extends Fragment {
 
         final Runnable update = new Runnable() {
             public void run() {
-                if (page_position == slider_image_list.size()) {
+                if (page_position == slideImages.length) {
                     page_position = 0;
                 } else {
                     page_position = page_position + 1;
@@ -222,7 +224,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void addBottomDots(int currentPage) {
-        dots = new TextView[slider_image_list.size()];
+        dots = new TextView[slideImages.length];
 
         ll_dots.removeAllViews();
         for (int i = 0; i < dots.length; i++) {
