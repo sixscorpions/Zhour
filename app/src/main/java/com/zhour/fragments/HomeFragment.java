@@ -123,13 +123,13 @@ public class HomeFragment extends Fragment {
         slider_image_list = new ArrayList<>();
 
         ImageModel imageModel = new ImageModel();
-        imageModel.setUrl("http://images.all-free-download.com/images/graphiclarge/mountain_bongo_animal_mammal_220289.jpg");
+        imageModel.setUrl(R.drawable.zhour_add_one);
         ImageModel imageModel1 = new ImageModel();
-        imageModel1.setUrl("http://images.all-free-download.com/images/graphiclarge/bird_mountain_bird_animal_226401.jpg");
+        imageModel1.setUrl(R.drawable.zhour_add_two);
         ImageModel imageModel2 = new ImageModel();
-        imageModel2.setUrl("http://images.all-free-download.com/images/graphiclarge/mountain_bongo_animal_mammal_220289.jpg");
+        imageModel2.setUrl(R.drawable.zhour_add_three);
         ImageModel imageModel3 = new ImageModel();
-        imageModel3.setUrl("http://images.all-free-download.com/images/graphiclarge/bird_mountain_bird_animal_226401.jpg");
+        imageModel3.setUrl(R.drawable.zhour_add_four);
         slider_image_list.add(imageModel);
         slider_image_list.add(imageModel1);
         slider_image_list.add(imageModel2);

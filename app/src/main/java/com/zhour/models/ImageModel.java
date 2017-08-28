@@ -5,13 +5,13 @@ package com.zhour.models;
  */
 
 public class ImageModel {
-    private String url;
+    private int url;
 
-    public String getUrl() {
+    public int getUrl() {
         return url;
     }
 
-    public void setUrl(String url) {
+    public void setUrl(int url) {
         this.url = url;
     }
 }

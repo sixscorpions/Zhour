@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 import com.zhour.R;
 import com.zhour.models.ImageModel;
-import com.zhour.utils.UImageLoader;
 
 import java.util.ArrayList;
 
@@ -38,9 +37,10 @@ public class SliderPagerAdapter extends PagerAdapter {
         ImageModel imageModel = image_arraylist.get(position);
         ImageView iv_pager = (ImageView) view.findViewById(R.id.iv_pager);
 
-       // UImageLoader.URLpicLoading(iv_pager,imageModel.getUrl(),null,R.drawable.ic_about);
+        // UImageLoader.URLpicLoading(iv_pager,imageModel.getUrl(),null,R.drawable.ic_about);
         Picasso.with(activity.getApplicationContext())
                 .load(imageModel.getUrl())     // optional
+                .resize(200, 420)
                 .into(iv_pager);
         container.addView(view);
 
