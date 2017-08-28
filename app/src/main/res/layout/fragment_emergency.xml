@@ -1,23 +1,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="1">
 
-    <LinearLayout
+    <com.skyfishjy.library.RippleBackground
+        android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:background="@color/background_emergency"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="@dimen/_10dp">
+        app:rb_color="#0099CC"
+        app:rb_duration="3000"
+        app:rb_radius="28dp"
+        app:rb_rippleAmount="8"
+        app:rb_scale="8">
+
 
         <ImageView
             android:id="@+id/img_emergency"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/sos_emergency" />
+            android:layout_centerInParent="true"
+            android:src="@drawable/sos" />
 
-    </LinearLayout>
+    </com.skyfishjy.library.RippleBackground>
+
 </LinearLayout>
