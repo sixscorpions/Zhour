@@ -101,6 +101,7 @@ Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots 
     <string name="medical_emergency">MEDICAL EMERGENCY</string>
     <string name="in">In</string>
     <string name="out">out</string>
+    <string name="not_entered">Not Entered</string>
     <string name="status">status</string>
     <string name="no_events_found">No events Found</string>
 
@@ -109,6 +110,9 @@ Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots 
     <string name="message">Message</string>
     <string name="company">Company</string>
     <string name="contact">Contact</string>
+
+    <string name="check_in_icon">&#xE837;</string>
+    <string name="check_out_icon">&#xE836;</string>
 
 
 </resources>

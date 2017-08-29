@@ -184,8 +184,8 @@
                         android:id="@+id/iv_call"
                         android:layout_width="@dimen/_0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.2"
                         android:layout_gravity="center"
+                        android:layout_weight="0.2"
                         android:minHeight="@dimen/_25dp"
                         android:src="@drawable/ic_phone" />
                 </LinearLayout>
@@ -247,15 +247,15 @@
                     android:layout_weight="0.4"
                     android:orientation="vertical">
 
-                    <ImageView
+                    <TextView
                         android:id="@+id/btn_switch_in"
                         android:layout_width="@dimen/_25dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/_25dp"
                         android:layout_gravity="center"
                         android:layout_marginTop="@dimen/_3dp"
-                        android:contentDescription="@string/empty"
                         android:gravity="center"
-                        android:src="@drawable/check_in" />
+                        android:text="@string/check_in_icon"
+                        android:textSize="@dimen/_25sp" />
 
                     <TextView
                         android:id="@+id/tv_in_out"
