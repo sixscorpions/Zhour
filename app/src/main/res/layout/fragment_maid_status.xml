@@ -254,7 +254,6 @@
                         android:layout_gravity="center"
                         android:layout_marginTop="@dimen/_3dp"
                         android:gravity="center"
-                        android:text="@string/check_in_icon"
                         android:textSize="@dimen/_25sp" />
 
                     <TextView
@@ -264,7 +263,6 @@
                         android:layout_gravity="center"
                         android:layout_marginTop="@dimen/_5dp"
                         android:gravity="center"
-                        android:text="@string/in"
                         android:textAllCaps="true"
                         android:textColor="@color/colorAccent"
                         android:textSize="@dimen/_15sp" />
@@ -300,7 +298,8 @@
                             android:layout_height="wrap_content"
                             android:text="10:05"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="@dimen/_20sp" />
+                            android:textSize="@dimen/_20sp"
+                            android:visibility="gone" />
                     </LinearLayout>
 
                     <TextView
@@ -309,7 +308,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_5dp"
                         android:text="23-July-2017"
-                        android:textSize="@dimen/_12sp" />
+                        android:textSize="@dimen/_12sp"
+                        android:visibility="gone" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
