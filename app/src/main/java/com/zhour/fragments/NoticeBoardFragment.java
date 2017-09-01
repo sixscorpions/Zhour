@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.zhour.R;
 import com.zhour.activities.DashboardActivity;
@@ -35,6 +36,8 @@ public class NoticeBoardFragment extends Fragment implements IAsyncCaller {
 
     @BindView(R.id.lv_notice)
     ListView lv_notice;
+    @BindView(R.id.tv_currently_blank)
+    TextView tv_currently_blank;
 
     private NoticeBoardListModel mNoticeBoardListModel;
     private NoticeBoardAdapter mNoticeBoardAdapter;
@@ -108,8 +111,15 @@ public class NoticeBoardFragment extends Fragment implements IAsyncCaller {
      * This method is used to set Notice board data
      */
     private void setDataToLayout() {
-        mNoticeBoardAdapter = new NoticeBoardAdapter(mParent, mNoticeBoardListModel.getNoticeBoardModels());
-        lv_notice.setAdapter(mNoticeBoardAdapter);
+        if (mNoticeBoardListModel != null && mNoticeBoardListModel.getNoticeBoardModels() != null && mNoticeBoardListModel.getNoticeBoardModels().size() > 0) {
+            mNoticeBoardAdapter = new NoticeBoardAdapter(mParent, mNoticeBoardListModel.getNoticeBoardModels());
+            lv_notice.setAdapter(mNoticeBoardAdapter);
+            tv_currently_blank.setVisibility(View.GONE);
+            lv_notice.setVisibility(View.VISIBLE);
+        } else {
+            tv_currently_blank.setVisibility(View.VISIBLE);
+            lv_notice.setVisibility(View.GONE);
+        }
     }
 
     @OnItemClick(R.id.lv_notice)

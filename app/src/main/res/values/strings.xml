@@ -110,6 +110,7 @@ Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots 
     <string name="message">Message</string>
     <string name="company">Company</string>
     <string name="contact">Contact</string>
+    <string name="currently_blank">Currently it\'s fully blank</string>
 
     <string name="check_in_icon">&#xE837;</string>
     <string name="check_out_icon">&#xE836;</string>

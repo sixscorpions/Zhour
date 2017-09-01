@@ -3,6 +3,15 @@
     android:layout_height="match_parent"
     android:background="@color/grey_back">
 
+    <TextView
+        android:id="@+id/tv_currently_blank"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/currently_blank"
+        android:textSize="@dimen/_20sp"
+        android:visibility="gone" />
+
     <ListView
         android:id="@+id/lv_notice"
         android:layout_width="match_parent"
