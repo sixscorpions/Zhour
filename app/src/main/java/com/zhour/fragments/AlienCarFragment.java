@@ -185,7 +185,7 @@ public class AlienCarFragment extends Fragment implements IAsyncCaller {
         if (Utility.isValueNullOrEmpty(et_vehicle_number.getText().toString())) {
             Utility.setSnackBar(mParent, et_vehicle_number, "Please write code");
             isValid = false;
-        } else if (et_vehicle_number.getText().toString().length() != 4) {
+        } else if (et_vehicle_number.getText().toString().length() < 4) {
             Utility.setSnackBar(mParent, et_vehicle_number, "Code must be 4 digit");
             isValid = false;
         }

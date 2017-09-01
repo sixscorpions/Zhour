@@ -25,11 +25,8 @@ public class Constants {
     public static final String TOKEN = "TOKEN";
 
 
-
     public static final String PARTY_INVITE_TYPE = "PARTY_INVITE_TYPE";
     public static final String EVENT_INVITE_TYPE = "EVENT_INVITE_TYPE";
-
-
 
 
     /*PARTY INVITE EDIT KEYS */
@@ -61,4 +58,6 @@ public class Constants {
 
     public static final String NOTIFICATION_ID = "NOTIFICATION_ID";
     public static final String NOTIFICATION_READ_IDS = "NOTIFICATION_READ_IDS";
+
+    public static final int UNIQUE_CODE = 232;
 }

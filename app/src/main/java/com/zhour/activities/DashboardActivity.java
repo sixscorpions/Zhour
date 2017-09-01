@@ -286,20 +286,13 @@ public class DashboardActivity extends BaseActivity implements IAsyncCaller {
         switch (requestCode) {
             case Constants.MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    takePicture();
+                    //takePicture();
+                    Intent intent = new Intent(DashboardActivity.this, GuestActivity.class);
+                    startActivityForResult(intent, Constants.UNIQUE_CODE);
                 } else {
                     Utility.showToastMessage(DashboardActivity.this, "Permission Denied!");
                 }
         }
-    }
-
-    private void takePicture() {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        File photo = new File(Environment.getExternalStorageDirectory(), "picture.jpg");
-        imageUri = FileProvider.getUriForFile(DashboardActivity.this,
-                DashboardActivity.this.getApplicationContext().getPackageName() + ".provider", photo);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-        startActivityForResult(intent, PHOTO_REQUEST);
     }
 
 
@@ -313,72 +306,11 @@ public class DashboardActivity extends BaseActivity implements IAsyncCaller {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == Constants.PHOTO_REQUEST && resultCode == RESULT_OK) {
-            launchMediaScanIntent();
-            try {
-                Bitmap bitmap = decodeBitmapUri(this, imageUri);
-                if (detector.isOperational() && bitmap != null) {
-                    Frame frame = new Frame.Builder().setBitmap(bitmap).build();
-                    SparseArray<TextBlock> textBlocks = detector.detect(frame);
-                    String blocks = "";
-                    String lines = "";
-                    String words = "";
-                    for (int index = 0; index < textBlocks.size(); index++) {
-                        //extract scanned text blocks here
-                        TextBlock tBlock = textBlocks.valueAt(index);
-                        blocks = blocks + tBlock.getValue() + "\n" + "\n";
-                        for (Text line : tBlock.getComponents()) {
-                            //extract scanned text lines here
-                            lines = lines + line.getValue() + "\n";
-                            for (Text element : line.getComponents()) {
-                                //extract scanned text words here
-                                words = words + element.getValue() + ", ";
-                            }
-                        }
-                    }
-                    if (textBlocks.size() == 0) {
-                        vehicleNumberText = "Scan Failed: Found nothing to scan";
-                    } else {
-                        /*tvScanText.setText(tvScanText.getText() + blocks + "\n");*/
-
-                        vehicleNumberText = blocks + "\n";
-                        AlienCarFragment.et_vehicle_number.setText(blocks);
-                       /* vehicleNumberText = "---------" + "\n";
-                        vehicleNumberText = "Lines: " + "\n";
-                        vehicleNumberText = lines + "\n";
-                        vehicleNumberText = "---------" + "\n";
-                        vehicleNumberText = "Words: " + "\n";
-                        vehicleNumberText = words + "\n";
-                        vehicleNumberText = "---------" + "\n";*/
-
-                    }
-                } else {
-                    vehicleNumberText = "Could not set up the detector!";
-                }
-            } catch (Exception e) {
-                Toast.makeText(this, "Failed to load Image", Toast.LENGTH_SHORT)
-                        .show();
-                Log.e("Tag", e.toString());
-            }
+        if (requestCode == Constants.UNIQUE_CODE) {
+            Intent intent = data;
+            String mCarNumber = intent.getStringExtra("id");
+            AlienCarFragment.et_vehicle_number.setText("" + mCarNumber);
         }
-    }
-      /*DECODE BIMAP URI*/
-
-    private Bitmap decodeBitmapUri(Context ctx, Uri uri) throws FileNotFoundException {
-        int targetW = 600;
-        int targetH = 600;
-        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-        bmOptions.inJustDecodeBounds = true;
-        BitmapFactory.decodeStream(ctx.getContentResolver().openInputStream(uri), null, bmOptions);
-        int photoW = bmOptions.outWidth;
-        int photoH = bmOptions.outHeight;
-
-        int scaleFactor = Math.min(photoW / targetW, photoH / targetH);
-        bmOptions.inJustDecodeBounds = false;
-        bmOptions.inSampleSize = scaleFactor;
-
-        return BitmapFactory.decodeStream(ctx.getContentResolver()
-                .openInputStream(uri), null, bmOptions);
     }
 
 
@@ -391,10 +323,5 @@ public class DashboardActivity extends BaseActivity implements IAsyncCaller {
         super.onSaveInstanceState(outState);
     }
 
-    private void launchMediaScanIntent() {
-        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        mediaScanIntent.setData(imageUri);
-        this.sendBroadcast(mediaScanIntent);
-    }
 
 }
