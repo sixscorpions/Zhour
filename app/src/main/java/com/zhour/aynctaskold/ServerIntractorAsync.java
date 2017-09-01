@@ -36,6 +36,13 @@ public class ServerIntractorAsync extends BaseAsynkTask {
 
         }
         switch (mRequestType) {
+            case GET:
+                Utility.showLog("Request URL ", mUrl);
+                mResponse = Utility.getWithHeader(mUrl, mContext);
+                if (mResponse != null) {
+                    Utility.showLog("mResponse  ", mResponse);
+                }
+                return parseResposnse(mResponse);
             case POST:
                 Utility.showLog("API CALL :", "REST URL PARAMS : " + mParams);
                 Utility.showLog("API CALL :", "REST URL  : " + mUrl);

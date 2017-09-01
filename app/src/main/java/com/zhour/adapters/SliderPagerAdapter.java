@@ -1,6 +1,5 @@
 package com.zhour.adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
@@ -8,9 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.squareup.picasso.Picasso;
 import com.zhour.R;
-import com.zhour.models.ImageModel;
+import com.zhour.utils.APIConstants;
+import com.zhour.utils.UImageLoader;
 
 import java.util.ArrayList;
 
@@ -20,27 +19,21 @@ import java.util.ArrayList;
 
 public class SliderPagerAdapter extends PagerAdapter {
     private LayoutInflater layoutInflater;
-    Activity activity;
-    // ArrayList<ImageModel> image_arraylist;
-    int[] slideImages;
+    private Context mContext;
+    private ArrayList<String> slideImages;
 
-    public SliderPagerAdapter(Activity activity,  int[] slideImages) {
-        this.activity = activity;
+    public SliderPagerAdapter(Context mContext, ArrayList<String> slideImages) {
+        this.mContext = mContext;
         this.slideImages = slideImages;
+        layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        layoutInflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
         View view = layoutInflater.inflate(R.layout.item_pager, container, false);
-
         //ImageModel imageModel = image_arraylist.get(position);
         ImageView iv_pager = (ImageView) view.findViewById(R.id.iv_pager);
-
-        iv_pager.setImageResource(slideImages[position]);
-
-        // UImageLoader.URLpicLoading(iv_pager,imageModel.getUrl(),null,R.drawable.ic_about);
+        UImageLoader.URLpicLoading(iv_pager, APIConstants.HOME_URL + slideImages.get(position), null, R.drawable.logo);
        /* Picasso.with(activity.getApplicationContext())
                 .load(imageModel.getUrl())     // optional
                 .resize(200, 420)
@@ -52,7 +45,7 @@ public class SliderPagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return slideImages.length;
+        return slideImages.size();
     }
 
 

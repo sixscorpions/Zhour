@@ -15,6 +15,7 @@ public class APIConstants {
 
     public static String ERROR_MESSAGE = "We could not process your request at this time. Please try again later.";
 
+    public static String HOME_URL = "https://139.59.30.4/";
     public static String BASE_URL = "http://139.59.30.4/api/v1.0/";
     //public static String BASE_URL = "http://icuepro.com/api/v1.0/";
 
@@ -29,5 +30,6 @@ public class APIConstants {
     public static String GET_COMPLINTS = BASE_URL + "getComplaints";
     public static String CREATE_OR_UPDATE_COMPLAINT = BASE_URL + "createOrUpdateComplaint";
     public static String UPDATE_INVITEES = BASE_URL + "updateInvitees";
+    public static String GET_BANNER_INFO = BASE_URL + "getBannerInfo";
 
 }
