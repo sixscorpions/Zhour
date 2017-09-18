@@ -26,7 +26,7 @@ public class BannerInfoParser implements Parser<Model> {
             if (jsonObject.has("Output")) {
                 JSONArray jsonArray = jsonObject.optJSONArray("Output");
                 JSONObject jsonObject1 = jsonArray.optJSONObject(0);
-                int size = jsonObject1.optInt("banid");
+                int size = jsonObject1.optInt("bancount");
 
                 for (int i = 0; i < size; i++) {
                     strings.add(jsonObject1.optString("banurl" + (i + 1)));
