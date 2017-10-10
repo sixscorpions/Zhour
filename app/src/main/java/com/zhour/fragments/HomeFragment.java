@@ -1,6 +1,7 @@
 package com.zhour.fragments;
 
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,12 +18,15 @@ import android.widget.TextView;
 
 import com.zhour.R;
 import com.zhour.activities.DashboardActivity;
+import com.zhour.activities.SignInActivity;
 import com.zhour.adapters.SliderPagerAdapter;
 import com.zhour.aynctask.IAsyncCaller;
 import com.zhour.aynctaskold.ServerIntractorAsync;
 import com.zhour.models.BannerModel;
+import com.zhour.models.LogoutModel;
 import com.zhour.models.Model;
 import com.zhour.parser.BannerInfoParser;
+import com.zhour.parser.LogoutParser;
 import com.zhour.utils.APIConstants;
 import com.zhour.utils.Constants;
 import com.zhour.utils.Utility;
@@ -95,6 +99,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller {
     private TextView[] dots;
     int page_position = 0;
     private BannerModel mBannerModel;
+    private LogoutModel logoutModel;
 
 
     @Override
@@ -200,9 +205,39 @@ public class HomeFragment extends Fragment implements IAsyncCaller {
                 mBannerModel = (BannerModel) model;
                 if (!mBannerModel.isError()) {
                     setBannersData();
+                } else if (mBannerModel.isError() && mBannerModel.getMessage().equalsIgnoreCase("Please login again!")) {
+                    navigateToLogout();
                 }
+            } else if (model instanceof LogoutModel) {
+                logoutModel = (LogoutModel) model;
+                logout();
             }
         }
+    }
+
+    public void navigateToLogout() {
+
+        String userID = Utility.getSharedPrefStringData(mParent, Constants.USER_ID);
+
+        LinkedHashMap linkedHashMap = new LinkedHashMap();
+        linkedHashMap.put("userid", userID);
+
+        LogoutParser logoutParser = new LogoutParser();
+        ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                APIConstants.LOGOUT, linkedHashMap,
+                APIConstants.REQUEST_TYPE.POST, this, logoutParser);
+        Utility.execute(serverJSONAsyncTask);
+
+    }
+
+
+    private void logout() {
+        Intent intent = new Intent(mParent, SignInActivity.class);
+        Utility.setSharedPrefStringData(mParent, Constants.TOKEN, "");
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        mParent.finish();
     }
 
     /**

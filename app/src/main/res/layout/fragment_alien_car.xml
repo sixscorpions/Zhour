@@ -87,28 +87,30 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:weightSum="1"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:weightSum="1">
 
                         <EditText
                             android:id="@+id/et_vehicle_number"
                             android:layout_width="@dimen/_0dp"
                             android:layout_height="@dimen/_40dp"
                             android:layout_weight="0.9"
-                            android:textSize="@dimen/_16sp"
                             android:background="@android:color/transparent"
                             android:hint="@string/enter_vehicle_number"
-                            android:textColor="@color/black" />
+                            android:maxLength="12"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_16sp" />
+
                         <TextView
                             android:id="@+id/tv_scanner"
-                            android:text="@string/car_icon"
-                            android:textSize="@dimen/_18sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:layout_weight="0.2"
                             android:gravity="center"
                             android:padding="@dimen/_3dp"
-                            android:layout_weight="0.2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:text="@string/car_icon"
+                            android:textSize="@dimen/_18sp" />
 
                     </LinearLayout>
 

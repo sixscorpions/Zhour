@@ -98,6 +98,7 @@ public class GuestActivity extends Activity {
                         tvScanText.setText("Number : ");
                         tvScanText.setText(tvScanText.getText() + blocks + "\n");
                         Intent intent = new Intent();
+                        blocks.replace("\n", " ");
                         intent.putExtra("id", blocks);
                         setResult(Constants.UNIQUE_CODE, intent);
                         finish();
