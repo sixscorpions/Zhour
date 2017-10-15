@@ -255,7 +255,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller {
 
                 @Override
                 public void onPageSelected(int position) {
-                    addBottomDots(position);
+                    //addBottomDots(position);
 
                 }
 
@@ -264,7 +264,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller {
 
                 }
             });
-            addBottomDots(0);
+           // addBottomDots(0);
             final Handler handler = new Handler();
 
             final Runnable update = new Runnable() {
