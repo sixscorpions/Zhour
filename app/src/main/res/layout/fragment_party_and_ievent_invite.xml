@@ -251,12 +251,11 @@
 
                                     <TextView
                                         android:id="@+id/tv_add"
-                                        android:layout_width="@dimen/_0dp"
+                                        android:layout_width="@dimen/_30dp"
                                         android:layout_height="@dimen/_30dp"
                                         android:layout_gravity="center"
                                         android:layout_marginEnd="@dimen/_5dp"
                                         android:layout_marginStart="@dimen/_5dp"
-                                        android:layout_weight="1"
                                         android:gravity="center"
                                         android:text="@string/plus_icon"
                                         android:textColor="@color/colorPrimaryDark"
@@ -264,11 +263,10 @@
 
                                     <TextView
                                         android:id="@+id/tv_phone_book"
-                                        android:layout_width="@dimen/_0dp"
+                                        android:layout_width="@dimen/_30dp"
                                         android:layout_height="@dimen/_30dp"
                                         android:layout_gravity="center"
                                         android:layout_marginEnd="@dimen/_5dp"
-                                        android:layout_weight="1"
                                         android:gravity="center"
                                         android:text="@string/phone_icon"
                                         android:textColor="@color/colorPrimaryDark"
