@@ -38,6 +38,7 @@ public class ServerIntractorAsync extends BaseAsynkTask {
         switch (mRequestType) {
             case GET:
                 Utility.showLog("Request URL ", mUrl);
+                Utility.showLog("Request mParams ", mParams.toString());
                 mResponse = Utility.getWithHeader(mUrl, mContext);
                 if (mResponse != null) {
                     Utility.showLog("mResponse  ", mResponse);

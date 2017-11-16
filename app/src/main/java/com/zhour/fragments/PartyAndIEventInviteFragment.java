@@ -144,8 +144,8 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     @BindView(R.id.tv_no_data)
     TextView tv_no_data;
 
-    @BindView(R.id.et_event_note)
-    EditText et_event_note;
+   /* @BindView(R.id.et_event_note)
+    EditText et_event_note;*/
 
     @BindView(R.id.scroll_view)
     ScrollView scroll_view;
@@ -176,6 +176,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     private String venue;
 
     private boolean isCallUpdate = false;
+    private int number = 1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -192,6 +193,13 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
             eventType = bundle.getString(Constants.INVITE_TYPE);
             venue = bundle.getString(Constants.VENUE);
             isPartyInvite = bundle.getBoolean(Constants.IS_PARTY_INVITE);
+            isCallUpdate = bundle.getBoolean(Constants.IS_EDIT);
+            if (isCallUpdate) {
+                number = 0;
+            } else {
+                number = 1;
+            }
+            Utility.showLog("bundle", "" + isCallUpdate);
             isEventInvite = !isPartyInvite;
         }
     }
@@ -491,7 +499,12 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
 
         isEventInvite = true;
         isPartyInvite = false;
-        isCallUpdate = false;
+        if (number == 0) {
+            isCallUpdate = true;
+            number++;
+        } else
+            isCallUpdate = false;
+        Utility.showLog("eventInviteHideLogic", "" + isCallUpdate);
         Utility.hideSoftKeyboard(mParent, tv_event_invite);
         scroll_view.setVisibility(View.VISIBLE);
         btn_submit.setVisibility(View.VISIBLE);
@@ -513,7 +526,13 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     public void partyInvite() {
         isPartyInvite = true;
         isEventInvite = false;
-        isCallUpdate = false;
+        if (number == 0) {
+            isCallUpdate = true;
+            number++;
+        } else
+            isCallUpdate = false;
+
+        Utility.showLog("partyInvite", "" + isCallUpdate);
 
         Utility.hideSoftKeyboard(mParent, tv_party_invite);
         scroll_view.setVisibility(View.VISIBLE);
@@ -543,8 +562,10 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
             if (isValidFields()) {
                 if (isCallUpdate) {
                     updatePartyInvite();
+                    // Utility.showToastMessage(mParent, "Called updated");
                 } else {
                     savePartyInvite();
+                    // Utility.showToastMessage(mParent, "Called save");
                 }
 
             }
@@ -873,9 +894,8 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
 
         if (!Utility.isValueNullOrEmpty(eventNote)) {
             et_invite_note.setText(eventNote);
-            et_invite_note.setEnabled(false);
+            //et_invite_note.setEnabled(false);
         }
-        isCallUpdate = true;
     }
 
     /**
@@ -890,7 +910,6 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
             et_invite_note.setText(eventNote);
         if (!Utility.isValueNullOrEmpty(venue))
             et_event_venue.setText(venue);
-        isCallUpdate = true;
     }
 
     /**
