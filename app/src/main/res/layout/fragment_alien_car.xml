@@ -109,7 +109,7 @@
                             android:layout_weight="0.2"
                             android:gravity="center"
                             android:padding="@dimen/_3dp"
-                            android:text="@string/car_icon"
+                            android:text="@string/camera_icon"
                             android:textSize="@dimen/_18sp" />
 
                     </LinearLayout>

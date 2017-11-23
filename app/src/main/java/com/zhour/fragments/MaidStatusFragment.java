@@ -154,8 +154,11 @@ public class MaidStatusFragment extends Fragment implements IAsyncCaller {
      */
     private void setDataToLayout() {
         if (mMaidModel != null) {
-            tv_maid_name.setText(mMaidModel.getStaffname());
-            tv_phone.setText(mMaidModel.getContact1());
+            //tv_maid_name.setText(mMaidModel.getStaffname());
+            tv_maid_name.setText("Lakshmi");
+            //tv_phone.setText(mMaidModel.getContact1());
+            tv_phone.setText("7013688846");
+
             if (Utility.isValueNullOrEmpty(mMaidModel.getIntime()) && Utility.isValueNullOrEmpty(mMaidModel.getOuttime())) {
                 btn_switch_in.setText(Utility.getResourcesString(mParent, R.string.check_out_icon));
                 btn_switch_in.setTextColor(Utility.getColor(mParent, R.color.yellow));

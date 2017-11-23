@@ -281,10 +281,16 @@ public class AlienCarFragment extends Fragment implements IAsyncCaller {
             btn_call.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + mAlienCarModel.getContact1()));
+                    //Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + mAlienCarModel.getContact1()));
+                    Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "7013688846"));
                     startActivity(intent);
                 }
             });
+
+            /**Static data*/
+            tv_user_name.setText("Ramakrishna");
+            tv_plot_address.setText("Flat No: 61101");
+            tv_mobile.setText("7013688846");
 
             alertDialog.show();
         } else {
