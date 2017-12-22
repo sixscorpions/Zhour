@@ -1,5 +1,7 @@
 package com.zhour.adapters;
 
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,14 +58,16 @@ public class ComplaintAdapter extends BaseAdapter {
             holder.img_type = (ImageView) convertView.findViewById(R.id.img_type);
 
             /*FIRST AND LAST NAME */
-            holder.tv_flat_number = (TextView) convertView.findViewById(R.id.tv_flat_number);
+           /* holder.tv_flat_number = (TextView) convertView.findViewById(R.id.tv_flat_number);
             holder.tv_flat_number.setTypeface(Utility.setRobotoRegular(mParent));
             holder.tv_date = (TextView) convertView.findViewById(R.id.tv_date);
-            holder.tv_date.setTypeface(Utility.setRobotoRegular(mParent));
+            holder.tv_date.setTypeface(Utility.setRobotoRegular(mParent));*/
 
             holder.tv_status = (TextView) convertView.findViewById(R.id.tv_status);
             holder.tv_status.setTypeface(Utility.setRobotoRegular(mParent));
-            holder.img_status = (ImageView) convertView.findViewById(R.id.img_status);
+           // holder.img_status = (ImageView) convertView.findViewById(R.id.img_status);
+            holder.tv_call = (TextView) convertView.findViewById(R.id.tv_call);
+            holder.tv_call.setTypeface(Utility.getFontAwesomeWebFont(mParent));
             convertView.setTag(holder);
 
         } else {
@@ -81,22 +85,31 @@ public class ComplaintAdapter extends BaseAdapter {
             holder.img_type.setImageDrawable(Utility.getDrawable(mParent, R.drawable.ic_apartment));
 
 
-        holder.tv_complaint_des.setText(complaintListModel.getComplaintdesc());
-        holder.tv_date.setText(Utility.displayDateComplaintsFormat(complaintListModel.getUpdateddate()));
+      //  holder.tv_complaint_des.setText(complaintListModel.getComplaintdesc());
+        holder.tv_complaint_des.setText("Your Ticket is assigned to");
+      //  holder.tv_date.setText(Utility.displayDateComplaintsFormat(complaintListModel.getUpdateddate()));
 
-        holder.tv_flat_number.setText(complaintListModel.getFlatnumber());
-        holder.tv_status.setText(complaintListModel.getComplaintstatus());
+       //  holder.tv_flat_number.setText(complaintListModel.getFlatnumber());
+       // holder.tv_status.setText(complaintListModel.getComplaintstatus());
 
         return convertView;
     }
+    public BluetoothAdapter.LeScanCallback leScanCallback = new BluetoothAdapter.LeScanCallback() {
+        @Override
+        public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
+
+        }
+    };
 
     public class ViewHolder {
         private TextView tv_complaint_des;
         private ImageView img_type;
-        private TextView tv_flat_number;
-        private TextView tv_date;
+       /* private TextView tv_flat_number;
+        private TextView tv_date;*/
         private TextView tv_status;
-        private ImageView img_status;
+       // private ImageView img_status;
+        private TextView tv_call;
+
 
     }
 }

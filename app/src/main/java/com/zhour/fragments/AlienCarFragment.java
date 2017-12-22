@@ -60,7 +60,6 @@ public class AlienCarFragment extends Fragment implements IAsyncCaller {
 
     private static final String SAVED_INSTANCE_URI = "uri";
     private static final String SAVED_INSTANCE_RESULT = "result";
-    private TextRecognizer detector;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,7 +70,7 @@ public class AlienCarFragment extends Fragment implements IAsyncCaller {
             imageUri = Uri.parse(savedInstanceState.getString(SAVED_INSTANCE_URI));
             et_vehicle_number.setText(savedInstanceState.getString(SAVED_INSTANCE_RESULT));
         }
-        detector = new TextRecognizer.Builder(mParent).build();
+        TextRecognizer detector = new TextRecognizer.Builder(mParent).build();
 
 
     }
@@ -89,6 +88,7 @@ public class AlienCarFragment extends Fragment implements IAsyncCaller {
 
     private void initUi() {
         et_vehicle_number = (EditText) view.findViewById(R.id.et_vehicle_number);
+        et_vehicle_number.setMovementMethod(null);
         /*PERMISSION FOR CALL*/
         askPermission();
         //  askPermissionForScanner();

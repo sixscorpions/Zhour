@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.zhour.R;
 import com.zhour.aynctask.IAsyncCaller;
 import com.zhour.aynctask.ServerJSONAsyncTask;
+import com.zhour.aynctaskold.ServerIntractorAsync;
 import com.zhour.models.AuthenticateUserModel;
 import com.zhour.models.CommunityUserModel;
 import com.zhour.models.Model;
@@ -82,7 +83,7 @@ public class SignInActivity extends BaseActivity implements IAsyncCaller {
             linkedHashMap.put("pwd", et_password.getText().toString());
 
             AuthenticateUserParser authenticateUserParser = new AuthenticateUserParser();
-            ServerJSONAsyncTask serverJSONAsyncTask = new ServerJSONAsyncTask(
+            ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
                     this, Utility.getResourcesString(this, R.string.please_wait), true,
                     APIConstants.AUTHENTICATE_USER, linkedHashMap,
                     APIConstants.REQUEST_TYPE.POST, this, authenticateUserParser);

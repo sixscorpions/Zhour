@@ -23,7 +23,7 @@
             <LinearLayout
                 android:layout_width="@dimen/_0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10dp"
+                android:layout_marginStart="@dimen/_20dp"
                 android:layout_marginTop="@dimen/_15dp"
                 android:layout_weight="0.8"
                 android:orientation="horizontal"
@@ -36,7 +36,7 @@
                     android:layout_weight="0.5"
                     android:background="@drawable/rectangel_edit_left"
                     android:gravity="center"
-                    android:text="@string/party_invite"
+                    android:text="@string/invite_people"
                     android:textAllCaps="true"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/_16sp" />
@@ -53,7 +53,7 @@
                     android:layout_weight="0.5"
                     android:background="@drawable/rectangel_edit_fill_right"
                     android:gravity="center"
-                    android:text="@string/event_invite"
+                    android:text="@string/other_invites"
                     android:textAllCaps="true"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/_16sp" />
@@ -87,285 +87,37 @@
                 android:layout_marginBottom="@dimen/_5dp"
                 android:layout_marginTop="@dimen/_5dp"
                 android:divider="@color/colorPrimary" />
+
             <TextView
                 android:id="@+id/tv_no_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:visibility="gone"
+                android:text="@string/no_events_found"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/_20sp"
-                android:text="@string/no_events_found"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:visibility="gone" />
 
         </LinearLayout>
 
         <ScrollView
             android:id="@+id/scroll_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_above="@+id/btn_submit"
             android:layout_below="@+id/ll_parent">
 
             <RelativeLayout
-                android:id="@+id/rl_parent"
+                android:id="@+id/rl_parent_invite_other"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:visibility="visible">
 
-                <ImageView
-                    android:id="@+id/iv_occasions"
-                    android:layout_width="@dimen/_100dp"
-                    android:layout_height="@dimen/_100dp"
-                    android:layout_centerHorizontal="true"
-                    android:padding="@dimen/_10dp"
-                    android:src="@drawable/ic_birth_date" />
+                <include layout="@layout/layout_include_other_invites" />
 
-                <EditText
-                    android:id="@+id/et_event_invite_types"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_40dp"
-                    android:layout_below="@+id/iv_occasions"
-                    android:layout_marginEnd="@dimen/_25dp"
-                    android:layout_marginStart="@dimen/_25dp"
-                    android:layout_marginTop="@dimen/_25dp"
-                    android:backgroundTint="@color/colorPrimary"
-                    android:drawableEnd="@drawable/ic_action_hardware_keyboard_arrow_down"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
-                    android:hint="@string/invite_type"
-                    android:lines="1"
-                    android:textColor="@color/text_color"
-                    android:textSize="@dimen/_15sp"
-                    android:visibility="visible" />
+                <include layout="@layout/layout_include_invite_people" />
 
-                <EditText
-                    android:id="@+id/et_event_venue"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_40dp"
-                    android:layout_below="@+id/et_event_invite_types"
-                    android:layout_marginEnd="@dimen/_25dp"
-                    android:layout_marginStart="@dimen/_25dp"
-                    android:backgroundTint="@color/colorPrimary"
-                    android:hint="@string/venue"
-                    android:inputType="textCapSentences"
-                    android:lines="1"
-                    android:textColor="@color/text_color"
-                    android:textSize="@dimen/_15sp"
-                    android:visibility="visible" />
-
-                <EditText
-                    android:id="@+id/et_date"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_40dp"
-                    android:layout_below="@+id/et_event_venue"
-                    android:layout_marginEnd="@dimen/_25dp"
-                    android:layout_marginStart="@dimen/_25dp"
-                    android:backgroundTint="@color/colorPrimary"
-                    android:drawableEnd="@drawable/ic_calender"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
-                    android:hint="@string/date"
-                    android:lines="1"
-                    android:textColor="@color/text_color"
-                    android:textSize="@dimen/_15sp"
-                    android:visibility="visible" />
-
-                <LinearLayout
-                    android:id="@+id/ll_party_invite"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/et_date"
-                    android:layout_marginEnd="@dimen/_25dp"
-                    android:layout_marginStart="@dimen/_25dp"
-                    android:layout_marginTop="@dimen/_10dp"
-                    android:orientation="vertical"
-                    android:visibility="visible">
-
-                    <EditText
-                        android:id="@+id/et_invite_types"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_40dp"
-                        android:layout_marginTop="@dimen/_15dp"
-                        android:backgroundTint="@color/colorPrimary"
-                        android:drawableEnd="@drawable/ic_action_hardware_keyboard_arrow_down"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
-                        android:hint="@string/invite_type"
-                        android:lines="1"
-                        android:textColor="@color/text_color"
-                        android:textSize="@dimen/_15sp"
-                        android:visibility="visible" />
-
-                    <LinearLayout
-                        android:id="@+id/ll_code_phone"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/_2dp"
-                        android:layout_marginStart="@dimen/_2dp"
-                        android:orientation="vertical"
-                        android:weightSum="1">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/_40dp"
-                                android:orientation="horizontal"
-                                android:weightSum="1">
-
-                                <EditText
-                                    android:id="@+id/et_phone"
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1"
-                                    android:background="@color/transparent"
-                                    android:digits="@string/phone_digits"
-                                    android:focusable="true"
-                                    android:hint="@string/phone_number"
-                                    android:inputType="phone"
-                                    android:lines="1"
-                                    android:maxLength="10"
-                                    android:textColor="@color/text_color"
-                                    android:textSize="@dimen/_15sp" />
-
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:gravity="bottom"
-                                    android:orientation="horizontal"
-                                    android:weightSum="3">
-
-                                    <TextView
-                                        android:id="@+id/tv_count"
-                                        android:layout_width="@dimen/_29dp"
-                                        android:layout_height="@dimen/_29dp"
-                                        android:layout_gravity="center"
-                                        android:background="@drawable/bg_blue_circle"
-                                        android:gravity="center"
-                                        android:textColor="@color/colorPrimaryDark"
-                                        android:textSize="@dimen/_12dp" />
-
-                                    <TextView
-                                        android:id="@+id/tv_add"
-                                        android:layout_width="@dimen/_30dp"
-                                        android:layout_height="@dimen/_30dp"
-                                        android:layout_gravity="center"
-                                        android:layout_marginEnd="@dimen/_5dp"
-                                        android:layout_marginStart="@dimen/_5dp"
-                                        android:gravity="center"
-                                        android:text="@string/plus_icon"
-                                        android:textColor="@color/colorPrimaryDark"
-                                        android:textSize="@dimen/_30sp" />
-
-                                    <TextView
-                                        android:id="@+id/tv_phone_book"
-                                        android:layout_width="@dimen/_30dp"
-                                        android:layout_height="@dimen/_30dp"
-                                        android:layout_gravity="center"
-                                        android:layout_marginEnd="@dimen/_5dp"
-                                        android:gravity="center"
-                                        android:text="@string/phone_icon"
-                                        android:textColor="@color/colorPrimaryDark"
-                                        android:textSize="@dimen/_25sp" />
-                                </LinearLayout>
-                            </LinearLayout>
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/_1dp"
-                                android:layout_marginStart="@dimen/_2dp"
-                                android:background="@color/colorPrimary" />
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_40dp"
-                        android:layout_marginStart="@dimen/_2dp"
-                        android:layout_marginTop="@dimen/_10dp"
-                        android:layout_weight="1">
-
-                        <EditText
-                            android:id="@+id/et_party_date"
-                            android:layout_width="@dimen/_0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0.4"
-                            android:backgroundTint="@color/colorPrimary"
-                            android:drawableEnd="@drawable/ic_calender"
-                            android:focusable="false"
-                            android:focusableInTouchMode="true"
-                            android:hint="@string/date"
-                            android:textColor="@color/text_color"
-                            android:textSize="@dimen/_15sp" />
-
-                        <EditText
-                            android:id="@+id/et_party_time"
-                            android:layout_width="@dimen/_0dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="@dimen/_5dp"
-                            android:layout_weight="0.4"
-                            android:backgroundTint="@color/colorPrimary"
-                            android:drawableEnd="@drawable/ic_clock"
-                            android:focusable="false"
-                            android:focusableInTouchMode="true"
-                            android:hint="@string/time"
-                            android:textColor="@color/text_color"
-                            android:textSize="@dimen/_15sp" />
-
-                    </LinearLayout>
-
-                    <EditText
-                        android:id="@+id/et_venue"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_40dp"
-                        android:backgroundTint="@color/colorPrimary"
-                        android:hint="@string/venue"
-                        android:inputType="textCapSentences"
-                        android:lines="1"
-                        android:textColor="@color/text_color"
-                        android:textSize="@dimen/_15sp"
-                        android:visibility="visible" />
-
-                </LinearLayout>
-
-                <EditText
-                    android:id="@+id/et_invite_note"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/ll_party_invite"
-                    android:layout_marginBottom="@dimen/_15dp"
-                    android:layout_marginEnd="@dimen/_30dp"
-                    android:layout_marginStart="@dimen/_30dp"
-                    android:layout_marginTop="@dimen/_15dp"
-                    android:background="@drawable/dotted_rectangle_boarder"
-                    android:gravity="start|top"
-                    android:hint="@string/invite_note"
-                    android:minHeight="@dimen/_70dp"
-                    android:padding="@dimen/_10dp"
-                    android:visibility="visible"
-                    android:textColor="@color/text_color"
-                    android:textSize="@dimen/_15sp" />
-                <EditText
-                    android:id="@+id/et_event_note"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/ll_party_invite"
-                    android:layout_marginBottom="@dimen/_15dp"
-                    android:layout_marginEnd="@dimen/_30dp"
-                    android:layout_marginStart="@dimen/_30dp"
-                    android:layout_marginTop="@dimen/_15dp"
-                    android:background="@drawable/dotted_rectangle_boarder"
-                    android:gravity="start|top"
-                    android:hint="@string/invite_note"
-                    android:minHeight="@dimen/_70dp"
-                    android:padding="@dimen/_10dp"
-                    android:visibility="gone"
-                    android:textColor="@color/text_color"
-                    android:textSize="@dimen/_15sp" />
             </RelativeLayout>
         </ScrollView>
 

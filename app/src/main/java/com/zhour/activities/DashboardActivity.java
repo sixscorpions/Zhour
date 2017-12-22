@@ -1,34 +1,24 @@
 package com.zhour.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.v4.content.FileProvider;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.util.SparseArray;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.vision.Frame;
-import com.google.android.gms.vision.text.Text;
-import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
 import com.zhour.R;
 import com.zhour.aynctask.IAsyncCaller;
+import com.zhour.aynctask.ServerJSONAsyncTask;
 import com.zhour.aynctaskold.ServerIntractorAsync;
 import com.zhour.fragments.AboutFragment;
 import com.zhour.fragments.AlienCarFragment;
@@ -36,13 +26,13 @@ import com.zhour.fragments.HomeFragment;
 import com.zhour.fragments.PaymentFragment;
 import com.zhour.models.LogoutModel;
 import com.zhour.models.Model;
+import com.zhour.models.UserVenueResponseModel;
 import com.zhour.parser.LogoutParser;
+import com.zhour.parser.UserVenueParser;
 import com.zhour.utils.APIConstants;
 import com.zhour.utils.Constants;
 import com.zhour.utils.Utility;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.LinkedHashMap;
 
 import butterknife.BindView;
@@ -105,6 +95,8 @@ public class DashboardActivity extends BaseActivity implements IAsyncCaller {
     public String vehicleNumberText;
     private static final int PHOTO_REQUEST = 10;
 
+    private   UserVenueResponseModel userVenueResponseModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,6 +106,8 @@ public class DashboardActivity extends BaseActivity implements IAsyncCaller {
     }
 
     private void initUI() {
+
+      //  getVenueApi();
       /*  ToolbarUtils.setHomeToolBar(this,)*/
         drawer_layout = (DrawerLayout) findViewById(R.id.drawer_layout);
         setSupportActionBar(toolbar);
@@ -134,6 +128,33 @@ public class DashboardActivity extends BaseActivity implements IAsyncCaller {
         tv_phone.setTypeface(Utility.setRobotoRegular(this));
         String phoneNumber = Utility.getSharedPrefStringData(this, Constants.CONTACT_NUMBER);
         tv_phone.setText(phoneNumber);
+
+
+    }
+
+    private void getVenueApi() {
+
+
+        try {
+            String communityID = Utility.getSharedPrefStringData(this, Constants.COMMUNITY_ID);
+            String residentID = Utility.getSharedPrefStringData(this, Constants.RESIDENT_ID);
+            String token = Utility.getSharedPrefStringData(this, Constants.TOKEN);
+
+
+            LinkedHashMap linkedHashMap = new LinkedHashMap();
+            linkedHashMap.put("communityid", communityID);
+            linkedHashMap.put("residentid", residentID);
+
+
+            UserVenueParser userVenueParser = new UserVenueParser();
+            ServerJSONAsyncTask serverJSONAsyncTask = new ServerJSONAsyncTask(
+                    this, Utility.getResourcesString(this, R.string.please_wait), true,
+                    APIConstants.GET_USER_VENUE, linkedHashMap,
+                    APIConstants.REQUEST_TYPE.POST, this, userVenueParser);
+            Utility.execute(serverJSONAsyncTask);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
     }
@@ -275,6 +296,11 @@ public class DashboardActivity extends BaseActivity implements IAsyncCaller {
                 /*if (!logoutModel.isError()) {*/
                 logout();
                 // }
+            }else if (model instanceof UserVenueResponseModel){
+                userVenueResponseModel = (UserVenueResponseModel) model;
+
+                Toast.makeText(this, "Venue Response", Toast.LENGTH_SHORT).show();
+
             }
         }
     }

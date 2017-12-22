@@ -21,6 +21,8 @@ import com.zhour.utils.Utility;
 
 public class BaseActivity extends AppCompatActivity {
 
+    public Dialog  mDialog = null;
+
     private int mClosePressCount = 0;
 
     public Dialog progressDialog = null;
@@ -58,31 +60,31 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-        public void onBackPressed() {
-            try {
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                if (fragmentManager.getBackStackEntryCount() > 0) {
-                    FragmentManager.BackStackEntry backStackEntry = fragmentManager
-                            .getBackStackEntryAt(fragmentManager
-                                    .getBackStackEntryCount() - 1);
-                    Utility.showLog("BackStackEntry Name", backStackEntry.getName());
-                    if (backStackEntry.getName().equalsIgnoreCase(HomeFragment.TAG)) {
-                        mClosePressCount++;
-                        if (mClosePressCount > 1) {
-                            finishAffinity();
-                        } else {
-                            Utility.showToastMessage(getApplicationContext(), getResources().getString(R.string.press_again_to_exit));
-                        }
+    public void onBackPressed() {
+        try {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            if (fragmentManager.getBackStackEntryCount() > 0) {
+                FragmentManager.BackStackEntry backStackEntry = fragmentManager
+                        .getBackStackEntryAt(fragmentManager
+                                .getBackStackEntryCount() - 1);
+                Utility.showLog("BackStackEntry Name", backStackEntry.getName());
+                if (backStackEntry.getName().equalsIgnoreCase(HomeFragment.TAG)) {
+                    mClosePressCount++;
+                    if (mClosePressCount > 1) {
+                        finishAffinity();
                     } else {
-                        super.onBackPressed();
+                        Utility.showToastMessage(getApplicationContext(), getResources().getString(R.string.press_again_to_exit));
                     }
                 } else {
                     super.onBackPressed();
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-                getFragmentManager().popBackStack();
+            } else {
+                super.onBackPressed();
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            getFragmentManager().popBackStack();
         }
+    }
 }
 

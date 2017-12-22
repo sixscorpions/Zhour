@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import com.zhour.R;
 import com.zhour.utils.APIConstants;
 import com.zhour.utils.UImageLoader;
+import com.zhour.utils.Utility;
 
 import java.util.ArrayList;
 
@@ -34,10 +35,7 @@ public class SliderPagerAdapter extends PagerAdapter {
         //ImageModel imageModel = image_arraylist.get(position);
         ImageView iv_pager = (ImageView) view.findViewById(R.id.iv_pager);
         UImageLoader.URLpicLoading(iv_pager, APIConstants.HOME_URL + slideImages.get(position), null, R.drawable.logo);
-       /* Picasso.with(activity.getApplicationContext())
-                .load(imageModel.getUrl())     // optional
-                .resize(200, 420)
-                .into(iv_pager);*/
+
         container.addView(view);
 
         return view;

@@ -87,4 +87,5 @@ public abstract class BaseAsynkTask extends AsyncTask<Void, Void, Integer> {
             mCustomProgressDialog.dismissProgress();
         }
     }
+
 }

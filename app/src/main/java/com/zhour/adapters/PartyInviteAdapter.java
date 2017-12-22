@@ -7,22 +7,29 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zhour.R;
 import com.zhour.activities.DashboardActivity;
+import com.zhour.aynctask.IAsyncCaller;
+import com.zhour.aynctaskold.ServerIntractorAsync;
 import com.zhour.fragments.PartyAndIEventInviteFragment;
 import com.zhour.models.InvitesModel;
+import com.zhour.models.Model;
+import com.zhour.parser.PartyInviteParser;
+import com.zhour.utils.APIConstants;
 import com.zhour.utils.Constants;
 import com.zhour.utils.Utility;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 /**
  * Created by madhu on 14-Jul-17.
  */
 
-public class PartyInviteAdapter extends BaseAdapter {
+public class PartyInviteAdapter extends BaseAdapter implements IAsyncCaller{
     private ArrayList<InvitesModel> list;
     private DashboardActivity parent;
     private LayoutInflater layoutInflater;
@@ -59,6 +66,7 @@ public class PartyInviteAdapter extends BaseAdapter {
             convertView = layoutInflater.inflate(R.layout.list_item_invite, group, false);
             holder = new ViewHolder();
 
+            holder.iv_background = (LinearLayout) convertView.findViewById(R.id.iv_background);
             holder.iv_clock = (ImageView) convertView.findViewById(R.id.iv_clock);
             holder.iv_calander = (ImageView) convertView.findViewById(R.id.iv_calander);
 
@@ -97,7 +105,6 @@ public class PartyInviteAdapter extends BaseAdapter {
                     bundle.putString(Constants.VENUE, invitesModel.getVenue());
                     bundle.putBoolean(Constants.IS_PARTY_INVITE, is_Party_Invite);
                     bundle.putBoolean(Constants.IS_EDIT, true);
-                    bundle.putBoolean(Constants.IS_EDIT, true);
                     Utility.navigateDashBoardFragment(new PartyAndIEventInviteFragment(), PartyAndIEventInviteFragment.TAG, bundle, parent);
                 }
             });
@@ -120,11 +127,39 @@ public class PartyInviteAdapter extends BaseAdapter {
             holder.tv_time.setText(Utility.getTime(invitesModel.getEventtime()));
         }
 
+        holder.iv_background.setId(position);
+        holder.iv_background.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int pos = v.getId();
+                showInvitelist(pos);
+            }
+        });
 
         holder.tv_inviteType.setText(inviteType);
 
 
         return convertView;
+    }
+
+    private void showInvitelist(int pos) {
+        String communityID = Utility.getSharedPrefStringData(parent, Constants.COMMUNITY_ID);
+
+        LinkedHashMap linkedHashMap = new LinkedHashMap();
+        linkedHashMap.put("communityid", communityID);
+        linkedHashMap.put("inviteid", list.get(pos).getInviteid());
+
+        PartyInviteParser partyInviteParser = new PartyInviteParser();
+        ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                parent, Utility.getResourcesString(parent, R.string.please_wait), true,
+                APIConstants.GET_INVITEES, linkedHashMap,
+                APIConstants.REQUEST_TYPE.POST, this, partyInviteParser);
+        Utility.execute(serverJSONAsyncTask);
+    }
+
+    @Override
+    public void onComplete(Model model) {
+
     }
 
     public class ViewHolder {
@@ -135,6 +170,8 @@ public class PartyInviteAdapter extends BaseAdapter {
         private TextView tv_time;
         private TextView tv_inviteType;
         private TextView tv_edit;
+
+        private LinearLayout iv_background;
 
     }
 }

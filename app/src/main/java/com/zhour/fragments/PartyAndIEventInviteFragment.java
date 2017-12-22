@@ -1,6 +1,7 @@
 package com.zhour.fragments;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -10,8 +11,10 @@ import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -26,6 +29,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -37,35 +41,49 @@ import android.widget.TimePicker;
 import com.zhour.R;
 import com.zhour.activities.DashboardActivity;
 import com.zhour.adapters.ContactsAdapter;
+import com.zhour.adapters.OtherInvitesAdapter;
 import com.zhour.adapters.PartyInviteAdapter;
 import com.zhour.adapters.SelectedContactsAdapter;
 import com.zhour.adapters.SpinnerAdapter;
+import com.zhour.asynctasknew.JSONResult;
+import com.zhour.asynctasknew.JSONTask;
 import com.zhour.aynctask.IAsyncCaller;
-import com.zhour.aynctask.ServerJSONAsyncTask;
 import com.zhour.aynctaskold.ServerIntractorAsync;
 import com.zhour.models.Contact;
 import com.zhour.models.EventInviteSuccessModel;
 import com.zhour.models.InvitesModel;
 import com.zhour.models.LookUpEventsTypeModel;
 import com.zhour.models.Model;
+import com.zhour.models.OtherInvitesResponseModel;
 import com.zhour.models.PartyInviteModel;
 import com.zhour.models.PartyInviteSuccessModel;
 import com.zhour.models.SpinnerModel;
+import com.zhour.models.UserVenueResponseModel;
+import com.zhour.models.VenueModel;
+import com.zhour.models.VenuesModel;
 import com.zhour.parser.EventInviteSuccessParser;
 import com.zhour.parser.LookUpEventTypeParser;
+import com.zhour.parser.OtherInvitesParser;
 import com.zhour.parser.PartyInviteParser;
 import com.zhour.parser.PartyInviteSuccessParser;
+import com.zhour.parser.UserVenueParser;
 import com.zhour.utils.APIConstants;
+import com.zhour.utils.ApiConfiguration;
 import com.zhour.utils.Constants;
 import com.zhour.utils.Utility;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Set;
@@ -76,10 +94,20 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCaller {
+public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCaller, JSONResult {
     public static final String TAG = PartyAndIEventInviteFragment.class.getSimpleName();
     private View view;
     private DashboardActivity mParent;
+
+
+    // OTHER INVITES
+
+
+    @BindView(R.id.ll_parent_other)
+    LinearLayout ll_parent_other;
+
+    @BindView(R.id.grid_view)
+    GridView grid_view;
 
     @BindView(R.id.list_view)
     ListView list_view;
@@ -105,14 +133,13 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     @BindView(R.id.et_party_time)
     EditText et_party_time;
 
-    @BindView(R.id.et_phone)
-    EditText et_phone;
+
+    public static EditText et_phone;
 
     @BindView(R.id.tv_add)
     TextView tv_add;
 
-    @BindView(R.id.tv_count)
-    TextView tv_count;
+    public static TextView tv_count;
 
     // private boolean isEventClicked = false;
 
@@ -143,10 +170,6 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
 
     @BindView(R.id.tv_no_data)
     TextView tv_no_data;
-
-   /* @BindView(R.id.et_event_note)
-    EditText et_event_note;*/
-
     @BindView(R.id.scroll_view)
     ScrollView scroll_view;
 
@@ -178,6 +201,18 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     private boolean isCallUpdate = false;
     private int number = 1;
 
+    private JSONTask venueTask;
+
+
+    String formattedDate;
+    private Date formatedTime;
+    String formatedTimeString;
+    private String inviteNoteText;
+
+    private VenuesModel venuesModel;
+
+    public static Dialog mDialog;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -204,6 +239,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -215,9 +251,41 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
         return view;
     }
 
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void inItUI() {
 
-        getInviteTypes("Invite%20Types");
+        et_phone = (EditText) view.findViewById(R.id.et_phone);
+        tv_count = (TextView) view.findViewById(R.id.tv_count);
+
+        /*Date currentTime = Calendar.getInstance().getTime();
+
+        Utility.showLog("Current Time", "" + currentTime);*/
+        // getVenueNewTask();
+
+
+        getVenueForUser();
+
+
+        // For Current And Date Format
+        Calendar c = Calendar.getInstance();
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        formattedDate = df.format(c.getTime());
+
+        formatedTime = Calendar.getInstance().getTime();
+        @SuppressLint("SimpleDateFormat") DateFormat dfForTime = new SimpleDateFormat("HH:mm");
+
+        formatedTimeString = dfForTime.format(Calendar.getInstance().getTime());
+
+
+        Utility.showLog("Current Time", formatedTimeString);
+
+
+        String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
+
+
+        getInviteTypes("Invite Types");
+
        /* tv_party_invite.performClick();*/
 
         if (isPartyInvite) {
@@ -227,7 +295,6 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
             tv_event_invite.performClick();
             showDataForEvent();
         }
-
         tv_add.setTypeface(Utility.setFontAwesomeWebfont(mParent));
         tv_phone_book.setTypeface(Utility.setFontAwesomeWebfont(mParent));
         tv_count.setVisibility(View.GONE);
@@ -241,7 +308,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
             //linkedHashMap.put("entityname", "Event%20Types");
             linkedHashMap.put("entityname", invite_types);
             LookUpEventTypeParser lookUpEventTypeParser = new LookUpEventTypeParser();
-            ServerJSONAsyncTask serverJSONAsyncTask = new ServerJSONAsyncTask(
+            ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
                     mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
                     APIConstants.GET_LOOKUP_DATA_BY_ENTITY_NAME, linkedHashMap,
                     APIConstants.REQUEST_TYPE.POST, this, lookUpEventTypeParser);
@@ -423,7 +490,6 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     @OnClick(R.id.tv_count)
     public void getContactsListDialog() {
 
-        Dialog mDialog;
         mDialog = new Dialog(mParent);
         mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         mDialog.setContentView(R.layout.dialog_contacts_list);
@@ -438,8 +504,9 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
 
         if (contactsListModel != null && contactsListModel.size() > 0) {
             selectedContactsAdapetr = new SelectedContactsAdapter(mParent, contactsListModel);
+            listView.setAdapter(selectedContactsAdapetr);
         }
-        listView.setAdapter(selectedContactsAdapetr);
+
 
         mDialog.show();
 
@@ -492,10 +559,15 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     @OnClick(R.id.tv_event_invite)
     public void eventInvite() {
         eventInviteHideLogic();
-        getInviteTypes("Event%20Types");
+        // getInviteTypes("Event%20Types");
     }
 
     private void eventInviteHideLogic() {
+
+        ll_parent_other.setVisibility(View.VISIBLE);
+        rl_parent.setVisibility(View.GONE);
+        btn_submit.setVisibility(View.GONE);
+
 
         isEventInvite = true;
         isPartyInvite = false;
@@ -507,11 +579,10 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
         Utility.showLog("eventInviteHideLogic", "" + isCallUpdate);
         Utility.hideSoftKeyboard(mParent, tv_event_invite);
         scroll_view.setVisibility(View.VISIBLE);
-        btn_submit.setVisibility(View.VISIBLE);
+
         et_event_invite_types.setVisibility(View.VISIBLE);
         et_event_venue.setVisibility(View.VISIBLE);
         iv_date.setImageDrawable(Utility.getDrawable(mParent, R.drawable.ic_date));
-        rl_parent.setVisibility(View.VISIBLE);
         ll_list_parent.setVisibility(View.GONE);
         et_date.setVisibility(View.VISIBLE);
         ll_party_invite.setVisibility(View.GONE);
@@ -534,6 +605,10 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
 
         Utility.showLog("partyInvite", "" + isCallUpdate);
 
+        rl_parent.setVisibility(View.VISIBLE);
+        ll_parent_other.setVisibility(View.GONE);
+
+
         Utility.hideSoftKeyboard(mParent, tv_party_invite);
         scroll_view.setVisibility(View.VISIBLE);
         btn_submit.setVisibility(View.VISIBLE);
@@ -553,8 +628,12 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
 
         clearDataAndShowToast();
 
-        getInviteTypes("Invite%20Types");
+        // getInviteTypes("Invite%20Types");
+        // getVenueForUser();
+
+
     }
+
 
     @OnClick(R.id.btn_submit)
     public void submit() {
@@ -592,12 +671,12 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
         linkedHashMap.put("communityid", communityID);
         linkedHashMap.put("residentid", residentID);
 
-        if (isEventInvite && !isPartyInvite) {
+        /*if (isEventInvite && !isPartyInvite) {
             linkedHashMap.put("enttype", "event types");
         } else {
             linkedHashMap.put("enttype", "invite types");
-        }
-
+        }*/
+        linkedHashMap.put("enttype", "invite types");
 
         PartyInviteParser partyInviteParser = new PartyInviteParser();
         ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
@@ -639,8 +718,8 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
             }
 
             jsonArray.put(jsonObject);
-            linkedHashMap.put("contacts", jsonArray.toString());
 
+            linkedHashMap.put("contacts", jsonArray.toString());
             PartyInviteSuccessParser partyInviteSuccessParser = new PartyInviteSuccessParser();
             ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
                     mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
@@ -746,10 +825,10 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
         } else if (Utility.isValueNullOrEmpty(et_venue.getText().toString().trim())) {
             Utility.setSnackBar(mParent, et_venue, "Please enter venue");
             et_party_date.requestFocus();
-        } else if (Utility.isValueNullOrEmpty(et_invite_note.getText().toString().trim())) {
+        } /*else if (Utility.isValueNullOrEmpty(et_invite_note.getText().toString().trim())) {
             Utility.setSnackBar(mParent, et_invite_note, "Please enter invite note");
             et_party_date.requestFocus();
-        } else {
+        }*/ else {
             isValidated = true;
         }
         return isValidated;
@@ -788,6 +867,8 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
                 int month = monthOfYear + 1;
                 et_party_date.setText("" + month + "/" + dayOfMonth + "/" + year);
 
+                Utility.showLog("Todays Changed Time", "" + et_party_date.getText().toString());
+
             }
         }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
         dpd.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
@@ -816,6 +897,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
             if (model instanceof LookUpEventsTypeModel) {
                 lookUpEventsTypeModel = (LookUpEventsTypeModel) model;
                 if (!lookUpEventsTypeModel.isError()) {
+                    getOtherInvites();
                 }
             } else if (model instanceof PartyInviteModel) {
                 partyInviteModel = (PartyInviteModel) model;
@@ -839,8 +921,49 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
                     Utility.showToastMessage(mParent, Utility.getResourcesString(mParent, R.string.invitation_sent_successfully));
                     clearDataForEvent();
                 }
+            } else if (model instanceof OtherInvitesResponseModel) {
+                OtherInvitesResponseModel otherInvitesResponseModel = (OtherInvitesResponseModel) model;
+                if (!otherInvitesResponseModel.isError()) {
+                    setOtherInvitesData(otherInvitesResponseModel);
+                }
+            } else if (model instanceof UserVenueResponseModel) {
+                UserVenueResponseModel venueResponseModel = (UserVenueResponseModel) model;
+                String apartmentName = "";
+                String flatNo = "";
+                if (!venueResponseModel.isError()) {
+                    VenueModel venueModel = venueResponseModel.getVenuesModels().get(0);
+                    if (!TextUtils.isEmpty(venueModel.getAppartmentname())) {
+                        apartmentName = venueModel.getAppartmentname();
+                        Utility.setSharedPrefStringData(mParent, Constants.APARTMENT_NAME, apartmentName);
+                        et_venue.setText(apartmentName);
+                    }
+                    if (!TextUtils.isEmpty(venueModel.getFlat())) {
+                        flatNo = venueModel.getFlat();
+                        Utility.setSharedPrefStringData(mParent, Constants.APARTMENT_FLAT_NO, flatNo);
+                        et_venue.setText(apartmentName + "," + "Flat no :" + flatNo);
+                    }
+                }
             }
         }
+    }
+
+    private void getOtherInvites() {
+        try {
+            LinkedHashMap linkedHashMap = new LinkedHashMap();
+            OtherInvitesParser otherInvitesParser = new OtherInvitesParser();
+            ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                    mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                    APIConstants.GET_OTHER_INVITES, linkedHashMap,
+                    APIConstants.REQUEST_TYPE.POST, this, otherInvitesParser);
+            Utility.execute(serverJSONAsyncTask);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void setOtherInvitesData(OtherInvitesResponseModel otherInvitesResponseModel) {
+        OtherInvitesAdapter otherInvitesAdapter = new OtherInvitesAdapter(mParent, otherInvitesResponseModel.getOtherInvitesModels());
+        grid_view.setAdapter(otherInvitesAdapter);
     }
 
     /**
@@ -850,7 +973,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
         et_invite_types.setText("");
         et_party_date.setText("");
         et_party_time.setText("");
-        et_venue.setText("");
+        // et_venue.setText("");
         et_invite_note.setText("");
         et_phone.setText("");
         tv_count.setText("");
@@ -866,6 +989,9 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
         tv_count.setVisibility(View.GONE);
         contactsListModel = null;
         addContactList = null;
+
+        et_party_date.setText(formattedDate);
+        et_party_time.setText(formatedTimeString);
     }
 
     /**
@@ -994,7 +1120,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     /**
      * This method is used to update the contacts
      */
-    private void updateData() {
+    public static void updateData() {
         if (contactsListModel == null) {
             contactsListModel = new ArrayList<>();
         }
@@ -1043,4 +1169,106 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     }
 
 
+    public void setLayoutsProgramatically() {
+
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private void getVenueNewTask() {
+        if (venueTask != null) {
+            venueTask.cancel(true);
+        }
+
+        String communityID = Utility.getSharedPrefStringData(mParent, Constants.COMMUNITY_ID);
+        String residentID = Utility.getSharedPrefStringData(mParent, Constants.RESIDENT_ID);
+
+        HashMap<?, ?> param = getJSONPostParam(communityID, residentID);
+
+
+        venueTask = new JSONTask(this, mParent);
+        venueTask.setMethod(JSONTask.METHOD.POST);
+        venueTask.setParams(param);
+        venueTask.setServerUrl(APIConstants.GET_USER_VENUE);
+        venueTask.setErrorMessage(ApiConfiguration.ERROR_RESPONSE_CODE);
+        venueTask.setConnectTimeout(ApiConfiguration.TIMEOUT);
+        venueTask.execute();
+
+    }
+
+
+    @Override
+    public void successJSONResult(int code, Object result) throws JSONException {
+        JSONObject jsonObject = (JSONObject) result;
+        try {
+            JSONObject jsonObject1 = (JSONObject) result;
+            boolean isError = jsonObject1.optBoolean("IsError");
+            String message = jsonObject1.getString("Message");
+            if (jsonObject1.has("Output")) {
+                JSONArray jsonArray = jsonObject.getJSONArray("Output");
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject2 = (JSONObject) jsonArray.get(i);
+
+                    venuesModel = new VenuesModel(jsonObject2);
+
+                    String apartmentName = "";
+                    String flatNo = "";
+                    if (!TextUtils.isEmpty(venuesModel.getAppartmentname()) && !TextUtils.isEmpty(venuesModel.getFlat())) {
+                        apartmentName = venuesModel.getAppartmentname();
+                        flatNo = venuesModel.getFlat();
+                        et_venue.setText(apartmentName + "," + flatNo);
+
+                    }
+
+
+                    // Toast.makeText(mParent, apartmentName + "" + flatNo, Toast.LENGTH_SHORT).show();
+
+
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Utility.showLog("result", "result  >>>>>>>" + result);
+
+    }
+
+    @Override
+    public void failedJSONResult(int code) {
+
+    }
+
+    /* RE_SEND VERIFICATION CODE*/
+    public static HashMap<?, ?> getJSONPostParam(String communityId, String residentId) {
+        HashMap<String, String> params = new HashMap<>();
+        params.put("communityid", communityId);
+        params.put("residentid", residentId);
+        return (params);
+    }
+
+    private void getVenueForUser() {
+        try {
+            String communityID = Utility.getSharedPrefStringData(mParent, Constants.COMMUNITY_ID);
+            String residentID = Utility.getSharedPrefStringData(mParent, Constants.RESIDENT_ID);
+            String token = Utility.getSharedPrefStringData(mParent, Constants.TOKEN);
+
+
+            LinkedHashMap linkedHashMap = new LinkedHashMap();
+            linkedHashMap.put("communityid", communityID);
+            linkedHashMap.put("residentid", residentID);
+
+
+            UserVenueParser userVenueParser = new UserVenueParser();
+            ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                    mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                    APIConstants.GET_USER_VENUE, linkedHashMap,
+                    APIConstants.REQUEST_TYPE.POST, this, userVenueParser);
+            Utility.execute(serverJSONAsyncTask);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
 }

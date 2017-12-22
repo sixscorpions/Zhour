@@ -502,60 +502,7 @@ public class Utility {
     }
 
 
-    public static String httpJsonRequest(String url, HashMap<String, String> mParams, Context context) {
-        String websiteData = "error";
-        HttpClient client = new DefaultHttpClient();
-        HttpConnectionParams.setConnectionTimeout(client.getParams(),
-                CONNECTION_TIMEOUT); // Timeout
-        // Limit
-        HttpResponse response;
-        HttpPost post = new HttpPost(url);
-        post.setHeader("token", Utility.getSharedPrefStringData(context, Constants.TOKEN));
-        StringEntity se;
-        try {
-            se = new StringEntity(getJsonParams(mParams));
-            se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE,
-                    "application/json"));
-            post.setEntity(se);
-            response = client.execute(post);
-            //* Checking response *//*
-            if (response != null) {
-                websiteData = EntityUtils.toString(response.getEntity());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            websiteData = "error";
-            return websiteData;
-        }
-        return websiteData;
-    }
 
-    public static String getJsonParams(HashMap<String, String> paramMap) {
-        if (paramMap == null) {
-            return null;
-        }
-        JSONObject jsonObject = new JSONObject();
-        for (Map.Entry<String, String> entry : paramMap.entrySet()) {
-            try {
-                if (entry.getKey().equalsIgnoreCase("contacts")) {
-                    JSONArray jsonArray = new JSONArray(entry
-                            .getValue());
-                    jsonObject.accumulate(entry.getKey(), jsonArray);
-                } else if (entry.getKey().equalsIgnoreCase("login")) {
-                    JSONObject jsonArrayLogin = new JSONObject(entry
-                            .getValue());
-                    jsonObject.accumulate(entry.getKey(), jsonArrayLogin);
-                } else {
-                    jsonObject.accumulate(entry.getKey(), entry
-                            .getValue());
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return jsonObject.toString();
-    }
 
     /*ROUND CORNERS BITMAP*/
     public static Bitmap getRoundedCornerBitmap(Bitmap bitmap) {
@@ -702,4 +649,61 @@ public class Utility {
         inputStream.close();
         return result;
     }
+
+    public static String httpJsonRequest(String url, HashMap<String, String> mParams, Context context) {
+        String websiteData = "error";
+        HttpClient client = new DefaultHttpClient();
+        HttpConnectionParams.setConnectionTimeout(client.getParams(),
+                CONNECTION_TIMEOUT); // Timeout
+        // Limit
+        HttpResponse response;
+        HttpPost post = new HttpPost(url);
+        post.setHeader("token", Utility.getSharedPrefStringData(context, Constants.TOKEN));
+        StringEntity se;
+        try {
+            se = new StringEntity(getJsonParams(mParams));
+            se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE,
+                    "application/json"));
+            post.setEntity(se);
+            response = client.execute(post);
+            //* Checking response *//*
+            if (response != null) {
+                websiteData = EntityUtils.toString(response.getEntity());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            websiteData = "error";
+            return websiteData;
+        }
+        return websiteData;
+    }
+
+    public static String getJsonParams(HashMap<String, String> paramMap) {
+        if (paramMap == null) {
+            return null;
+        }
+        JSONObject jsonObject = new JSONObject();
+        for (Map.Entry<String, String> entry : paramMap.entrySet()) {
+            try {
+                if (entry.getKey().equalsIgnoreCase("contacts")) {
+                    JSONArray jsonArray = new JSONArray(entry
+                            .getValue());
+                    jsonObject.accumulate(entry.getKey(), jsonArray);
+                } else if (entry.getKey().equalsIgnoreCase("login")) {
+                    JSONObject jsonArrayLogin = new JSONObject(entry
+                            .getValue());
+                    jsonObject.accumulate(entry.getKey(), jsonArrayLogin);
+                } else {
+                    jsonObject.accumulate(entry.getKey(), entry
+                            .getValue());
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return jsonObject.toString();
+    }
+
+
 }

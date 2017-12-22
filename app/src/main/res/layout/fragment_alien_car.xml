@@ -97,7 +97,8 @@
                             android:layout_weight="0.9"
                             android:background="@android:color/transparent"
                             android:hint="@string/enter_vehicle_number"
-                            android:maxLength="12"
+                            android:lines="1"
+                            android:maxLength="20"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_16sp" />
 

@@ -96,6 +96,7 @@ Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots 
     <string name="complaint_description">Complaint Description</string>
     <string name="complaint_raised_successfully">Complaint Raised Successfully</string>
     <string name="done">Done</string>
+    <string name="call">Call</string>
     <string name="txt_contacts">Contacts</string>
     <string name="fire_emergency">fire emergency</string>
     <string name="medical_emergency">MEDICAL EMERGENCY</string>
@@ -114,6 +115,18 @@ Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots 
 
     <string name="check_in_icon">&#xE837;</string>
     <string name="check_out_icon">&#xE836;</string>
+    <string name="invite_people">INVITE PEOPLE</string>
+    <string name="other_invites">OTHER INVITES</string>
+    <string name="cab_invite">CAB INVITE</string>
+    <string name="food_delivery">FOOD DELIVERY</string>
+    <string name="goods_delivery">GOODS DELIVERY</string>
+    <string name="courier_delivery">COURIER DELIVERY</string>
+    <string name="medicine_delivery">MEDICINE DELIVERY</string>
+    <string name="home_services">HOME SERVICES</string>
+    <string name="please_confirm_your">Please Confirm Your</string>
+    <string name="cab_entry_permission">Cab Entry Permission</string>
+    <string name="confirm">Confirm</string>
+    <string name="invitees">Invitees</string>
 
 
 </resources>

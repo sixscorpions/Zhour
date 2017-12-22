@@ -53,61 +53,111 @@
             android:paddingStart="@dimen/_3dp" />
 
         <LinearLayout
-            android:layout_width="@dimen/_0dp"
+            android:id="@+id/ll_name_contact"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="25"
+            android:layout_gravity="center"
+            android:layout_weight="55"
             android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:minHeight="@dimen/_30dp"
-                android:minWidth="@dimen/_40dp"
-                android:src="@drawable/apartment_image" />
+            android:orientation="vertical"
+            android:visibility="visible"
+            android:weightSum="55">
 
             <TextView
-                android:id="@+id/tv_flat_number"
-                android:layout_width="wrap_content"
+                android:id="@+id/tv_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_5dp"
+                android:layout_marginStart="@dimen/_10dp"
+                android:layout_marginTop="@dimen/_5dp"
+                android:ellipsize="end"
+                android:lines="1"
+                android:text="Chakravarthi"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_contact_number"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/_5dp"
-                android:layout_marginTop="@dimen/_5dp"
-                android:text="@string/accept_small"
-                android:textSize="@dimen/_14sp"
-                android:textStyle="bold" />
+                android:layout_marginEnd="@dimen/_5dp"
+                android:layout_marginLeft="@dimen/_5dp"
+                android:layout_marginStart="@dimen/_10dp"
+                android:layout_marginTop="@dimen/_3dp"
+                android:text="7013688846"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_13sp" />
         </LinearLayout>
 
-        <View
-            android:layout_width="@dimen/_1dp"
-            android:layout_height="match_parent"
-            android:background="@android:color/darker_gray"
-            android:paddingEnd="@dimen/_3dp"
-            android:paddingStart="@dimen/_3dp" />
-
         <LinearLayout
-            android:layout_width="@dimen/_0dp"
+            android:id="@+id/ll_flat_date"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="30"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_weight="55"
+            android:visibility="gone"
+            android:weightSum="55">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:minHeight="@dimen/_30dp"
-                android:minWidth="@dimen/_40dp"
-                android:src="@drawable/cal_date" />
+            <LinearLayout
+                android:id="@+id/ll_flat"
+                android:layout_width="@dimen/_0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="25"
+                android:gravity="center"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/_5dp"
-                android:layout_marginTop="@dimen/_5dp"
-                android:text="@string/date"
-                android:textSize="@dimen/_14sp"
-                android:textStyle="bold" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/_30dp"
+                    android:minWidth="@dimen/_40dp"
+                    android:src="@drawable/apartment_image" />
 
+                <TextView
+                    android:id="@+id/tv_flat_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_5dp"
+                    android:layout_marginTop="@dimen/_5dp"
+                    android:text="@string/accept_small"
+                    android:textSize="@dimen/_14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="@dimen/_1dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/darker_gray"
+                android:paddingEnd="@dimen/_3dp"
+                android:paddingStart="@dimen/_3dp" />
+
+            <LinearLayout
+                android:id="@+id/ll_date"
+                android:layout_width="@dimen/_0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="30"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/_30dp"
+                    android:minWidth="@dimen/_40dp"
+                    android:src="@drawable/cal_date" />
+
+                <TextView
+                    android:id="@+id/tv_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_5dp"
+                    android:layout_marginTop="@dimen/_5dp"
+                    android:text="@string/date"
+                    android:textSize="@dimen/_14sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
         </LinearLayout>
 
         <View
@@ -130,7 +180,19 @@
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/_30dp"
                 android:minWidth="@dimen/_30dp"
-                android:src="@drawable/done_button" />
+                android:src="@drawable/done_button"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_call"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="@dimen/_30sp"
+                android:minHeight="@dimen/_40dp"
+                android:minWidth="@dimen/_40dp"
+                android:text="@string/call_icon" />
 
             <TextView
                 android:id="@+id/tv_status"
@@ -138,7 +200,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/_5dp"
                 android:layout_marginTop="@dimen/_5dp"
-                android:text="@string/done"
+                android:text="@string/call"
                 android:textSize="@dimen/_14sp"
                 android:textStyle="bold" />
 

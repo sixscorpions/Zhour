@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.zhour.R;
 import com.zhour.activities.DashboardActivity;
+import com.zhour.fragments.PartyAndIEventInviteFragment;
 import com.zhour.models.Contact;
 import com.zhour.utils.Utility;
 
@@ -21,23 +22,23 @@ import java.util.ArrayList;
 public class SelectedContactsAdapter extends BaseAdapter {
     private DashboardActivity parent;
     private LayoutInflater layoutInflater;
-    private ArrayList<Contact> newList;
+    //private ArrayList<Contact> newList;
 
 
     public SelectedContactsAdapter(DashboardActivity parent, ArrayList<Contact> newList) {
         this.parent = parent;
-        this.newList = newList;
+        // this.newList = newList;
         layoutInflater = (LayoutInflater) parent.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public int getCount() {
-        return newList.size();
+        return PartyAndIEventInviteFragment.contactsListModel.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return newList.get(position);
+        return PartyAndIEventInviteFragment.contactsListModel.get(position);
     }
 
     @Override
@@ -64,15 +65,37 @@ public class SelectedContactsAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        Contact contact = newList.get(position);
+        Contact contact = PartyAndIEventInviteFragment.contactsListModel.get(position);
         if (!Utility.isValueNullOrEmpty(contact.getPhoneNumber())) {
 
-            if (!Utility.isValueNullOrEmpty(contact.getDisplayName()))
+            if (!Utility.isValueNullOrEmpty(contact.getDisplayName())) {
                 viewHolder.tv_contact.setText(contact.getDisplayName());
-            else
+                viewHolder.tv_contact_remove.setVisibility(View.GONE);
+            } else {
                 viewHolder.tv_contact.setText(contact.getPhoneNumber());
+                viewHolder.tv_contact_remove.setVisibility(View.VISIBLE);
+            }
 
         }
+        viewHolder.tv_contact_remove.setId(position);
+        viewHolder.tv_contact_remove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int pos = v.getId();
+                PartyAndIEventInviteFragment.contactsListModel.remove(pos);
+                //PartyAndIEventInviteFragment.addContactList.remove(pos);
+                PartyAndIEventInviteFragment.tv_count.setText(String.format("%d", PartyAndIEventInviteFragment.contactsListModel.size()));
+                if (PartyAndIEventInviteFragment.contactsListModel != null && PartyAndIEventInviteFragment.contactsListModel.size() == 0) {
+                    PartyAndIEventInviteFragment.contactsListModel = null;
+                    PartyAndIEventInviteFragment.addContactList = null;
+                    PartyAndIEventInviteFragment.tv_count.setVisibility(View.GONE);
+                    PartyAndIEventInviteFragment.mDialog.dismiss();
+                } else {
+                    PartyAndIEventInviteFragment.tv_count.setVisibility(View.VISIBLE);
+                    notifyDataSetChanged();
+                }
+            }
+        });
         return convertView;
 
     }

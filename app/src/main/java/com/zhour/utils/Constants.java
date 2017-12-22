@@ -8,7 +8,7 @@ public class Constants {
     // Log message On or Off
     public static final boolean logMessageOnOrOff = true;
 
-    public static int SPLASH_TIME_OUT = 3000;
+    public static int SPLASH_TIME_OUT = 1000;
 
     /* shared pref */
     public static final String APP_PREF = "Zhour_Pref";
@@ -59,6 +59,9 @@ public class Constants {
 
     public static final String NOTIFICATION_ID = "NOTIFICATION_ID";
     public static final String NOTIFICATION_READ_IDS = "NOTIFICATION_READ_IDS";
+
+    public static final String APARTMENT_NAME = "APARTMENT_NAME";
+    public static final String APARTMENT_FLAT_NO = "APARTMENT_FLAT_NO";
 
     public static final int UNIQUE_CODE = 232;
 }
