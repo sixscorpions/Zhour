@@ -180,8 +180,8 @@ public class MaidStatusFragment extends Fragment implements IAsyncCaller {
                 btn_switch_in.setTextColor(Utility.getColor(mParent, R.color.red));
                 tv_in_out.setText(Utility.getResourcesString(mParent, R.string.out));
                 btn_switch_in.setTypeface(Utility.getMaterialIconsRegular(mParent));
-                tv_time.setText(Utility.displayTimeFormat(mMaidModel.getIntime()));
-                tv_date.setText(Utility.displayDateFormat(mMaidModel.getIntime()));
+                tv_time.setText(Utility.displayTimeFormat(mMaidModel.getOuttime()));
+                tv_date.setText(Utility.displayDateFormat(mMaidModel.getOuttime()));
                 tv_time.setVisibility(View.VISIBLE);
                 tv_date.setVisibility(View.VISIBLE);
             }
