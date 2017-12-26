@@ -383,7 +383,8 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
                     if (addContactList != null && addContactList.size() > 0) {
                         for (int i = 0; i < addContactList.size(); i++) {
                             Contact contact = addContactList.get(i);
-                            contactsListModel.add(contact);
+                            if (contact.getEnteredNumber().equalsIgnoreCase("yes"))
+                                contactsListModel.add(contact);
                         }
                     }
 
@@ -401,9 +402,13 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
                     if (contactsListModel.size() > 0 && contactsListModel.size() != 0) {
                         tv_count.setVisibility(View.VISIBLE);
                         tv_count.setText("" + contactsListModel.size());
+                        addContactList = new ArrayList<>();
+                        addContactList.addAll(contactsListModel);
                     } else {
                         tv_count.setVisibility(View.GONE);
                         tv_count.setText("" + contactsListModel.size());
+                        addContactList = new ArrayList<>();
+                        addContactList.addAll(contactsListModel);
                     }
                 }
                 //Utility.showToastMessage(getActivity(), "SELECTED CONTACTS" + contactsListModel.size());
@@ -474,7 +479,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
                     String phoneNumber = mCursor.getString(mCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
                     String image_uri = mCursor.getString(mCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.PHOTO_URI));
                     if (!name.equals(phoneNumber)) {
-                        Contact contact = new Contact(name, phoneNumber, image_uri);
+                        Contact contact = new Contact(name, phoneNumber, image_uri, "no");
                         contact.setCheckBox(false);
                         result.add(contact);
                     }
@@ -706,20 +711,21 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
             linkedHashMap.put("residentid", Utility.getSharedPrefStringData(mParent, Constants.RESIDENT_ID));
 
             JSONArray jsonArray = new JSONArray();
-            JSONObject jsonObject = new JSONObject();
             if (contactsListModel != null && contactsListModel.size() > 0) {
                 for (int i = 0; i < contactsListModel.size(); i++) {
+                    JSONObject jsonObject = new JSONObject();
                     Contact c = contactsListModel.get(i);
                     String num = c.getPhoneNumber().trim();
                     String phNo = num.replaceAll("[()\\s-]+", "");
                     jsonObject.put(c.displayName, phNo);
-
+                    jsonArray.put(jsonObject);
                 }
             }
 
-            jsonArray.put(jsonObject);
-
             linkedHashMap.put("contacts", jsonArray.toString());
+
+            Utility.showLog("API CALL :", "REST URL PARAMS : " + linkedHashMap.toString());
+
             PartyInviteSuccessParser partyInviteSuccessParser = new PartyInviteSuccessParser();
             ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
                     mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
@@ -1124,15 +1130,13 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
         if (contactsListModel == null) {
             contactsListModel = new ArrayList<>();
         }
-        if (addContactList == null) {
-            addContactList = new ArrayList<>();
-        }
 
         if (contactsListModel != null) {
-            Contact contact = new Contact("", et_phone.getText().toString(), "");
+            Contact contact = new Contact("", et_phone.getText().toString(), "", "yes");
             contact.setPhoneNumber(et_phone.getText().toString());
             contactsListModel.add(contact);
-            addContactList.add(contact);
+            addContactList = new ArrayList<>();
+            addContactList.addAll(contactsListModel);
         }
         tv_count.setVisibility(View.VISIBLE);
         tv_count.setText(String.format("%d", contactsListModel.size()));

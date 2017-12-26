@@ -70,7 +70,7 @@ public class SelectedContactsAdapter extends BaseAdapter {
 
             if (!Utility.isValueNullOrEmpty(contact.getDisplayName())) {
                 viewHolder.tv_contact.setText(contact.getDisplayName());
-                viewHolder.tv_contact_remove.setVisibility(View.GONE);
+                viewHolder.tv_contact_remove.setVisibility(View.VISIBLE);
             } else {
                 viewHolder.tv_contact.setText(contact.getPhoneNumber());
                 viewHolder.tv_contact_remove.setVisibility(View.VISIBLE);
@@ -83,7 +83,7 @@ public class SelectedContactsAdapter extends BaseAdapter {
             public void onClick(View v) {
                 int pos = v.getId();
                 PartyAndIEventInviteFragment.contactsListModel.remove(pos);
-                //PartyAndIEventInviteFragment.addContactList.remove(pos);
+                PartyAndIEventInviteFragment.addContactList.remove(pos);
                 PartyAndIEventInviteFragment.tv_count.setText(String.format("%d", PartyAndIEventInviteFragment.contactsListModel.size()));
                 if (PartyAndIEventInviteFragment.contactsListModel != null && PartyAndIEventInviteFragment.contactsListModel.size() == 0) {
                     PartyAndIEventInviteFragment.contactsListModel = null;

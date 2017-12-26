@@ -5,16 +5,18 @@ import android.support.annotation.NonNull;
 public class Contact implements Comparable<Contact> {
 
 
+    private String enteredNumber;
     public String picture;
     public String displayName;
     public Boolean checkBox;
     public String phoneNumber;
     private boolean mContacts_Flow = false;
 
-    public Contact(String displayName, String phoneNumber, String picture) {
+    public Contact(String displayName, String phoneNumber, String picture, String enteredNumber) {
         setDisplayName(displayName);
         setPhoneNumber(phoneNumber);
         setPicture(picture);
+        setEnteredNumber(enteredNumber);
     }
 
     public boolean ismContacts_Flow() {
@@ -56,6 +58,14 @@ public class Contact implements Comparable<Contact> {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getEnteredNumber() {
+        return enteredNumber;
+    }
+
+    public void setEnteredNumber(String enteredNumber) {
+        this.enteredNumber = enteredNumber;
     }
 
     @Override

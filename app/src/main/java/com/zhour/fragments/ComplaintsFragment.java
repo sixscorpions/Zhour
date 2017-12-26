@@ -152,9 +152,9 @@ public class ComplaintsFragment extends Fragment implements IAsyncCaller {
     private void getInviteTypes() {
         try {
             LinkedHashMap linkedHashMap = new LinkedHashMap();
-            linkedHashMap.put("entityname", "Complaint%20Types");
+            linkedHashMap.put("entityname", "Complaint Types");
             LookUpEventTypeParser lookUpEventTypeParser = new LookUpEventTypeParser();
-            ServerJSONAsyncTask serverJSONAsyncTask = new ServerJSONAsyncTask(
+            ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
                     mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
                     APIConstants.GET_LOOKUP_DATA_BY_ENTITY_NAME, linkedHashMap,
                     APIConstants.REQUEST_TYPE.POST, this, lookUpEventTypeParser);
