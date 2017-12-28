@@ -8,15 +8,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/complaints_top_gray"
-        android:orientation="vertical"
+        android:gravity="center"
+        android:orientation="horizontal"
         android:padding="@dimen/_10dp">
 
         <TextView
             android:id="@+id/tv_complaint_des"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="@string/app_name"
             android:textSize="@dimen/_18sp" />
+
+        <TextView
+            android:id="@+id/tv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:minHeight="@dimen/_40dp"
+            android:minWidth="@dimen/_40dp"
+            android:text="@string/close_icon"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/_30sp"
+            android:visibility="gone" />
     </LinearLayout>
 
     <View
@@ -153,6 +167,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/_5dp"
                     android:layout_marginTop="@dimen/_5dp"
+                    android:gravity="center"
                     android:text="@string/date"
                     android:textSize="@dimen/_14sp"
                     android:textStyle="bold" />
@@ -168,6 +183,7 @@
             android:paddingStart="@dimen/_3dp" />
 
         <LinearLayout
+            android:id="@+id/ll_call"
             android:layout_width="@dimen/_0dp"
             android:layout_height="match_parent"
             android:layout_weight="20"
@@ -185,14 +201,14 @@
 
             <TextView
                 android:id="@+id/tv_call"
-                android:textColor="@color/colorPrimaryDark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:textSize="@dimen/_30sp"
                 android:minHeight="@dimen/_40dp"
                 android:minWidth="@dimen/_40dp"
-                android:text="@string/call_icon" />
+                android:text="@string/call_icon"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/_30sp" />
 
             <TextView
                 android:id="@+id/tv_status"

@@ -33,11 +33,15 @@ public class ComplaintListParser implements Parser<Model> {
                     complaintListModel.setComplaintid(jsonObject1.optString("complaintid"));
                     complaintListModel.setComplainttype(jsonObject1.optString("complainttype"));
                     complaintListModel.setComplainttypedesc(jsonObject1.optString("complainttypedesc"));
+                    complaintListModel.setDeptid(jsonObject1.optString("deptid"));
                     complaintListModel.setComplaintdesc(jsonObject1.optString("complaintdesc"));
-                    complaintListModel.setComments(jsonObject1.optString("comments"));
                     complaintListModel.setComplaintstatus(jsonObject1.optString("complaintstatus"));
+                    complaintListModel.setComments(jsonObject1.optString("comments"));
                     complaintListModel.setResidentid(jsonObject1.optString("residentid"));
                     complaintListModel.setResidentname(jsonObject1.optString("residentname"));
+                    complaintListModel.setStaffid(jsonObject1.optString("staffid"));
+                    complaintListModel.setStaffname(jsonObject1.optString("staffname"));
+                    complaintListModel.setStaffcontact(jsonObject1.optString("staffcontact"));
                     complaintListModel.setFlatnumber(jsonObject1.optString("flatnumber"));
                     complaintListModel.setAppartmentname(jsonObject1.optString("appartmentname"));
                     complaintListModel.setContact1(jsonObject1.optString("contact1"));

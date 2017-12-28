@@ -9,16 +9,21 @@ public class ComplaintListModel {
     private String complaintid;
     private String complainttype;
     private String complainttypedesc;
+    private String deptid;
     private String complaintdesc;
     private String complaintstatus;
     private String comments;
     private String residentid;
     private String residentname;
+    private String staffid;
+    private String staffname;
+    private String staffcontact;
     private String flatnumber;
     private String appartmentname;
     private String contact1;
     private String communityid;
     private String updatedby;
+    private String createddate;
     private String updateddate;
 
     public String getComplaintid() {
@@ -43,6 +48,14 @@ public class ComplaintListModel {
 
     public void setComplainttypedesc(String complainttypedesc) {
         this.complainttypedesc = complainttypedesc;
+    }
+
+    public String getDeptid() {
+        return deptid;
+    }
+
+    public void setDeptid(String deptid) {
+        this.deptid = deptid;
     }
 
     public String getComplaintdesc() {
@@ -85,6 +98,30 @@ public class ComplaintListModel {
         this.residentname = residentname;
     }
 
+    public String getStaffid() {
+        return staffid;
+    }
+
+    public void setStaffid(String staffid) {
+        this.staffid = staffid;
+    }
+
+    public String getStaffname() {
+        return staffname;
+    }
+
+    public void setStaffname(String staffname) {
+        this.staffname = staffname;
+    }
+
+    public String getStaffcontact() {
+        return staffcontact;
+    }
+
+    public void setStaffcontact(String staffcontact) {
+        this.staffcontact = staffcontact;
+    }
+
     public String getFlatnumber() {
         return flatnumber;
     }
@@ -123,6 +160,14 @@ public class ComplaintListModel {
 
     public void setUpdatedby(String updatedby) {
         this.updatedby = updatedby;
+    }
+
+    public String getCreateddate() {
+        return createddate;
+    }
+
+    public void setCreateddate(String createddate) {
+        this.createddate = createddate;
     }
 
     public String getUpdateddate() {

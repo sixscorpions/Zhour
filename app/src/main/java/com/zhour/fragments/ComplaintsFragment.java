@@ -1,12 +1,16 @@
 package com.zhour.fragments;
 
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -105,11 +109,31 @@ public class ComplaintsFragment extends Fragment implements IAsyncCaller {
     }
 
     private void initUi() {
+
+         /*GET PHONE PERMISSION*/
+        askPermission();
+
+
         /*STATIC IMAGES ARRAY*/
         images = new int[]{R.drawable.ic_apartment, R.drawable.ic_apartment, R.drawable.ic_pump, R.drawable.ic_electric};
 
         getInviteTypes();
         ll_list_parent.setVisibility(View.GONE);
+    }
+
+    private void askPermission() {
+        if (ContextCompat.checkSelfPermission(mParent,
+                Manifest.permission.CALL_PHONE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(mParent,
+                    Manifest.permission.CALL_PHONE)) {
+            } else {
+                ActivityCompat.requestPermissions(mParent,
+                        new String[]{Manifest.permission.CALL_PHONE},
+                        Constants.MY_PERMISSIONS_REQUEST_CALL_PHONE);
+            }
+        }
     }
 
     @OnClick(R.id.iv_list)

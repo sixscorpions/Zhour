@@ -12,4 +12,5 @@
     <string name="car_icon">&#xf1b9;</string>
     <string name="camera_icon">&#xf030;</string>
     <string name="call_icon">&#xf095;</string>
+    <string name="close_icon">&#xf05c;</string>
 </resources>
