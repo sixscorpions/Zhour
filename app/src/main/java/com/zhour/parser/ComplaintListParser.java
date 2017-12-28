@@ -46,6 +46,7 @@ public class ComplaintListParser implements Parser<Model> {
                     complaintListModel.setAppartmentname(jsonObject1.optString("appartmentname"));
                     complaintListModel.setContact1(jsonObject1.optString("contact1"));
                     complaintListModel.setCommunityid(jsonObject1.optString("communityid"));
+                    complaintListModel.setMobicon(jsonObject1.optString("mobicon"));
                     complaintListModel.setUpdatedby(jsonObject1.optString("updatedby"));
                     complaintListModel.setUpdateddate(jsonObject1.optString("updateddate"));
 

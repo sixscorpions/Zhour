@@ -23,6 +23,7 @@ import com.zhour.models.Model;
 import com.zhour.parser.ComplaintParser;
 import com.zhour.utils.APIConstants;
 import com.zhour.utils.Constants;
+import com.zhour.utils.UImageLoader;
 import com.zhour.utils.Utility;
 
 import java.util.ArrayList;
@@ -99,14 +100,15 @@ public class ComplaintAdapter extends BaseAdapter implements IAsyncCaller {
 
         }
         ComplaintListModel complaintListModel = complaintListModels.get(position);
-        if (complaintListModel.getComplainttype().equalsIgnoreCase("83"))
+       /* if (complaintListModel.getComplainttype().equalsIgnoreCase("83"))
             holder.img_type.setImageDrawable(Utility.getDrawable(mParent, R.drawable.ic_electric));
         if (complaintListModel.getComplainttype().equalsIgnoreCase("82"))
             holder.img_type.setImageDrawable(Utility.getDrawable(mParent, R.drawable.ic_pump));
         if (complaintListModel.getComplainttype().equalsIgnoreCase("81"))
             holder.img_type.setImageDrawable(Utility.getDrawable(mParent, R.drawable.ic_apartment));
         if (complaintListModel.getComplainttype().equalsIgnoreCase("80"))
-            holder.img_type.setImageDrawable(Utility.getDrawable(mParent, R.drawable.ic_apartment));
+            holder.img_type.setImageDrawable(Utility.getDrawable(mParent, R.drawable.ic_apartment));*/
+        UImageLoader.URLpicLoading(holder.img_type, APIConstants.HOME_URL + complaintListModel.getMobicon(), null, R.drawable.logo);
 
         if (complaintListModel.getComplaintstatus().equalsIgnoreCase("Open")) {
             holder.tv_complaint_des.setText(complaintListModel.getComplaintdesc());

@@ -23,6 +23,7 @@ public class ComplaintListModel {
     private String contact1;
     private String communityid;
     private String updatedby;
+    private String mobicon;
     private String createddate;
     private String updateddate;
 
@@ -176,5 +177,13 @@ public class ComplaintListModel {
 
     public void setUpdateddate(String updateddate) {
         this.updateddate = updateddate;
+    }
+
+    public String getMobicon() {
+        return mobicon;
+    }
+
+    public void setMobicon(String mobicon) {
+        this.mobicon = mobicon;
     }
 }
