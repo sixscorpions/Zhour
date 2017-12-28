@@ -133,9 +133,9 @@ public class ComplaintAdapter extends BaseAdapter implements IAsyncCaller {
             holder.tv_flat_number.setText(complaintListModel.getFlatnumber());
 
         } else {
-            holder.tv_complaint_des.setText("Your Ticket is assigned to");
+            holder.tv_complaint_des.setText(complaintListModel.getComplaintdesc());
             holder.ll_name_contact.setVisibility(View.VISIBLE);
-            holder.tv_name.setText(complaintListModel.getStaffname());
+            holder.tv_name.setText("Assigned to: " + complaintListModel.getStaffname());
             holder.tv_contact_number.setText(complaintListModel.getStaffcontact());
             holder.tv_call.setVisibility(View.VISIBLE);
             holder.ll_flat_date.setVisibility(View.GONE);
@@ -233,7 +233,7 @@ public class ComplaintAdapter extends BaseAdapter implements IAsyncCaller {
 
     private void showPickAlert(final ComplaintListModel complaintListModel) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(mParent);
-        alertDialogBuilder.setMessage("Your you sure you want to close this complaint");
+        alertDialogBuilder.setMessage("Do you want to close this ticket?");
         alertDialogBuilder.setPositiveButton("Yes",
                 new DialogInterface.OnClickListener() {
                     @Override
