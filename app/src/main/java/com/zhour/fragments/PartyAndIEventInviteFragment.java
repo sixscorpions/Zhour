@@ -717,7 +717,9 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
                     Contact c = contactsListModel.get(i);
                     String num = c.getPhoneNumber().trim();
                     String phNo = num.replaceAll("[()\\s-]+", "");
-                    jsonObject.put(c.displayName, phNo);
+                    //jsonObject.put(c.displayName, phNo);
+                    jsonObject.put("contactname", c.displayName);
+                    jsonObject.put("contactnumber", phNo);
                     jsonArray.put(jsonObject);
                 }
             }
