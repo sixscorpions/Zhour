@@ -15,6 +15,7 @@ import com.pinnedlistview.SearchablePinnedHeaderListViewAdapter;
 import com.pinnedlistview.StringArrayAlphabetIndexer;
 import com.zhour.R;
 import com.zhour.activities.DashboardActivity;
+import com.zhour.fragments.PartyAndIEventInviteFragment;
 import com.zhour.models.Contact;
 import com.zhour.utils.Utility;
 
@@ -136,6 +137,7 @@ public class ContactsAdapter extends SearchablePinnedHeaderListViewAdapter<Conta
                 CheckBox checkBox = (CheckBox) view;
 
                 if (checkBox.isChecked()) {
+                    PartyAndIEventInviteFragment.et_search.setText("");
                     contact.setmContacts_Flow(true);
                     contact.setCheckBox(true);
                     JSONObject jobj = new JSONObject();
@@ -175,7 +177,7 @@ public class ContactsAdapter extends SearchablePinnedHeaderListViewAdapter<Conta
         private ImageView ivPicture;
     }
 
-    public  void updateAdapter(ArrayList<Contact> mList) {
+    public void updateAdapter(ArrayList<Contact> mList) {
         this.mContacts = mList;
         setData(mList);
         notifyDataSetChanged();

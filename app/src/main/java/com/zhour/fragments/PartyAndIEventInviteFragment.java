@@ -140,6 +140,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
     TextView tv_add;
 
     public static TextView tv_count;
+    public static EditText et_search;
 
     // private boolean isEventClicked = false;
 
@@ -369,7 +370,7 @@ public class PartyAndIEventInviteFragment extends Fragment implements IAsyncCall
         dialog.setCanceledOnTouchOutside(false);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
-        EditText et_search = (EditText) dialog.findViewById(R.id.et_search);
+        et_search = (EditText) dialog.findViewById(R.id.et_search);
         TextView tv_et_search_image = (TextView) dialog.findViewById(R.id.tv_et_search_image);
         ListView lv_contacts = (ListView) dialog.findViewById(R.id.lv_contacts);
         TextView tv_pick = (TextView) dialog.findViewById(R.id.tv_pick);
