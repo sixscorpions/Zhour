@@ -70,7 +70,7 @@
                 android:background="@color/transparent"
                 android:hint="@string/hint_username"
                 android:inputType="text|textNoSuggestions"
-                android:text="9014332627"
+                android:text="7331181935"
                 android:textColor="@color/colorWhite"
                 android:textColorHint="@color/colorWhite"
                 android:textSize="@dimen/_17sp" />

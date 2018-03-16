@@ -23,6 +23,7 @@ import com.zhour.aynctaskold.ServerIntractorAsync;
 import com.zhour.fragments.AboutFragment;
 import com.zhour.fragments.AlienCarFragment;
 import com.zhour.fragments.HomeFragment;
+import com.zhour.fragments.HomeFragmentForCorporate;
 import com.zhour.fragments.PaymentFragment;
 import com.zhour.models.LogoutModel;
 import com.zhour.models.Model;
@@ -95,7 +96,7 @@ public class DashboardActivity extends BaseActivity implements IAsyncCaller {
     public String vehicleNumberText;
     private static final int PHOTO_REQUEST = 10;
 
-    private   UserVenueResponseModel userVenueResponseModel;
+    private UserVenueResponseModel userVenueResponseModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +108,7 @@ public class DashboardActivity extends BaseActivity implements IAsyncCaller {
 
     private void initUI() {
 
-      //  getVenueApi();
+        //  getVenueApi();
       /*  ToolbarUtils.setHomeToolBar(this,)*/
         drawer_layout = (DrawerLayout) findViewById(R.id.drawer_layout);
         setSupportActionBar(toolbar);
@@ -185,7 +186,10 @@ public class DashboardActivity extends BaseActivity implements IAsyncCaller {
 
         drawer_layout.closeDrawer(GravityCompat.START);
         Bundle bundle = new Bundle();
-        Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, bundle, this);
+        if (Utility.getSharedPrefBooleanData(this, Constants.IS_CORPORATE)) {
+            Utility.navigateDashBoardFragment(new HomeFragmentForCorporate(), HomeFragmentForCorporate.TAG, bundle, this);
+        } else
+            Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, bundle, this);
 
     }
 
@@ -296,7 +300,7 @@ public class DashboardActivity extends BaseActivity implements IAsyncCaller {
                 /*if (!logoutModel.isError()) {*/
                 logout();
                 // }
-            }else if (model instanceof UserVenueResponseModel){
+            } else if (model instanceof UserVenueResponseModel) {
                 userVenueResponseModel = (UserVenueResponseModel) model;
 
                 Toast.makeText(this, "Venue Response", Toast.LENGTH_SHORT).show();
