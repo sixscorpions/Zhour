@@ -115,6 +115,8 @@ public class MaidStatusFragment extends Fragment implements IAsyncCaller {
                 mMaidModel = (MaidModel) model;
                 if (!mMaidModel.getIsError()) {
                     setDataToLayout();
+                } else {
+                    setStaticDataToLayout();
                 }
             }
         }
@@ -147,6 +149,42 @@ public class MaidStatusFragment extends Fragment implements IAsyncCaller {
         Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + tv_phone.getText().toString()));
         startActivity(intent);
 
+    }
+
+    /**
+     * This method is used to set data after api get
+     */
+    private void setStaticDataToLayout() {
+        if (mMaidModel != null) {
+            tv_maid_name.setText("Lakshmi");
+            tv_phone.setText("7013688846");
+            if (Utility.isValueNullOrEmpty(mMaidModel.getIntime()) && Utility.isValueNullOrEmpty(mMaidModel.getOuttime())) {
+                btn_switch_in.setText(Utility.getResourcesString(mParent, R.string.check_out_icon));
+                btn_switch_in.setTextColor(Utility.getColor(mParent, R.color.yellow));
+                tv_in_out.setText(Utility.getResourcesString(mParent, R.string.not_entered));
+                btn_switch_in.setTypeface(Utility.getMaterialIconsRegular(mParent));
+                tv_time.setVisibility(View.GONE);
+                tv_date.setVisibility(View.GONE);
+            } else if (Utility.isValueNullOrEmpty(mMaidModel.getOuttime()) && !Utility.isValueNullOrEmpty(mMaidModel.getIntime())) {
+                btn_switch_in.setText(Utility.getResourcesString(mParent, R.string.check_in_icon));
+                btn_switch_in.setTextColor(Utility.getColor(mParent, R.color.green));
+                tv_in_out.setText(Utility.getResourcesString(mParent, R.string.in));
+                btn_switch_in.setTypeface(Utility.getMaterialIconsRegular(mParent));
+                tv_time.setText(Utility.displayTimeFormat(mMaidModel.getIntime()));
+                tv_date.setText(Utility.displayDateFormat(mMaidModel.getIntime()));
+                tv_time.setVisibility(View.VISIBLE);
+                tv_date.setVisibility(View.VISIBLE);
+            } else {
+                btn_switch_in.setText(Utility.getResourcesString(mParent, R.string.check_out_icon));
+                btn_switch_in.setTextColor(Utility.getColor(mParent, R.color.red));
+                tv_in_out.setText(Utility.getResourcesString(mParent, R.string.out));
+                btn_switch_in.setTypeface(Utility.getMaterialIconsRegular(mParent));
+                //tv_time.setText(Utility.displayTimeFormat(mMaidModel.getOuttime()));
+                //tv_date.setText(Utility.displayDateFormat(mMaidModel.getOuttime()));
+                tv_time.setVisibility(View.VISIBLE);
+                tv_date.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     /**

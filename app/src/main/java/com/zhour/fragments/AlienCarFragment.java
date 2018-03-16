@@ -200,7 +200,8 @@ public class AlienCarFragment extends Fragment implements IAsyncCaller {
                 et_vehicle_number.setText("");
                 if (!mAlienCarListModel.getIsError()) {
                     if (mAlienCarListModel.getAlienCarModels().size() == 0) {
-                        Utility.setSnackBar(mParent, view, Utility.getResourcesString(mParent, R.string.vehicle_not_found));
+                        //Utility.setSnackBar(mParent, view, Utility.getResourcesString(mParent, R.string.vehicle_not_found));
+                        setStaticData();
                     } else {
                         setDataToLayout();
                     }
@@ -296,6 +297,86 @@ public class AlienCarFragment extends Fragment implements IAsyncCaller {
         } else {
             Utility.navigateDashBoardFragment(new AlienCarListFragment(), AlienCarListFragment.TAG, null, mParent);
         }
+    }
+
+
+    /**
+     * This method is used to set data to the layout
+     */
+    private void setStaticData() {
+
+        AlertDialog.Builder mAlertDialogBuilder = new AlertDialog.Builder(mParent);
+        LayoutInflater inflater = mParent.getLayoutInflater();
+        mDialogView = inflater.inflate(R.layout.dialog_car_parking_popup, null);
+        mAlertDialogBuilder.setView(mDialogView);
+
+        alertDialog = mAlertDialogBuilder.create();
+        try {
+            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        alertDialog.setCanceledOnTouchOutside(false);
+        alertDialog.setCancelable(true);
+
+          /*TITLE*/
+        ImageView iv_profile = (ImageView) mDialogView.findViewById(R.id.iv_profile);
+        TextView tv_user_name = (TextView) mDialogView.findViewById(R.id.tv_user_name);
+        tv_user_name.setTypeface(Utility.setRobotoRegular(mParent));
+        tv_user_name.setText("Chakri");
+
+
+        TextView tv_type = (TextView) mDialogView.findViewById(R.id.tv_type);
+        tv_type.setTypeface(Utility.setRobotoRegular(mParent));
+
+        TextView tv_type_of_vehicle = (TextView) mDialogView.findViewById(R.id.tv_type_of_vehicle);
+        tv_type_of_vehicle.setTypeface(Utility.setRobotoRegular(mParent));
+
+
+        tv_type.setText("4 wheeler");
+
+
+        /*CLOSE BUTTON*/
+        ImageView iv_cross = (ImageView) mDialogView.findViewById(R.id.iv_cross);
+        iv_cross.setVisibility(View.VISIBLE);
+        iv_cross.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        /*PLOT ICON*/
+        ImageView iv_plot = (ImageView) mDialogView.findViewById(R.id.iv_plot);
+        TextView tv_plot_address = (TextView) mDialogView.findViewById(R.id.tv_plot_address);
+        tv_plot_address.setTypeface(Utility.setRobotoRegular(mParent));
+        tv_plot_address.setText("Flat No: " + 204);
+
+        /*MOBILE ICON*/
+        ImageView iv_mobile = (ImageView) mDialogView.findViewById(R.id.iv_mobile);
+        TextView tv_mobile = (TextView) mDialogView.findViewById(R.id.tv_mobile);
+        tv_mobile.setTypeface(Utility.setRobotoRegular(mParent));
+        tv_mobile.setText("7013688846");
+
+
+        Button btn_call = (Button) mDialogView.findViewById(R.id.btn_call);
+        btn_call.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + mAlienCarModel.getContact1()));
+                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "7013688846"));
+                startActivity(intent);
+            }
+        });
+
+        /**Static data*/
+        tv_user_name.setText("Ramakrishna");
+        tv_plot_address.setText("Flat No: 61101");
+        tv_mobile.setText("7013688846");
+
+        alertDialog.show();
+
     }
 
     @Override

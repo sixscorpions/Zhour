@@ -83,12 +83,17 @@ public class GuestActivity extends Activity {
                         //extract scanned text blocks here
                         TextBlock tBlock = textBlocks.valueAt(index);
                         blocks = blocks + tBlock.getValue() + "\n" + "\n";
+                        boolean once = true;
                         for (Text line : tBlock.getComponents()) {
                             //extract scanned text lines here
                             lines = lines + line.getValue() + "\n";
                             for (Text element : line.getComponents()) {
-                                //extract scanned text words here
-                                words = words + element.getValue() + ", ";
+                                if (once) {
+                                    words = words + element.getValue();
+                                    once = false;
+                                } else {
+                                    words = words + "-" + element.getValue();
+                                }
                             }
                         }
                     }
@@ -96,10 +101,9 @@ public class GuestActivity extends Activity {
                         tvScanText.setText("Scan Failed: Found nothing to scan");
                     } else {
                         tvScanText.setText("Number : ");
-                        tvScanText.setText(tvScanText.getText() + blocks + "\n");
+                        tvScanText.setText(tvScanText.getText() + words + "\n");
                         Intent intent = new Intent();
-                        blocks.replace("\n", " ");
-                        intent.putExtra("id", blocks);
+                        intent.putExtra("id", words);
                         setResult(Constants.UNIQUE_CODE, intent);
                         finish();
                         /*tvScanText.setText(tvScanText.getText() + "---------" + "\n");
