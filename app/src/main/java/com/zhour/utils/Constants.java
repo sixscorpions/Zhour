@@ -24,6 +24,9 @@ public class Constants {
     public static final String RESIDENT_ID = "RESIDENT_ID";
     public static final String TOKEN = "TOKEN";
 
+    public static final String LOGIN_CONTACT_NUMBER = "LOGIN_CONTACT_NUMBER";
+    public static final String LOGIN_PASS_WORD = "LOGIN_PASS_WORD";
+
 
     public static final String PARTY_INVITE_TYPE = "PARTY_INVITE_TYPE";
     public static final String EVENT_INVITE_TYPE = "EVENT_INVITE_TYPE";

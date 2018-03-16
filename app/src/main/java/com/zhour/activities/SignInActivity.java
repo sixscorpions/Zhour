@@ -103,6 +103,9 @@ public class SignInActivity extends BaseActivity implements IAsyncCaller {
                 Utility.setSharedPrefStringData(context, Constants.USER_NAME, authenticateUserModel.getUsername());
                 Utility.setSharedPrefStringData(context, Constants.CONTACT_NUMBER, authenticateUserModel.getContactnumber());
 
+                Utility.setSharedPrefStringData(context, Constants.LOGIN_CONTACT_NUMBER, et_username.getText().toString());
+                Utility.setSharedPrefStringData(context, Constants.LOGIN_PASS_WORD, et_password.getText().toString());
+
 
                 if (!authenticateUserModel.isError()) {
                     if (authenticateUserModel != null && authenticateUserModel.getCommunitiesList().size() > 1) {

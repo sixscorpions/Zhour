@@ -17,20 +17,26 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zhour.R;
+import com.zhour.activities.ChooseCommunityActivity;
 import com.zhour.activities.DashboardActivity;
-import com.zhour.activities.SignInActivity;
 import com.zhour.adapters.SliderPagerAdapter;
 import com.zhour.aynctask.IAsyncCaller;
 import com.zhour.aynctaskold.ServerIntractorAsync;
+import com.zhour.models.AuthenticateUserModel;
 import com.zhour.models.BannerModel;
+import com.zhour.models.CommunityUserModel;
 import com.zhour.models.LogoutModel;
 import com.zhour.models.Model;
+import com.zhour.parser.AuthenticateUserParser;
 import com.zhour.parser.BannerInfoParser;
 import com.zhour.parser.LogoutParser;
 import com.zhour.utils.APIConstants;
 import com.zhour.utils.Constants;
 import com.zhour.utils.Utility;
 
+import org.json.JSONArray;
+
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -211,6 +217,40 @@ public class HomeFragment extends Fragment implements IAsyncCaller {
             } else if (model instanceof LogoutModel) {
                 logoutModel = (LogoutModel) model;
                 logout();
+            } else if (model instanceof AuthenticateUserModel) {
+                AuthenticateUserModel authenticateUserModel = (AuthenticateUserModel) model;
+
+                Utility.setSharedPrefStringData(mParent, Constants.USER_NAME, authenticateUserModel.getUsername());
+                Utility.setSharedPrefStringData(mParent, Constants.CONTACT_NUMBER, authenticateUserModel.getContactnumber());
+
+                if (!authenticateUserModel.isError()) {
+                    if (authenticateUserModel != null && authenticateUserModel.getCommunitiesList().size() > 1) {
+
+                        ArrayList<CommunityUserModel> userList = authenticateUserModel.getCommunitiesList();
+                        Intent intent = new Intent(mParent, ChooseCommunityActivity.class);
+                        intent.putExtra(Constants.COMMUNITY_LIST, userList);
+                        intent.putExtra(Constants.TOKEN, authenticateUserModel.getToken());
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+
+                    } else {
+                        Utility.setSharedPrefStringData(mParent, Constants.USER_ID, authenticateUserModel.getUserid());
+                        Utility.setSharedPrefStringData(mParent, Constants.SESSION_ID, authenticateUserModel.getSesid());
+                        Utility.setSharedPrefStringData(mParent, Constants.TOKEN, authenticateUserModel.getToken());
+
+                        Utility.setSharedPrefStringData(mParent, Constants.ROLE_ID, authenticateUserModel.getCommunitiesList().get(0).getRoleid());
+                        Utility.setSharedPrefStringData(mParent, Constants.ROLE_NAME, authenticateUserModel.getCommunitiesList().get(0).getRolename());
+                        Utility.setSharedPrefStringData(mParent, Constants.COMMUNITY_ID, authenticateUserModel.getCommunitiesList().get(0).getCommunityid());
+                        Utility.setSharedPrefStringData(mParent, Constants.COMMUNITY_NAME, authenticateUserModel.getCommunitiesList().get(0).getCommunityname());
+                        Utility.setSharedPrefStringData(mParent, Constants.RESIDENT_ID, authenticateUserModel.getCommunitiesList().get(0).getResidentid());
+
+
+                        Intent intent = new Intent(mParent, DashboardActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                        mParent.finish();
+                    }
+                }
             }
         }
     }
@@ -233,11 +273,25 @@ public class HomeFragment extends Fragment implements IAsyncCaller {
 
 
     private void logout() {
-        Intent intent = new Intent(mParent, SignInActivity.class);
+        /*Intent intent = new Intent(mParent, SignInActivity.class);
         Utility.setSharedPrefStringData(mParent, Constants.TOKEN, "");
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
-        mParent.finish();
+        mParent.finish();*/
+        try {
+            LinkedHashMap linkedHashMap = new LinkedHashMap();
+            JSONArray jsonArray = new JSONArray();
+            linkedHashMap.put("contactnumber", Utility.getSharedPrefStringData(mParent, Constants.LOGIN_CONTACT_NUMBER));
+            linkedHashMap.put("pwd", Utility.getSharedPrefStringData(mParent, Constants.LOGIN_PASS_WORD));
+            AuthenticateUserParser authenticateUserParser = new AuthenticateUserParser();
+            ServerIntractorAsync serverJSONAsyncTask = new ServerIntractorAsync(
+                    mParent, Utility.getResourcesString(mParent, R.string.please_wait), true,
+                    APIConstants.AUTHENTICATE_USER, linkedHashMap,
+                    APIConstants.REQUEST_TYPE.POST, this, authenticateUserParser);
+            Utility.execute(serverJSONAsyncTask);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -264,7 +318,7 @@ public class HomeFragment extends Fragment implements IAsyncCaller {
 
                 }
             });
-           // addBottomDots(0);
+            // addBottomDots(0);
             final Handler handler = new Handler();
 
             final Runnable update = new Runnable() {

@@ -22,7 +22,7 @@ public class SplashActivity extends BaseActivity {
         Runnable action = new Runnable() {
             @Override
             public void run() {
-                navigateToSignIn();
+                // navigateToSignIn();
                 if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(SplashActivity.this, Constants.TOKEN))) {
                     Intent intent = new Intent(SplashActivity.this, DashboardActivity.class);
                     startActivity(intent);
