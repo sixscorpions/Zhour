@@ -50,6 +50,7 @@ public class AuthenticateUserParser implements Parser<Model> {
                     mCommunityUserModel.setCommunityname(communityObject.optString("communityname"));
                     mCommunityUserModel.setResidentid(communityObject.optString("residentid"));
                     mCommunityUserModel.setRolename(communityObject.optString("rolename"));
+                    mCommunityUserModel.setIscorporate(communityObject.optBoolean("iscorporate"));
                     communitiesList.add(mCommunityUserModel);
 
                 }

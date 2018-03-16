@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.zhour.R;
 import com.zhour.aynctask.IAsyncCaller;
-import com.zhour.aynctask.ServerJSONAsyncTask;
 import com.zhour.aynctaskold.ServerIntractorAsync;
 import com.zhour.models.AuthenticateUserModel;
 import com.zhour.models.CommunityUserModel;
@@ -69,7 +68,7 @@ public class SignInActivity extends BaseActivity implements IAsyncCaller {
     }
 
     @OnClick(R.id.tv_forgot_password)
-    public void forgotPassword(){
+    public void forgotPassword() {
 
     }
 
@@ -128,7 +127,7 @@ public class SignInActivity extends BaseActivity implements IAsyncCaller {
                         Utility.setSharedPrefStringData(getApplicationContext(), Constants.COMMUNITY_ID, authenticateUserModel.getCommunitiesList().get(0).getCommunityid());
                         Utility.setSharedPrefStringData(getApplicationContext(), Constants.COMMUNITY_NAME, authenticateUserModel.getCommunitiesList().get(0).getCommunityname());
                         Utility.setSharedPrefStringData(getApplicationContext(), Constants.RESIDENT_ID, authenticateUserModel.getCommunitiesList().get(0).getResidentid());
-
+                        Utility.setSharedPrefBooleanData(getApplicationContext(), Constants.IS_CORPORATE, authenticateUserModel.getCommunitiesList().get(0).isIscorporate());
 
                         Intent intent = new Intent(context, DashboardActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

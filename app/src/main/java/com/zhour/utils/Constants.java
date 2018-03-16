@@ -67,4 +67,5 @@ public class Constants {
     public static final String APARTMENT_FLAT_NO = "APARTMENT_FLAT_NO";
 
     public static final int UNIQUE_CODE = 232;
+    public static final String IS_CORPORATE = "IS_CORPORATE";
 }

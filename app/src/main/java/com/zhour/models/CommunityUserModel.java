@@ -13,6 +13,7 @@ public class CommunityUserModel extends Model implements Serializable {
     private String communityname;
     private String residentid;
     private String roleid;
+    private boolean iscorporate;
 
     public String getUserid() {
         return userid;
@@ -62,4 +63,11 @@ public class CommunityUserModel extends Model implements Serializable {
         this.roleid = roleid;
     }
 
+    public boolean isIscorporate() {
+        return iscorporate;
+    }
+
+    public void setIscorporate(boolean iscorporate) {
+        this.iscorporate = iscorporate;
+    }
 }
